@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+   "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+   "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+   <package name="default"  extends="struts-default">
+       
+      <action name="acces" class="com.ProSign.acces">
+            <result name="starter">/starter.jsp</result>
+            <result name="no">/no.jsp</result>
+      </action>
+      
+       <action name="TableauDeBord" class="com.ProSign.acces">
+            <result name="starter">/pages/charts/chartjs.jsp</result>
+            <result name="no">/no.jsp</result>
+      </action>
+      
+       <action name="GoDispatch" class="com.ProSign.Dispatch.Dispatch">
+            <result name="dispatch">/pages/forms/Dispatch.jsp</result>
+           
+      </action>
+      
+      
+      <action name="modifier_intervention" method="modifier_intervention" class="com.ProSign.Dispatch.Dispatch">
+            <result name="dispatch">/pages/forms/Dispatch.jsp</result>
+            
+      </action>
+        <action name="modif_dispatch" method="modif_dispatch" class="com.ProSign.Dispatch.Dispatch">
+            <result name="dispatch">/pages/forms/Dispatch.jsp</result>
+            
+      </action>
+      
+       
+        <action name="valider_intervention" method="valider_intervention" class="com.ProSign.Dispatch.Dispatch">
+            <result name="dispatch">/pages/forms/Dispatch.jsp</result>
+            
+      </action>
+      
+     
+      
+      <action name="menu_ticket" class="com.ProSign.ticket.menu_ticket">
+            <result name="advanced">/pages/forms/advanced.jsp</result>
+            <result name="no">/no.jsp</result>
+      </action>
+      
+       <action name="change_region" method="change_region" class="com.ProSign.ticket.Ticket">
+            <result name="advanced">/pages/forms/advanced.jsp</result>
+            <result name="no">/no.jsp</result>
+      </action>
+      
+      
+      
+         <action name="change_wilaya" method="change_wilaya" class="com.ProSign.ticket.Ticket">
+            <result name="advanced">/pages/forms/advanced.jsp</result>
+            <result name="no">/no.jsp</result>
+      </action>
+      
+      
+      <action name="change_ville" method="change_ville" class="com.ProSign.ticket.Ticket">
+            <result name="advanced">/pages/forms/advanced.jsp</result>
+            <result name="no">/no.jsp</result>
+      </action>
+      
+      
+      <action name="change_client" method="change_client" class="com.ProSign.ticket.Ticket">
+            <result name="advanced">/pages/forms/advanced.jsp</result>
+            <result name="no">/no.jsp</result>
+      </action>
+       
+       
+       <action name="genereTableau" method="genereTableau" class="com.ProSign.ticket.Ticket">
+            <result name="advanced">advanced.jsp</result>
+            <result name="no">/no.jsp</result>
+      </action>
+      <action name="genereTableauDetail" method="genereTableauDetail" class="com.ProSign.ticket.Ticket">
+            <result name="advanced">advanced.jsp</result>
+            <result name="no">/no.jsp</result>
+      </action>
+       <action name="effacerTableau" method="effacerTableau" class="com.ProSign.ticket.Ticket">
+            <result name="advanced">/pages/forms/advanced.jsp</result>
+            <result name="no">/no.jsp</result>
+      </action>
+      
+      
+   </package>
+</struts>
