@@ -48,8 +48,8 @@ public class connect extends ActionSupport  implements SessionAware{
 	    
 	    String dburl = "jdbc:sqlserver://172.18.206.250:1433;databasename=ProSignDZ17";
         String drivername = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
-        public static String userdp = "ProsignUser";
-	    public static String pass = "wincor123"; 
+        public static String userdp = "";
+	    public static String pass = ""; 
         ResultSet curseurJava;
    	    Statement etat;
    	
