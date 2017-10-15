@@ -37,7 +37,7 @@
           </a>
           
         </li>
-        <li class="treeview">
+        <li class="treeview" >
           <a href="<s:url action="pages/forms/GoDispatch"/>">
             <i class="fa fa-wheelchair"></i> <span>Suivie des signalisations</span> 
           </a>
@@ -52,7 +52,7 @@
           <ul class="treeview-menu">
             <li><a href="pages/forms/general.html"><i class="fa fa-circle-o"></i>Ajout</a></li>
             <li><a href="pages/forms/general.html"><i class="fa fa-circle-o"></i>Modification</a></li>
-            <li><a  href="<s:url action="pages/forms/menu_ticket"/>" class="sidebar-toggle" data-toggle="offcanvas" role="button" ><i class="fa fa-circle-o"></i>Recherche</a></li>
+            <li><a  href="<s:url action="pages/forms/menu_ticket"/>" ><i class="fa fa-circle-o"></i>Recherche</a></li>
             <li><a href="pages/UI/timeline.html"><i class="fa fa-circle-o"></i>Timeline</a></li>
           </ul>
         </li>

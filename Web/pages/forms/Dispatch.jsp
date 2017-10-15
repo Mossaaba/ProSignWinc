@@ -14,7 +14,7 @@ Form_temp forTemp =(Form_temp)session.getAttribute("forTemp");
 %>
 <!DOCTYPE html>
 <html>
-<head>
+<head >
 
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -54,7 +54,7 @@ Form_temp forTemp =(Form_temp)session.getAttribute("forTemp");
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
 </head>
-<body class="hold-transition skin-blue sidebar-mini">
+<body class="hold-transition skin-blue sidebar-mini sidebar-toggle sidebar-collapse">
 <div class="wrapper">
  
  <jsp:include page="/pages/tiles/header.jsp" />
@@ -68,7 +68,7 @@ Form_temp forTemp =(Form_temp)session.getAttribute("forTemp");
 						     <!--       Content Wrapper. Contains page content    -->
 						     <!-- =============================================== -->
 						     <!-- =============================================== -->
-  <div class="content-wrapper">
+  <div class="content-wrapper" >
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
@@ -98,7 +98,7 @@ Form_temp forTemp =(Form_temp)session.getAttribute("forTemp");
       <!-- SELECT2 EXAMPLE -->
       <div class="box box-default" style="width : 100%;">
         <div class="box-header with-border">
-          <h3 class="box-title">Modification <a   data-skin="skin-blue" class="btn btn-xs disabled ">
+          <h3 class="box-title">Modification <a  data-skin="skin-blue" class="btn btn-xs disabled ">
                   <i class="fa fa-edit"></i>                  
                   </a></h3>
 
@@ -165,7 +165,7 @@ Form_temp forTemp =(Form_temp)session.getAttribute("forTemp");
             </div>   
             <div class="col-md-4" onclick="modif_dispatch('<%=forTemp.getId_intervention()%>')">
             
-           <a class="btn btn-app">
+           <a class="btn btn-app btn-twitter">
                 <i class="glyphicon glyphicon-ok" ></i> Valider
               </a>
             </div>                   <!-- /.col -->
@@ -190,9 +190,21 @@ Form_temp forTemp =(Form_temp)session.getAttribute("forTemp");
          
             <div class="box" style="width: 100%; position=center;">
               <div class="row" >
+                
                 <div class="col-xs-12 text-center" >
-              <label><i class="glyphicon glyphicon-list-alt"></i> Tableau dispatching</label>
+              <div class="box box-default collapsed-box">
+            <div class="box-header with-border">
+              <h3 class="box-title"><i class="glyphicon glyphicon-list-alt"></i> Tableau dispatching</h3>
+
+              
+              <!-- /.box-tools -->
+            </div>
+            <!-- /.box-header -->
+            
+            <!-- /.box-body -->
+          </div>
                 </div>
+                
                 
               </div>
               <!-- /.row -->
@@ -201,7 +213,14 @@ Form_temp forTemp =(Form_temp)session.getAttribute("forTemp");
 <!-- /.box -->
 
           <div class="box">
+          
             <div class="box-header">
+            <div class="box-tools">
+                
+                <button type="button" class="btn.xs btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                </button>
+                
+              </div>
               <h3 class="box-title">Tableau de suivi des intervenction</h3>
             </div>
             <!-- /.box-header -->
@@ -232,7 +251,7 @@ Form_temp forTemp =(Form_temp)session.getAttribute("forTemp");
 			     {
 			    	 Table_Dispatch td=(Table_Dispatch)list_dispatch.get(i);
 			     %>
-                <tr  data-toggle="tooltip" title="<%=td.getREGION()+"\n"+td.getNOM_VILLE()+"\n"+td.getDESCRIPTION_SIGNALISATION()+"\n"+td.getREMARQUE() %>">
+                <tr  >
                  
                   <td><%=td.getNOM_WILAYA() %></td>
                   
@@ -243,15 +262,62 @@ Form_temp forTemp =(Form_temp)session.getAttribute("forTemp");
 				  <td><%=td.getNOM_TECHNICIEN() %></td>
 				 <td><%=td.getTYPE_SIGNALISATION() %></td>
 				 
-				 <td>
+				 <td align="center" valign="middle">
 				 
-				<button type="button" class="btn-primary btn-xs"  onclick="modifier_intervention('<%=td.getId_intervention()%>','<%=td.getId_technicien()%>','<%=td.getPROGRAMMER()%>')">
+				<button type="button" class="btn-xs btn-social-icon btn-vk"  onclick="modifier_intervention('<%=td.getId_intervention()%>','<%=td.getId_technicien()%>','<%=td.getPROGRAMMER()%>')">
                  <i class="glyphicon glyphicon-pencil"></i>
                 </button>
               
-              <button type="button" class="btn-danger btn-xs" >
-               <i class="glyphicon glyphicon-trash"></i>
+              <button type="button" class="btn-xs btn-social-icon btn-google" data-toggle="modal" data-target="#myModal" >
+               <i class="glyphicon glyphicon-eye-open"></i>
              </button>
+             
+             <button type="button" class="btn-xs btn-social-icon btn-dropbox" data-toggle="modal" data-target="#myModal"  onclick="">
+               <i class="glyphicon glyphicon-th-list"></i>
+             </button>
+             
+             
+ <div class="modal modal-primary" id="myModal" role="dialog">
+ 
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Description détaillées</h4>
+        </div>
+        <div class="box box-solid">
+            <div class="box-header with-border">
+              <i class="fa fa-text-width"></i>
+
+              <h3 class="box-title">Description Horizontal</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+              <dl class="dl-horizontal">
+                <dt>Description lists</dt>
+                <dd>A description list is perfect for defining terms.</dd>
+                <dt>Euismod</dt>
+                <dd>Vestibulum id ligula porta felis euismod semper eget lacinia odio sem nec elit.</dd>
+                <dd>Donec id elit non mi porta gravida at eget metus.</dd>
+                <dt>Malesuada porta</dt>
+                <dd>Etiam porta sem malesuada magna mollis euismod.</dd>
+                <dt>Felis euismod semper eget lacinia</dt>
+                <dd>Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo
+                  sit amet risus.
+                </dd>
+              </dl>
+            </div>
+            <!-- /.box-body -->
+          </div>
+        <div class="modal-footer">
+          <button type="button" class="btn-xs btn-default" data-dismiss="modal">Fermer</button>
+        </div>
+      </div>
+      
+    </div>
+    </div>
              
              
               <%String dis="" ; 
@@ -261,7 +327,7 @@ Form_temp forTemp =(Form_temp)session.getAttribute("forTemp");
             	  %> 
             	   <i class="glyphicon glyphicon-ok"></i>
             	   <% }else{ %> 
-              <button type="button"  class="btn-success btn-xs "  onclick="valider_intervention('<%=td.getId_intervention()%>')">
+              <button type="button"  class="btn-xs btn-social-icon btn-twitter"  onclick="valider_intervention('<%=td.getId_intervention()%>')">
             <i class="glyphicon glyphicon-ok"></i>
             </button>
 				  <% }%> 
@@ -300,7 +366,25 @@ Form_temp forTemp =(Form_temp)session.getAttribute("forTemp");
           </div>
           <!-- /.box -->
 
-		
+		<div class="box" style="width: 100%; position=center;">
+              <div class="row" >
+                
+                <div class="col-xs-12 text-center" >
+              <div class="box box-default collapsed-box">
+            <div class="box-header with-border">
+              <h3 class="box-title"><i class="glyphicon glyphicon-list-alt"></i> Tableau des interventions</h3>
+              <!-- /.box-tools -->
+            </div>
+            <!-- /.box-header -->
+            
+            <!-- /.box-body -->
+          </div>
+                </div>
+                
+                
+              </div>
+              <!-- /.row -->
+            </div> 
 		
 		
 		<div class="row">
@@ -312,13 +396,16 @@ Form_temp forTemp =(Form_temp)session.getAttribute("forTemp");
             <div class="box-header">
               <h3 class="box-title">Tableau des interventions</h3>
               <div class="box-tools">
-                <div class="input-group input-group-sm" style="width: 150px;">
+
+                <div class="input-group input-group-sm pull-right" style="width: 150px;">
                   <input type="text" name="table_search" class="form-control pull-right" placeholder="Search">
                   <div class="input-group-btn">
                     <button type="submit" class="btn btn-default">
                     <i class="fa fa-search"></i></button>
                   </div>
+                  
                 </div>
+                
               </div>
             </div>
             <!-- /.box-header -->
@@ -327,10 +414,9 @@ Form_temp forTemp =(Form_temp)session.getAttribute("forTemp");
                 <tr>
                 
                  
-                  <th>Programmer</th>
+                  <th>Programmer le </th>
                   <th>Date Intervention</th>
                   <th>TECHNCHIEN</th>
-                  
                   <th>status</th>
                   <th>Remarque</th>
                   <th>intutule</th>
@@ -366,7 +452,8 @@ Form_temp forTemp =(Form_temp)session.getAttribute("forTemp");
 			 
           </div>       
 	  </div> 
-	  </div>               
+	  </div>   
+	             
 		
       
         <!-- /.col (right) -->
