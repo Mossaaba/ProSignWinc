@@ -37,6 +37,10 @@
             
       </action>
       
+      <action name="historique_ticket" method="historique_ticket" class="com.ProSign.Dispatch.Dispatch">
+            <result name="dispatch">/pages/forms/Dispatch.jsp</result>
+            
+      </action>
      
       
       <action name="menu_ticket" class="com.ProSign.ticket.menu_ticket">

@@ -180,6 +180,7 @@ public class Table_Dispatch
 	private String Id_intervention;
 	private String Id_technicien;
 	private String Etat_Validation;
+	private String Id_ticket;
 	
 	 
 	 
@@ -202,6 +203,7 @@ public class Table_Dispatch
 		 Id_intervention="";
 		 Id_technicien="";
 		 Etat_Validation="";
+		 
 	 }
 
 
@@ -238,6 +240,18 @@ public class Table_Dispatch
 
 	public void setEtat_Validation(String etat_Validation) {
 		Etat_Validation = etat_Validation;
+	}
+
+
+
+	public String getId_ticket() {
+		return Id_ticket;
+	}
+
+
+
+	public void setId_ticket(String id_ticket) {
+		Id_ticket = id_ticket;
 	}
 
 

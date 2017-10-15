@@ -13,6 +13,8 @@ import java.util.List;
 
  
 
+
+import com.ProSign.Object.Form_temp;
 import com.ProSign.Object.Table_Dispatch;
 import com.ProSign.Object.Table_Sign;
 import com.ProSign.Object.Tableau_Sign_Details;
@@ -380,14 +382,14 @@ import com.ProSign.connect.connect;
 
            Connection ma_connection = dbc.DbConnect();
 
-           String req = "SELECT	           T.ID_TICKET,"+
+           String req = "SELECT	  distinct         T.ID_TICKET,"+
 	           "C.ID_CLIENT,"+
 	           "V.NOM_VILLE,"+
 	           "A.NOM_AGENCE,"+
 	           "T.DATE_SIGNALISATION,"+
 	           "M.TYPE_MACHINE,"+
 	           "M.REFERENCE_MACHINE,"+
-	           "Tec.NOM_TECHNICIEN,"+
+	           "'',"+
 	           "T.STATUS_TICKET"+
 	           
 						" FROM TICKET T "+
@@ -479,16 +481,17 @@ import com.ProSign.connect.connect;
            String req = " select  "+
      "I.PROGRAMMER ,  "+ 
         		                "I.DATE_INTERVENTION,  "+
-        		                "I.STATUS,  "+
+        		                "st.LIB_STATUS,  "+
         		                "I.REMARQUE,  "+
-        		                "TI.INTITULE,  "+
+        		                " t.TYPE_SIGNALISATION,  "+
         		                "tech.NOM_TECHNICIEN+''+tech.PRENOM_TECHNICIEN as technicien , "+
         		                "T.ID_TICKET "+
         		   "from  INTERVENTION I  "+
-        		   "inner join EST_DE_TYPE ET on ET.ID_INTERVENTION = I.ID_INTERVENTION  "+
-        		   "inner join TYPE_INTERVENTION TI on TI.ID_TYPE = ET.ID_TYPE  "+
+        		 
         		   "inner join TICKET T on T.ID_TICKET = I.ID_TICKET  "+
         		   "inner join TECHNICIEN tech on tech.ID_TECHNICIEN = I.ID_TECHNICIEN  "+
+        		   " inner join STATUS_INTERVENTION st on st.ID_STATUS=i.ID_STATUS  "+
+        		   
         		   " where T.ID_TICKET = '"+id_ticket+"'  ";  
    
 
@@ -545,7 +548,8 @@ import com.ProSign.connect.connect;
 	        		   "	tec.NOM_TECHNICIEN+' '+tec.PRENOM_TECHNICIEN as tec , "+
 	        		   "    I.ID_INTERVENTION        ,"+
 	        		   "    tec.ID_TECHNICIEN   ,      "+
-	        		   "    ISNULL(I.ETAT_VALIDATION , 0)      "+
+	        		   "    ISNULL(I.ETAT_VALIDATION , 0)    ,  "+
+	        		   "    t.ID_TICKET                        "+
 	        		   "	  from TICKET t"+
 	        		   "	  inner join machine m on m.ID_MACHINE=t.ID_MACHINE "+
 	        		   "	  inner join AGENCE a on a.ID_AGENCE=m.ID_AGENCE "+
@@ -553,7 +557,7 @@ import com.ProSign.connect.connect;
 	        		   "	  inner join VILLE v on v.N_VILLE=a.N_VILLE  "+
 	        		   "	  inner join WILAYA w on w.N_WILAYA=v.N_WILAYA"+
 	        		   "	  inner join REGION r on r.REGION=w.REGION "+
-	        		   "	left join INTERVENTION I on i.ID_TICKET=t.ID_TICKET "+
+	        		   "	left join INTERVENTION I on i.ID_TICKET=t.ID_TICKET  and i.ID_INTERVENTION=(select max(e.ID_INTERVENTION) from INTERVENTION e where e.ID_TICKET=t.ID_TICKET)"+
 	        		   "	left join STATUS_INTERVENTION SI on SI.ID_STATUS=I.ID_STATUS and SI.INDICATEUR<>0"+
 	        		  
 	        		   "	left join TECHNICIEN tec on tec.ID_TECHNICIEN=i.ID_TECHNICIEN"+
@@ -587,10 +591,10 @@ import com.ProSign.connect.connect;
 	        	   tsd1.setId_intervention(resultset.getString(14));
 	        	   tsd1.setId_technicien(resultset.getString(15));
 	        	   tsd1.setEtat_Validation(resultset.getString(16));
+	        	   tsd1.setId_ticket(resultset.getString(17));
 	        	   
-	               result.add(tsd1);
-
-	           }
+	               result.add(tsd1); }
+	           
 	           resultset.close();
 	           pstmt.close();
 	           ma_connection.close();
@@ -679,12 +683,9 @@ import com.ProSign.connect.connect;
 
 
 	  
-	  public int ValiderDispatch(String id_interv) {
+	  public int ValiderDispatch(String id_interv) 
+	  {
 
-          
-
-          
-		  
 
           int result = 1;
           List list = new ArrayList();
@@ -752,6 +753,61 @@ import com.ProSign.connect.connect;
            	           }
           return result;
 }	   
+	  
+	  public ArrayList Get_result_rech_intervention (String id_ticket)
+	  {
+
+	       ArrayList result = new ArrayList();
+	       try {
+	           connect dbc = new connect();
+
+	           Connection ma_connection = dbc.DbConnect();
+
+	           String req = " select i.PROGRAMMER , "+
+						   " i.DATE_INTERVENTION, "+
+						   " tec.NOM_TECHNICIEN +' '+ tec.PRENOM_TECHNICIEN, "+
+						   "  sti.LIB_STATUS, "+
+						   " i.REMARQUE "+
+
+							" from INTERVENTION i  "+
+							" inner join TICKET t on t.ID_TICKET=i.ID_TICKET  "+
+							" inner join TECHNICIEN tec on tec.ID_TECHNICIEN=i.ID_TECHNICIEN "+
+							" inner join STATUS_INTERVENTION sti on sti.ID_STATUS = i.ID_STATUS "+
+	        		        " where t.ID_TICKET = '"+id_ticket+"'  "+
+							"  order by i.ID_INTERVENTION desc";
+	   
+
+	           PreparedStatement pstmt = ma_connection.prepareStatement(req);
+	           ResultSet resultset = pstmt.executeQuery();
+	           while (resultset.next()) 
+	           
+	           {
+	        	
+	        	   Form_temp frmTemp = new Form_temp();
+	               
+	        	   frmTemp.setProgrammer(resultset.getString(1));
+	               frmTemp.setDate_intervention(resultset.getString(2));
+	               frmTemp.setTechnicien(resultset.getString(3));
+	               frmTemp.setStatus(resultset.getString(4));
+	               frmTemp.setRemarque(resultset.getString(5));
+	              
+	               result.add(frmTemp);
+
+	           }
+	           resultset.close();
+	           pstmt.close();
+	           ma_connection.close();
+	       } catch (Exception  ee) {
+	           ee.printStackTrace();
+	       }
+
+	       return result;
+
+
+		  
+		  
+	  }
+	  
 	  
 	  public ArrayList Envoi_SMS_AFTER_VALIDATION(String id_inter )
 	  {

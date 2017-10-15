@@ -12,6 +12,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.ByteArrayInputStream;
 
 import org.apache.struts2.util.ServletContextAware;
+import org.apache.struts2.views.jsp.ui.FormTag;
 import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.interceptor.ServletRequestAware; 
 
@@ -51,6 +52,9 @@ public class Dispatch extends ActionSupport implements ServletContextAware, Serv
 	     
 	     ArrayList list_dispatch=(ArrayList) db.Get_result_Dispatch();
 	     session.setAttribute("list_dispatch",list_dispatch);
+	     
+	   
+	     session.setAttribute("historique_dispatching",new ArrayList());
 	     
 	     session.setAttribute("forTemp",new Form_temp());
 	     
@@ -124,19 +128,36 @@ public class Dispatch extends ActionSupport implements ServletContextAware, Serv
 	 session.setAttribute("forTemp", new Form_temp());
 	  
 		dbap db=new dbap(); 
-	 
-	
-	 
-	 
-	
-	
-	 
-	 
+
 		int rest=db.ValiderDispatch(Id_intervention) ;
 		db.Envoi_SMS_AFTER_VALIDATION(Id_intervention);
 	 
 		return this.execute();
 	//  return this.execute();
 	 }
+ 
+ 
+ public String historique_ticket() throws Exception 
+ {
+	
+	 HttpSession session = this.request.getSession();
+	 String id_ticket=request.getParameter("id_ticket");
+	 
+	 dbap db=new dbap();
+	 
+	 
+	 
+	 ArrayList historique_dispatching=(ArrayList) db.Get_result_rech_intervention(id_ticket);
+	
+	 
+     session.setAttribute("historique_dispatching",historique_dispatching);
+	 
+	
+
+		return "dispatch";
+	 }
+ 
+ 
+ 
  
 }

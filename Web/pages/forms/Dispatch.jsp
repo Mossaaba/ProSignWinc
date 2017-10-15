@@ -9,8 +9,8 @@
 <%
 ArrayList list_tech =(ArrayList)session.getAttribute("list_tech");
 ArrayList list_dispatch=(ArrayList) session.getAttribute("list_dispatch");
+ArrayList historique_dispatching=(ArrayList) session.getAttribute("historique_dispatching");
 Form_temp forTemp =(Form_temp)session.getAttribute("forTemp");
-
 %>
 <!DOCTYPE html>
 <html>
@@ -94,14 +94,17 @@ Form_temp forTemp =(Form_temp)session.getAttribute("forTemp");
           <input type ="hidden" name ="Id_intervention" id="Id_intervention" value="">
           <input type ="hidden" name ="Id_technicien" id="Id_technicien" value="">
           <input type ="hidden" name ="date_intervention" id="date_intervention" value="">
+          <input type ="hidden" name ="id_ticket" id="id_ticket" value="">
      
       <!-- SELECT2 EXAMPLE -->
       <div class="box box-default" style="width : 100%;">
         <div class="box-header with-border">
           <h3 class="box-title">Modification <a  data-skin="skin-blue" class="btn btn-xs disabled ">
+      <div class="box box-primary "  id="voila" style="width : 100%;" >
+        <div class="box-header with-border" >
+          <h3 class="box-title" >Modification <a  data-skin="skin-blue" class="btn btn-xs disabled ">
                   <i class="fa fa-edit"></i>                  
                   </a></h3>
-
           <div class="box-tools pull-right">
             <button type="button" class="btn btn-box-tool" data-widget="collapse">
             <i class="fa fa-minus"></i>
@@ -109,7 +112,7 @@ Form_temp forTemp =(Form_temp)session.getAttribute("forTemp");
           </div>
         </div>
         <!-- /.box-header -->
-        <div class="box-body">
+        <div class="box-body"  >
           <div class="row">
 		  <div class="col-md-12">
 		
@@ -174,6 +177,7 @@ Form_temp forTemp =(Form_temp)session.getAttribute("forTemp");
       
 		
 		</div>
+		</div>
 		 </s:form> 
 		 
 		 
@@ -217,7 +221,7 @@ Form_temp forTemp =(Form_temp)session.getAttribute("forTemp");
             <div class="box-header">
             <div class="box-tools">
                 
-                <button type="button" class="btn.xs btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
                 </button>
                 
               </div>
@@ -228,8 +232,6 @@ Form_temp forTemp =(Form_temp)session.getAttribute("forTemp");
               <table id="example1" class="table table-bordered table-striped">
                 <thead>
                 <tr>
-                  
-                  
                   <th>WILAYA</th>
                   <th>CLIENT</th>
                   <th>AGENCE </th>
@@ -254,7 +256,6 @@ Form_temp forTemp =(Form_temp)session.getAttribute("forTemp");
                 <tr  >
                  
                   <td><%=td.getNOM_WILAYA() %></td>
-                  
                   <td><%=td.getID_CLIENT() %></td>
                   <td><%=td.getNOM_AGENCE() %> </td>
 				  <td><%=td.getDATE_SIGNALISATION() %></td>
@@ -264,15 +265,16 @@ Form_temp forTemp =(Form_temp)session.getAttribute("forTemp");
 				 
 				 <td align="center" valign="middle">
 				 
-				<button type="button" class="btn-xs btn-social-icon btn-vk"  onclick="modifier_intervention('<%=td.getId_intervention()%>','<%=td.getId_technicien()%>','<%=td.getPROGRAMMER()%>')">
-                 <i class="glyphicon glyphicon-pencil"></i>
+				<button type="button" class="btn-xs btn-social-icon btn-vk" data-widget="collapse" onclick="modifier_intervention('<%=td.getId_intervention()%>','<%=td.getId_technicien()%>','<%=td.getPROGRAMMER()%>')">
+                 <i class="glyphicon glyphicon-pencil" ></i>
                 </button>
+                
               
               <button type="button" class="btn-xs btn-social-icon btn-google" data-toggle="modal" data-target="#myModal" >
                <i class="glyphicon glyphicon-eye-open"></i>
              </button>
              
-             <button type="button" class="btn-xs btn-social-icon btn-dropbox" data-toggle="modal" data-target="#myModal"  onclick="">
+             <button type="button" class="btn-xs btn-social-icon btn-dropbox" onclick="historique_ticket('<%=td.getId_ticket()%>')">
                <i class="glyphicon glyphicon-th-list"></i>
              </button>
              
@@ -318,16 +320,46 @@ Form_temp forTemp =(Form_temp)session.getAttribute("forTemp");
       
     </div>
     </div>
+    
+    
+   
+ 
+    
+        <div class="modal modal-warning" id="myModal2" role="dialog">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title"><i class="glyphicon glyphicon-alert">&nbsp;Attention </i>  </h4>
+              </div>
+              <div class="modal-body">
+                <p>vous devez attribuer cette intervention a un technicien ,puis selectionner une date</p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Fermer</button>
+                
+              </div>
+            </div>
+            <!-- /.modal-content -->
+          </div>
+          <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
+ 
+      
+      
+  
              
              
-              <%String dis="" ; 
-              System.out.println(td.getEtat_Validation());
+              <% String dis="" ; 
+              
               if(td.getEtat_Validation().equalsIgnoreCase("1")){
             	  
             	  %> 
             	   <i class="glyphicon glyphicon-ok"></i>
             	   <% }else{ %> 
-              <button type="button"  class="btn-xs btn-social-icon btn-twitter"  onclick="valider_intervention('<%=td.getId_intervention()%>')">
+              <button type="button"  class="btn-xs btn-social-icon btn-twitter"  onclick="valider_intervention('<%=td.getId_intervention()%>','<%=td.getNOM_TECHNICIEN()%>','<%=td.getPROGRAMMER()%>')">
             <i class="glyphicon glyphicon-ok"></i>
             </button>
 				  <% }%> 
@@ -419,19 +451,25 @@ Form_temp forTemp =(Form_temp)session.getAttribute("forTemp");
                   <th>TECHNCHIEN</th>
                   <th>status</th>
                   <th>Remarque</th>
-                  <th>intutule</th>
+                  
                 </tr>
                 
-               
+                <%
+                System.out.println(historique_dispatching);
+                for(int i=0;i<historique_dispatching.size();i++)
+                        {  
+                	
+                	Form_temp frmTemp=(Form_temp)historique_dispatching.get(i);
+                    	%>
                  <tr>
-                  <td>Programmer</td>
-                  <td>Date Intervention</td>
-                  <td>TECHNCHIEN</td>
-                  <td>status</td>
-                  <td>Remarque</td>
-                  <td>intutule</td>
+                  <td><%=frmTemp.getProgrammer()%></td>
+                  <td><%=frmTemp.getDate_intervention()%></td>
+                  <td><%=frmTemp.getTechnicien()%></td>
+                  <td><%=frmTemp.getStatus()%></td>
+                  <td><%=frmTemp.getRemarque()%></td>
+                  
                 </tr>
-             
+                <%} %>
 				
               </table>
 			  
@@ -609,21 +647,17 @@ Form_temp forTemp =(Form_temp)session.getAttribute("forTemp");
     });
   });
   
-  $('#example1').dataTable( {
-	 
-	  "scrollCollapse": true,
-	  "paging": true
-	} );
+ 
   
-  
+ 
+ 
   
   function modifier_intervention (Id_intervention,Id_technicien,date_intervention)
   {
-  	 
+		   
   document.getElementById('Id_intervention').value=Id_intervention;
   document.getElementById('Id_technicien').value=Id_technicien;
   document.getElementById('date_intervention').value=date_intervention;
-  
   document.getElementById('f1').action="modifier_intervention?methodtocall=modifier_intervention";
   document.getElementById('f1').submit();
 
@@ -631,32 +665,78 @@ Form_temp forTemp =(Form_temp)session.getAttribute("forTemp");
   }
 
 
-		  function modif_dispatch (Id_intervention)
-		  { 
-		  	 
-			  document.getElementById('Id_intervention').value=Id_intervention;
-			 
+function modif_dispatch (Id_intervention)
+{ 
+	  
+ document.getElementById('Id_intervention').value=Id_intervention;
+document.getElementById('f1').action="modif_dispatch?methodtocall=modif_dispatch";
+document.getElementById('f1').submit();
+
+
+}
+
+function valider_intervention (Id_intervention,tec,dat)
+{ 
+	 if(tec=='null' ||dat=='null')
+		 {
+		 $('#myModal2').modal({
+			  keyboard: false
+			}) 
 		 
-		  
-		  document.getElementById('f1').action="modif_dispatch?methodtocall=modif_dispatch";
-		  document.getElementById('f1').submit();
-
-
-		  }
-		  function valider_intervention (Id_intervention)
-		  { 
-		  	  
-			  document.getElementById('Id_intervention').value=Id_intervention;
+		 }else{
 			 
-		 
-		  
-		  document.getElementById('f1').action="valider_intervention?methodtocall=valider_intervention";
-		  document.getElementById('f1').submit();  
-		  } 
-  </script>    
+			 document.getElementById('Id_intervention').value=Id_intervention;
 
 
 
+			 document.getElementById('f1').action="valider_intervention?methodtocall=valider_intervention";
+		document.getElementById('f1').submit();   
+		 }
+ 
+} 
+
+
+
+function historique_ticket (id_ticket)
+{ 
+	
+	 
+ document.getElementById('id_ticket').value=id_ticket;
+
+
+ 
+document.getElementById('f1').action="historique_ticket?methodtocall=historique_ticket";
+document.getElementById('f1').submit();
+
+
+}
+
+ </script>    
+
+
+ <div class="example-modal">
+        <div class="modal modal-warning">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Warning Modal</h4>
+              </div>
+              <div class="modal-body">
+                <p>One fine body&hellip;</p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-outline">Save changes</button>
+              </div>
+            </div>
+            <!-- /.modal-content -->
+          </div>
+          <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
+      </div>
 
  
 </body>
