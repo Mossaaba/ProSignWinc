@@ -1,3 +1,6 @@
+ 
+ 
+
 <%@page import="com.ProSign.Object.Tableau_Sign_Details"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
@@ -11,11 +14,53 @@ ArrayList list_tech =(ArrayList)session.getAttribute("list_tech");
 ArrayList list_dispatch=(ArrayList) session.getAttribute("list_dispatch");
 ArrayList historique_dispatching=(ArrayList) session.getAttribute("historique_dispatching");
 Form_temp forTemp =(Form_temp)session.getAttribute("forTemp");
+ArrayList list_resum_intev=(ArrayList) session.getAttribute("list_resum_intev");
+
+
 %>
 <!DOCTYPE html>
 <html>
 <head >
 
+<!-- jQuery 2.2.3 -->
+<script src="../../plugins/jQuery/jquery-2.2.3.min.js"></script>
+<!-- Bootstrap 3.3.6 -->
+<script src="../../bootstrap/js/bootstrap.min.js"></script>
+<!-- Select2 -->
+<script src="../../plugins/select2/select2.full.min.js"></script>
+<!-- InputMask -->
+<script src="../../plugins/input-mask/jquery.inputmask.js"></script>
+<script src="../../plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
+<script src="../../plugins/input-mask/jquery.inputmask.extensions.js"></script>
+<!-- date-range-picker -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
+<script src="../../plugins/daterangepicker/daterangepicker.js"></script>
+<!-- bootstrap datepicker -->
+<script src="../../plugins/datepicker/bootstrap-datepicker.js"></script>
+<!-- bootstrap color picker -->
+<script src="../../plugins/colorpicker/bootstrap-colorpicker.min.js"></script>
+<!-- bootstrap time picker -->
+<script src="../../plugins/timepicker/bootstrap-timepicker.min.js"></script>
+<!-- SlimScroll 1.3.0 -->
+<script src="../../plugins/slimScroll/jquery.slimscroll.min.js"></script>
+<!-- iCheck 1.0.1 -->
+<script src="../../plugins/iCheck/icheck.min.js"></script>
+<!-- FastClick -->
+<script src="../../plugins/fastclick/fastclick.js"></script>
+<!-- AdminLTE App -->
+<script src="../../dist/js/app.min.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="../../dist/js/demo.js"></script>
+
+
+<script src="../../plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="../../plugins/datatables/dataTables.bootstrap.min.js"></script>
+<!-- SlimScroll -->
+<!-- FastClick -->
+<!-- AdminLTE App -->
+<!-- AdminLTE for demo purposes -->
+
+<!-- Page script -->
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>ProSign</title>
@@ -97,22 +142,19 @@ Form_temp forTemp =(Form_temp)session.getAttribute("forTemp");
           <input type ="hidden" name ="id_ticket" id="id_ticket" value="">
      
       <!-- SELECT2 EXAMPLE -->
-      <div class="box box-default" style="width : 100%;">
-        <div class="box-header with-border">
-          <h3 class="box-title">Modification <a  data-skin="skin-blue" class="btn btn-xs disabled ">
-      <div class="box box-primary "  id="voila" style="width : 100%;" >
+      <div class="box box-primary collapsed-box" data-target="id_box" data-name="id_box"  id="id_box"  style="width : 100%;" >
         <div class="box-header with-border" >
           <h3 class="box-title" >Modification <a  data-skin="skin-blue" class="btn btn-xs disabled ">
                   <i class="fa fa-edit"></i>                  
                   </a></h3>
-          <div class="box-tools pull-right">
-            <button type="button" class="btn btn-box-tool" data-widget="collapse">
-            <i class="fa fa-minus"></i>
-            </button>
+           
+           <div class="box-tools pull-right">
+            
           </div>
+          
         </div>
         <!-- /.box-header -->
-        <div class="box-body"  >
+        <div class="collapse" id="collapseExample"  >
           <div class="row">
 		  <div class="col-md-12">
 		
@@ -200,19 +242,70 @@ Form_temp forTemp =(Form_temp)session.getAttribute("forTemp");
             <div class="box-header with-border">
               <h3 class="box-title"><i class="glyphicon glyphicon-list-alt"></i> Tableau dispatching</h3>
 
-              
-              <!-- /.box-tools -->
-            </div>
-            <!-- /.box-header -->
-            
-            <!-- /.box-body -->
-          </div>
-                </div>
-                
-                
-              </div>
-              <!-- /.row -->
-            </div>
+			
+			<!-- /.box-tools -->
+			</div>
+			<!-- /.box-header -->
+			
+			<!-- /.box-body -->
+			</div>
+			
+			
+			 <table>
+			 <tr>
+			 <td>
+			 
+			 </td>
+			 
+			 </tr>
+			 
+			 
+			 <tr>
+			 <%
+			 int w=0;
+			 for(int i=w;i<2;i++){
+				List tmp=(List)list_resum_intev.get(i);
+				 %>
+				 <td>
+			 <%="-      "+tmp.get(0).toString()+"  "%><span class="pull-right badge bg-blue"><%=tmp.get(1).toString()%></span> 
+			 </td>
+				 <% 
+				w=i+1; 
+			 }
+			 %>
+			 </tr>
+			 
+			 <tr>
+			 <%
+			  
+			 for(int i=w;i<list_resum_intev.size();i++){
+				List tmp=(List)list_resum_intev.get(i);
+				 %>
+				 <td>
+			 <%="-      "+tmp.get(0).toString()+"  "+tmp.get(1).toString()+"     -"%>
+			 </td>
+				 <% }
+			 %>
+			 </tr>
+			 <tr>
+			 <%
+			  
+			 for(int i=w;i<list_resum_intev.size();i++){
+				List tmp=(List)list_resum_intev.get(i);
+				 %>
+				 <td>
+			 <%="-      "+tmp.get(0).toString()+"  "+tmp.get(1).toString()+"     -"%>
+			 </td>
+				 <% }
+			 %>
+			 </tr>
+			 </table>
+			      </div>
+			      
+			      
+			    </div>
+			  
+			  </div>
 
 <!-- /.box -->
 
@@ -239,8 +332,8 @@ Form_temp forTemp =(Form_temp)session.getAttribute("forTemp");
 				  <th>PROGRAMMER</th>
 				  <th>TECHNICIEN</th>
 			      <th>SIGNALISATION</th>
-			        
-			           <th>--</th>
+			         <th> </th>
+			         <th> </th>
 				  
                 </tr>
                 </thead>
@@ -262,53 +355,95 @@ Form_temp forTemp =(Form_temp)session.getAttribute("forTemp");
 				  <td><%=td.getPROGRAMMER() %></td>
 				  <td><%=td.getNOM_TECHNICIEN() %></td>
 				 <td><%=td.getTYPE_SIGNALISATION() %></td>
+				 <td>
+				<span class="pull-right-container">
+				
+				<%
+			 
+				if(td.getPROGRAMMER()==null ||td.getPROGRAMMER().isEmpty())
+				{
+					%>
+					<small class="label pull-right bg-red">#</small>
+				<%	
+				}else 
+					if(td.getEtat_Validation().equalsIgnoreCase("0") )
+					{
+						%>
+						<small class="label pull-right bg-yellow">@</small>
+					<%
+					}else {
+						%>
+						<small class="label pull-right bg-green">&</small>
+				<%
+					}
+				%>
 				 
+              
+              
+            
+            
+            </span>
+
+				</td>
 				 <td align="center" valign="middle">
 				 
-				<button type="button" class="btn-xs btn-social-icon btn-vk" data-widget="collapse" onclick="modifier_intervention('<%=td.getId_intervention()%>','<%=td.getId_technicien()%>','<%=td.getPROGRAMMER()%>')">
-                 <i class="glyphicon glyphicon-pencil" ></i>
-                </button>
+								<button type="button" id="button_1<%=td.getId_intervention()%>" class="btn-xs btn-social-icon btn-vk  disabled" onclick="modifier_intervention('<%=td.getId_intervention()%>','<%=td.getId_technicien()%>','<%=td.getPROGRAMMER()%>')">
+				                 <i class="glyphicon glyphicon-pencil" ></i>
+				                </button>
                 
               
-              <button type="button" class="btn-xs btn-social-icon btn-google" data-toggle="modal" data-target="#myModal" >
-               <i class="glyphicon glyphicon-eye-open"></i>
-             </button>
+					              <button type="button" id="button_2<%=td.getId_intervention()%>" class="btn-xs btn-social-icon btn-google" data-toggle="modal" data-target="#myModal<%=td.getId_intervention()%>"   >
+					               <i class="glyphicon glyphicon-eye-open"></i>
+					             </button>
              
-             <button type="button" class="btn-xs btn-social-icon btn-dropbox" onclick="historique_ticket('<%=td.getId_ticket()%>')">
-               <i class="glyphicon glyphicon-th-list"></i>
-             </button>
+					             <button type="button" id="button_3<%=td.getId_intervention()%>" class="btn-xs btn-social-icon btn-dropbox" onclick="historique_ticket('<%=td.getId_ticket()%>')">
+					               <i class="glyphicon glyphicon-th-list"></i>
+								</button>
              
              
- <div class="modal modal-primary" id="myModal" role="dialog">
+ <div class="modal modal-primary" id="myModal<%=td.getId_intervention()%>" role="dialog">
  
     <div class="modal-dialog">
     
       <!-- Modal content-->
-      <div class="modal-content">
+      <div class="modal-content" >
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
           <h4 class="modal-title">Description détaillées</h4>
         </div>
         <div class="box box-solid">
             <div class="box-header with-border">
-              <i class="fa fa-text-width"></i>
+              <i class="fa fa-map"></i>
 
-              <h3 class="box-title">Description Horizontal</h3>
+              <h3 class="box-title">Emplacement</h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
               <dl class="dl-horizontal">
-                <dt>Description lists</dt>
-                <dd>A description list is perfect for defining terms.</dd>
-                <dt>Euismod</dt>
-                <dd>Vestibulum id ligula porta felis euismod semper eget lacinia odio sem nec elit.</dd>
-                <dd>Donec id elit non mi porta gravida at eget metus.</dd>
-                <dt>Malesuada porta</dt>
-                <dd>Etiam porta sem malesuada magna mollis euismod.</dd>
-                <dt>Felis euismod semper eget lacinia</dt>
-                <dd>Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo
-                  sit amet risus.
-                </dd>
+                <dt> Region</dt>
+                <dd><%=td.getREGION() %></dd>
+                <dt>Wilaya</dt>
+                <dd><%=td.getNOM_WILAYA() %></dd>
+                <dt>Ville</dt>
+                <dd><%=td.getNOM_VILLE() %></dd>
+            <div class="box-header with-border">
+              <i class="fa fa-codepen"></i>
+
+              <h3 class="box-title">Machine</h3>
+            </div>
+                <dt>Type Machine</dt>
+                <dd><%=td.getType_machine() %></dd>
+                <dt>Reference Machine</dt>
+                <dd><%=td.getRefrence_machine() %></dd>
+                <div class="box-header with-border">
+              <i class="fa fa-warning"></i>
+
+              <h3 class="box-title">Machine</h3>
+            </div>
+                <dt>Description du Problem </dt>
+                <dd><%=td.getDESCRIPTION_SIGNALISATION() %></dd>
+                <dt>Remarque</dt>
+                <dd><%=td.getREMARQUE() %></dd>
               </dl>
             </div>
             <!-- /.box-body -->
@@ -354,12 +489,14 @@ Form_temp forTemp =(Form_temp)session.getAttribute("forTemp");
              
               <% String dis="" ; 
               
-              if(td.getEtat_Validation().equalsIgnoreCase("1")){
+              if(td.getEtat_Validation().equalsIgnoreCase("1"))
+              {
             	  
             	  %> 
             	   <i class="glyphicon glyphicon-ok"></i>
-            	   <% }else{ %> 
-              <button type="button"  class="btn-xs btn-social-icon btn-twitter"  onclick="valider_intervention('<%=td.getId_intervention()%>','<%=td.getNOM_TECHNICIEN()%>','<%=td.getPROGRAMMER()%>')">
+            	   <% }
+              else{ %> 
+              <button type="button"  id="button_4<%=td.getId_intervention()%>" class="btn-xs btn-social-icon btn-twitter"  onclick="valider_intervention('<%=td.getId_intervention()%>','<%=td.getNOM_TECHNICIEN()%>','<%=td.getPROGRAMMER()%>')">
             <i class="glyphicon glyphicon-ok"></i>
             </button>
 				  <% }%> 
@@ -368,7 +505,18 @@ Form_temp forTemp =(Form_temp)session.getAttribute("forTemp");
 			       
 				  
 				</tr>
-				
+				 <s:if test="#session.ranifimodif!=null">
+					<script>
+				 
+					 
+					$("#button_1"+<%=td.getId_intervention()%>).prop("disabled",true);
+					$("#button_2"+<%=td.getId_intervention()%>).prop("disabled",true);
+					
+					$("#button_4"+<%=td.getId_intervention()%>).prop("disabled",true);
+					$("#button_3"+<%=td.getId_intervention()%>).prop("disabled",true);
+					</script>
+					
+					</s:if>
 				<%
 			     }
 			     %>
@@ -514,46 +662,26 @@ Form_temp forTemp =(Form_temp)session.getAttribute("forTemp");
 </div>
 <!-- ./wrapper -->
 
-<!-- jQuery 2.2.3 -->
-<script src="../../plugins/jQuery/jquery-2.2.3.min.js"></script>
-<!-- Bootstrap 3.3.6 -->
-<script src="../../bootstrap/js/bootstrap.min.js"></script>
-<!-- Select2 -->
-<script src="../../plugins/select2/select2.full.min.js"></script>
-<!-- InputMask -->
-<script src="../../plugins/input-mask/jquery.inputmask.js"></script>
-<script src="../../plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
-<script src="../../plugins/input-mask/jquery.inputmask.extensions.js"></script>
-<!-- date-range-picker -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
-<script src="../../plugins/daterangepicker/daterangepicker.js"></script>
-<!-- bootstrap datepicker -->
-<script src="../../plugins/datepicker/bootstrap-datepicker.js"></script>
-<!-- bootstrap color picker -->
-<script src="../../plugins/colorpicker/bootstrap-colorpicker.min.js"></script>
-<!-- bootstrap time picker -->
-<script src="../../plugins/timepicker/bootstrap-timepicker.min.js"></script>
-<!-- SlimScroll 1.3.0 -->
-<script src="../../plugins/slimScroll/jquery.slimscroll.min.js"></script>
-<!-- iCheck 1.0.1 -->
-<script src="../../plugins/iCheck/icheck.min.js"></script>
-<!-- FastClick -->
-<script src="../../plugins/fastclick/fastclick.js"></script>
-<!-- AdminLTE App -->
-<script src="../../dist/js/app.min.js"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="../../dist/js/demo.js"></script>
 
-
-<script src="../../plugins/datatables/jquery.dataTables.min.js"></script>
-<script src="../../plugins/datatables/dataTables.bootstrap.min.js"></script>
-<!-- SlimScroll -->
-<!-- FastClick -->
-<!-- AdminLTE App -->
-<!-- AdminLTE for demo purposes -->
-
-<!-- Page script -->
+ 
+ 
+  <s:if test="#session.ranifimodif!=null">
 <script>
+$('#collapseExample').collapse({
+	  toggle: true
+	});
+
+ 
+ 
+</script>
+ 
+<% session.removeAttribute("ranifimodif"); %>
+
+</s:if>
+
+<script>
+
+
   $(function () {
     //Initialize Select2 Elements
     $(".select2").select2();
@@ -647,7 +775,7 @@ Form_temp forTemp =(Form_temp)session.getAttribute("forTemp");
     });
   });
   
- 
+
   
  
  
@@ -667,6 +795,9 @@ Form_temp forTemp =(Form_temp)session.getAttribute("forTemp");
 
 function modif_dispatch (Id_intervention)
 { 
+	
+	   
+	
 	  
  document.getElementById('Id_intervention').value=Id_intervention;
 document.getElementById('f1').action="modif_dispatch?methodtocall=modif_dispatch";
@@ -711,32 +842,11 @@ document.getElementById('f1').submit();
 
 }
 
- </script>    
+
+</script>    
 
 
- <div class="example-modal">
-        <div class="modal modal-warning">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Warning Modal</h4>
-              </div>
-              <div class="modal-body">
-                <p>One fine body&hellip;</p>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-outline">Save changes</button>
-              </div>
-            </div>
-            <!-- /.modal-content -->
-          </div>
-          <!-- /.modal-dialog -->
-        </div>
-        <!-- /.modal -->
-      </div>
+ 
 
  
 </body>

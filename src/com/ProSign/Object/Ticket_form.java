@@ -21,7 +21,8 @@ public class Ticket_form
 	 private String machine;
 	 private String referece_machine;
 	 private String technicien;
-	 private String date_range;
+	 private String date_range_min;
+	 private String date_range_max;
 	 
 	
 	
@@ -36,7 +37,9 @@ public class Ticket_form
 	   type= "";
 	   machine= "";
 	   technicien="";
-	   date_range="";
+	   date_range_min="";
+	   date_range_max="";
+
  }
 
 
@@ -121,30 +124,13 @@ public void setMachine(String machine) {
 	this.machine = machine;
 }
 
-
-
 public String getTechnicien() {
 	return technicien;
 }
 
-
-
 public void setTechnicien(String technicien) {
 	this.technicien = technicien;
 }
-
-
-
-public String getDate_range() {
-	return date_range;
-}
-
-
-
-public void setDate_range(String date_range) {
-	this.date_range = date_range;
-}
-
 
 
 public String getReferece_machine() {
@@ -159,7 +145,25 @@ public void setReferece_machine(String referece_machine) {
 
 
 
+public String getDate_range_max() {
+	return date_range_max;
+}
 
 
 
+public void setDate_range_max(String date_range_max) {
+	this.date_range_max = date_range_max;
+}
+
+
+
+public String getDate_range_min() {
+	return date_range_min;
+}
+
+
+
+public void setDate_range_min(String date_range_min) {
+	this.date_range_min = date_range_min;
+}
 }

@@ -53,6 +53,8 @@ public class Dispatch extends ActionSupport implements ServletContextAware, Serv
 	     ArrayList list_dispatch=(ArrayList) db.Get_result_Dispatch();
 	     session.setAttribute("list_dispatch",list_dispatch);
 	     
+	     ArrayList list_resum_intev=(ArrayList) db.Get_Nbr_Interv_tech();
+	     session.setAttribute("list_resum_intev",list_resum_intev);
 	   
 	     session.setAttribute("historique_dispatching",new ArrayList());
 	     
@@ -86,6 +88,10 @@ public class Dispatch extends ActionSupport implements ServletContextAware, Serv
 	 
 		ArrayList list_tech =(ArrayList) db.Get_ListeTechniciens();
 		session.setAttribute("list_tech",list_tech );
+		
+		
+		session.setAttribute("ranifimodif", "ranifimodif");
+		
 	 
 	  return "dispatch";
 	//  return this.execute();
@@ -132,6 +138,23 @@ public class Dispatch extends ActionSupport implements ServletContextAware, Serv
 		int rest=db.ValiderDispatch(Id_intervention) ;
 		db.Envoi_SMS_AFTER_VALIDATION(Id_intervention);
 	 
+		session.removeAttribute("ranifimodif");
+		
+		return this.execute();
+	//  return this.execute();
+	 }
+ 
+ 
+ 
+
+ public String cancel_intervention() throws Exception {
+
+	 HttpSession session = this.request.getSession();
+	 
+	 
+	 
+		session.removeAttribute("ranifimodif");
+		
 		return this.execute();
 	//  return this.execute();
 	 }

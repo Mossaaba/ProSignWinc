@@ -181,8 +181,9 @@ public class Table_Dispatch
 	private String Id_technicien;
 	private String Etat_Validation;
 	private String Id_ticket;
+	private String type_machine;
+	private String refrence_machine;
 	
-	 
 	 
 	 public Table_Dispatch()
 	 {
@@ -252,6 +253,30 @@ public class Table_Dispatch
 
 	public void setId_ticket(String id_ticket) {
 		Id_ticket = id_ticket;
+	}
+
+
+
+	public String getType_machine() {
+		return type_machine;
+	}
+
+
+
+	public void setType_machine(String type_machine) {
+		this.type_machine = type_machine;
+	}
+
+
+
+	public String getRefrence_machine() {
+		return refrence_machine;
+	}
+
+
+
+	public void setRefrence_machine(String refrence_machine) {
+		this.refrence_machine = refrence_machine;
 	}
 
 

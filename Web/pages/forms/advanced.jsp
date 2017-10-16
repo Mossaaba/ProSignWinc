@@ -17,8 +17,6 @@ ArrayList list_tech =(ArrayList)session.getAttribute("list_tech");
 List list_res =(List)session.getAttribute("list_res");
 List list_res_details =(List)session.getAttribute("list_res_details");
 Ticket_form tf =(Ticket_form)session.getAttribute("tf");
-
-
 %>
 <!DOCTYPE html>
 <html>
@@ -71,6 +69,39 @@ Ticket_form tf =(Ticket_form)session.getAttribute("tf");
   <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
+  <!-- jQuery 2.2.3 -->
+<script src="../../plugins/jQuery/jquery-2.2.3.min.js"></script>
+<!-- Bootstrap 3.3.6 -->
+<script src="../../bootstrap/js/bootstrap.min.js"></script>
+<!-- Select2 -->
+<script src="../../plugins/select2/select2.full.min.js"></script>
+<!-- InputMask -->
+<script src="../../plugins/input-mask/jquery.inputmask.js"></script>
+<script src="../../plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
+<script src="../../plugins/input-mask/jquery.inputmask.extensions.js"></script>
+<!-- date-range-picker -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
+<script src="../../plugins/daterangepicker/daterangepicker.js"></script>
+<!-- bootstrap datepicker -->
+<script src="../../plugins/datepicker/bootstrap-datepicker.js"></script>
+<!-- bootstrap color picker -->
+<script src="../../plugins/colorpicker/bootstrap-colorpicker.min.js"></script>
+<!-- bootstrap time picker -->
+<script src="../../plugins/timepicker/bootstrap-timepicker.min.js"></script>
+<!-- SlimScroll 1.3.0 -->
+<script src="../../plugins/slimScroll/jquery.slimscroll.min.js"></script>
+<!-- iCheck 1.0.1 -->
+<script src="../../plugins/iCheck/icheck.min.js"></script>
+<!-- FastClick -->
+<script src="../../plugins/fastclick/fastclick.js"></script>
+<!-- AdminLTE App -->
+<script src="../../dist/js/app.min.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="../../dist/js/demo.js"></script>
+
+
+<script src="../../plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="../../plugins/datatables/dataTables.bootstrap.min.js"></script>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -109,6 +140,10 @@ Ticket_form tf =(Ticket_form)session.getAttribute("tf");
 				
      <s:form action="/Ticket.action" method="POST" id="f1" target="_parent"> 
      <input type ="hidden" name ="id_ticket" id="id_ticket" value="">
+     <input type ="hidden" name ="min_date" id="min_date" value="">
+     <input type ="hidden" name ="max_date" id="max_date" value="">
+     
+     
       <!-- SELECT2 EXAMPLE -->
       <div class="box box-default" style="width : 100%;">
         <div class="box-header with-border">
@@ -399,7 +434,8 @@ Ticket_form tf =(Ticket_form)session.getAttribute("tf");
                   <div class="input-group-addon">
                     <i class="fa fa-clock-o"></i>
                   </div>
-                  <input value="<%=tf.getDate_range()%>" name="date_range" type="text" class="form-control pull-right" id="reservationtime">
+					<input type="text" id="min_date" name="min_date">
+                    <input type="text" id="max_date" name="max_date">               
                 </div>
                 <!-- /.input group -->
                 </div>
@@ -418,7 +454,7 @@ Ticket_form tf =(Ticket_form)session.getAttribute("tf");
             <!---------------------------------------------------------------------------->
             <!----------------------------------CHEREHCER Filter-------------------------->
 		    <!----------------------------------------------------------------------------> 
-          <button type="button"  class="btn btn-primary pull-right" onclick="genereTableau()" >
+          <button type="button"  class="btn btn-primary pull-right"  onclick="genereTableau()" >
           <i class="fa fa-search"></i> 
             Chercher
           </button>
@@ -521,10 +557,7 @@ Ticket_form tf =(Ticket_form)session.getAttribute("tf");
 				</tr>
 				
 				 <% }%>
-				
-				
-         
-                </tbody>
+               </tbody>
                 <tfoot>
                 <tr>
                   <th>total</th>
@@ -639,39 +672,7 @@ Ticket_form tf =(Ticket_form)session.getAttribute("tf");
 </div>
 <!-- ./wrapper -->
 
-<!-- jQuery 2.2.3 -->
-<script src="../../plugins/jQuery/jquery-2.2.3.min.js"></script>
-<!-- Bootstrap 3.3.6 -->
-<script src="../../bootstrap/js/bootstrap.min.js"></script>
-<!-- Select2 -->
-<script src="../../plugins/select2/select2.full.min.js"></script>
-<!-- InputMask -->
-<script src="../../plugins/input-mask/jquery.inputmask.js"></script>
-<script src="../../plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
-<script src="../../plugins/input-mask/jquery.inputmask.extensions.js"></script>
-<!-- date-range-picker -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
-<script src="../../plugins/daterangepicker/daterangepicker.js"></script>
-<!-- bootstrap datepicker -->
-<script src="../../plugins/datepicker/bootstrap-datepicker.js"></script>
-<!-- bootstrap color picker -->
-<script src="../../plugins/colorpicker/bootstrap-colorpicker.min.js"></script>
-<!-- bootstrap time picker -->
-<script src="../../plugins/timepicker/bootstrap-timepicker.min.js"></script>
-<!-- SlimScroll 1.3.0 -->
-<script src="../../plugins/slimScroll/jquery.slimscroll.min.js"></script>
-<!-- iCheck 1.0.1 -->
-<script src="../../plugins/iCheck/icheck.min.js"></script>
-<!-- FastClick -->
-<script src="../../plugins/fastclick/fastclick.js"></script>
-<!-- AdminLTE App -->
-<script src="../../dist/js/app.min.js"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="../../dist/js/demo.js"></script>
 
-
-<script src="../../plugins/datatables/jquery.dataTables.min.js"></script>
-<script src="../../plugins/datatables/dataTables.bootstrap.min.js"></script>
 <!-- SlimScroll -->
 <!-- FastClick -->
 <!-- AdminLTE App -->
@@ -771,6 +772,27 @@ Ticket_form tf =(Ticket_form)session.getAttribute("tf");
       "autoWidth": false
     });
   });
+  
+  
+  $(function() {
+	  $( "#min_date" ).datepicker({
+	  onClose: function( selectedDate ) {
+	    
+	      
+	  var actualDate = new Date(selectedDate);
+	  var newDate = new Date(actualDate.getFullYear(), actualDate.getMonth(), actualDate.getDate()+1);
+
+	  $("#max_date").datepicker("option","minDate", newDate)
+	  },
+	    
+	  });
+	  $( "#max_date" ).datepicker({
+	  onClose: function( selectedDate ) {
+	      $( "#min_date" ).datepicker( "option", "maxDate", selectedDate );
+	  }
+	  });
+	     });
+  
 </script>    
 
 
@@ -797,19 +819,27 @@ function change_ville(){
 	  document.getElementById('f1').submit();
 }
 
-function change_client(){
+function change_client()
+{
 	
 	  document.getElementById('f1').action= "change_client?methodtocall=change_client";
 	  document.getElementById('f1').submit();
 }
 
-
-function genereTableau()
+function genereTableau(min_date,max_date)
 {
- 
+	
+	
+	
+	
+	var min_date = document.getElementById("min_date").value;
+    document.getElementById("min_date").innerHTML = min_date;
+    
+    var max_date = document.getElementById("max_date").value;
+    document.getElementById("max_date").innerHTML = max_date;
+   
 document.getElementById('f1').action="genereTableau?methodtocall=genereTableau";
 document.getElementById('f1').submit();
-
 }
 
 function genereTableauDetail(ID_ticket)
@@ -834,6 +864,8 @@ document.getElementById('f1').submit();
 
 }
 
-</SCRIPT>    
+</SCRIPT>  
+ 
+
 </body>
 </html>
