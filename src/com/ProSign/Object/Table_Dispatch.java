@@ -183,8 +183,9 @@ public class Table_Dispatch
 	private String Id_ticket;
 	private String type_machine;
 	private String refrence_machine;
+	private String indicateur_status;
+	private String DATE_INTERVENTION;
 	
-	 
 	 public Table_Dispatch()
 	 {
 	      
@@ -204,7 +205,9 @@ public class Table_Dispatch
 		 Id_intervention="";
 		 Id_technicien="";
 		 Etat_Validation="";
+		 setDATE_INTERVENTION("");
 		 
+		 setIndicateur_status("");
 	 }
 
 
@@ -277,6 +280,30 @@ public class Table_Dispatch
 
 	public void setRefrence_machine(String refrence_machine) {
 		this.refrence_machine = refrence_machine;
+	}
+
+
+
+	public String getIndicateur_status() {
+		return indicateur_status;
+	}
+
+
+
+	public void setIndicateur_status(String indicateur_status) {
+		this.indicateur_status = indicateur_status;
+	}
+
+
+
+	public String getDATE_INTERVENTION() {
+		return DATE_INTERVENTION;
+	}
+
+
+
+	public void setDATE_INTERVENTION(String dATE_INTERVENTION) {
+		DATE_INTERVENTION = dATE_INTERVENTION;
 	}
 
 

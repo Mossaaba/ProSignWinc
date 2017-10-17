@@ -542,7 +542,7 @@ import com.ProSign.connect.connect;
 	        		   "	c.ID_CLIENT,"+
 	        		   "	a.CODE_AGENCE, "+
 	        		   "	a.NOM_AGENCE,"+
-	        		   "	t.DATE_SIGNALISATION, "+
+	        		   "	convert(varchar(11),t.DATE_SIGNALISATION,106), "+
 	        		   "	t.TYPE_SIGNALISATION,"+
 	        		   "	t.DESCRIPTION_SIGNALISATION,  "+
 	        		   "	i.PROGRAMMER,"+
@@ -554,7 +554,10 @@ import com.ProSign.connect.connect;
 	        		   "    ISNULL(I.ETAT_VALIDATION , 0)    ,  "+
 	        		   "    t.ID_TICKET                      ,  "+
 	        		  "     m.TYPE_MACHINE , "+
-	        		   "    m.REFERENCE_MACHINE  "+
+	        		   "    m.REFERENCE_MACHINE,  "+
+	        		   "    ISNULL(SI.INDICATEUR,'-1'),  "+
+	        		   "    i.DATE_INTERVENTION  "+
+
 	        		   "	  from TICKET t"+
 	        		   "	  inner join machine m on m.ID_MACHINE=t.ID_MACHINE "+
 	        		   "	  inner join AGENCE a on a.ID_AGENCE=m.ID_AGENCE "+
@@ -563,7 +566,7 @@ import com.ProSign.connect.connect;
 	        		   "	  inner join WILAYA w on w.N_WILAYA=v.N_WILAYA"+
 	        		   "	  inner join REGION r on r.REGION=w.REGION "+
 	        		   "	left join INTERVENTION I on i.ID_TICKET=t.ID_TICKET  and i.ID_INTERVENTION=(select max(e.ID_INTERVENTION) from INTERVENTION e where e.ID_TICKET=t.ID_TICKET)"+
-	        		   "	left join STATUS_INTERVENTION SI on SI.ID_STATUS=I.ID_STATUS and SI.INDICATEUR<>0"+
+	        		   "	left join STATUS_INTERVENTION SI on SI.ID_STATUS=I.ID_STATUS and SI.INDICATEUR<>1"+
 	        		  
 	        		   "	left join TECHNICIEN tec on tec.ID_TECHNICIEN=i.ID_TECHNICIEN"+
 	        		   "	where t.STATUS_TICKET='OPEN'      "+
@@ -599,6 +602,8 @@ import com.ProSign.connect.connect;
 	        	   tsd1.setId_ticket(resultset.getString(17));
 	        	   tsd1.setType_machine(resultset.getString(18));
 	        	   tsd1.setRefrence_machine(resultset.getString(19));
+	        	   tsd1.setIndicateur_status(resultset.getString(20));
+	        	   tsd1.setDATE_INTERVENTION(resultset.getString(21));
 	        	   
 	               result.add(tsd1); }
 	           
@@ -899,7 +904,7 @@ String tel="";
 	
 	           String req = " select t.NOM_TECHNICIEN,COUNT(*) "+
 							" from INTERVENTION i "+
-							   " inner join TECHNICIEN t on t.ID_TECHNICIEN=i.ID_INTERVENTION "+
+							   " inner join TECHNICIEN t on t.ID_TECHNICIEN=i.ID_TECHNICIEN  "+
 							   " where DATE_INTERVENTION is null "+
 							   " group by t.NOM_TECHNICIEN ";  
 	   

@@ -421,26 +421,48 @@ Ticket_form tf =(Ticket_form)session.getAttribute("tf");
 			
 			
 			
-			<div class="col-md-6">
-		  <div class="box-header with-border" style="width: 100%;">
-          <h3 class="box-title">DATE</h3>
-        </div>
+			
+		 
             <!--------------------------------------------------------------------------->
             <!-----------------------------------DATE------------------------------------->
 		    <!----------------------------------------------------------------------------> 
+		<div class="col-md-6">
+			  <div class="box-header with-border" style="width: 50%;">
+			  <h3 class="box-title">Date</h3>
+			  </div>
+		    <!--------------------------------------------------------------------------->
+            <!-----------------------------------TECHNICIEN------------------------------>
+		    <!---------------------------------------------------------------------------> 
+            <div class="col-md-6">
               <div class="form-group">
-                <label>Date and time range:</label>
+                <label>Date debut &nbsp;&nbsp;</label>
                 <div class="input-group">
                   <div class="input-group-addon">
                     <i class="fa fa-clock-o"></i>
                   </div>
 					<input type="text" id="min_date" name="min_date">
+                               
+                </div>
+                
+              </div>
+            </div>
+            <!--------------------------------------------------------------------------->
+            <!-----------------------------------STATUS----------------------------------->
+		    <!----------------------------------------------------------------------------> 
+			<div class="col-md-6">
+              <div class="form-group">
+                <label>Date fin&nbsp;&nbsp;</label>
+                <div class="input-group">
+                  <div class="input-group-addon">
+                    <i class="fa fa-clock-o"></i>
+                  </div>
+					
                     <input type="text" id="max_date" name="max_date">               
                 </div>
-                <!-- /.input group -->
-                </div>
-		  </div>
-				  
+              </div>
+            </div> 			
+         </div>
+		  
 		  </div>
 		  
 		    <!---------------------------------------------------------------------------->
@@ -828,9 +850,6 @@ function change_client()
 
 function genereTableau(min_date,max_date)
 {
-	
-	
-	
 	
 	var min_date = document.getElementById("min_date").value;
     document.getElementById("min_date").innerHTML = min_date;

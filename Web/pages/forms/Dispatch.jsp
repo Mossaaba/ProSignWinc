@@ -15,8 +15,7 @@ ArrayList list_dispatch=(ArrayList) session.getAttribute("list_dispatch");
 ArrayList historique_dispatching=(ArrayList) session.getAttribute("historique_dispatching");
 Form_temp forTemp =(Form_temp)session.getAttribute("forTemp");
 ArrayList list_resum_intev=(ArrayList) session.getAttribute("list_resum_intev");
-
-
+String id_ticket=(String) session.getAttribute("id_ticket");
 %>
 <!DOCTYPE html>
 <html>
@@ -159,7 +158,7 @@ ArrayList list_resum_intev=(ArrayList) session.getAttribute("list_resum_intev");
 		  <div class="col-md-12">
 		
            <div class="col-md-4">
-         
+          
              <div class="form-group">
                 <label>Technicine:</label>
                 <div class="input-group date">
@@ -208,12 +207,20 @@ ArrayList list_resum_intev=(ArrayList) session.getAttribute("list_resum_intev");
               </div>
 
             </div>   
-            <div class="col-md-4" onclick="modif_dispatch('<%=forTemp.getId_intervention()%>')">
+            <div class="col-md-2" onclick="modif_dispatch('<%=forTemp.getId_intervention()%>')">
             
            <a class="btn btn-app btn-twitter">
                 <i class="glyphicon glyphicon-ok" ></i> Valider
               </a>
-            </div>                   <!-- /.col -->
+            </div> 
+            <div class="col-md-2" onclick="annuler_Modification_dispatch()">
+            
+               <a class="btn btn-app btn-google">
+                <i class="glyphicon glyphicon-remove" ></i> Effacer
+              </a>
+            </div> 
+            
+                          <!-- /.col -->
           </div>
           </div>
       
@@ -221,107 +228,110 @@ ArrayList list_resum_intev=(ArrayList) session.getAttribute("list_resum_intev");
 		</div>
 		</div>
 		 </s:form> 
-		 
-		 
-		          <!----------------------------------------------------------------------------->
-		 		  <!----------------------------------------------------------------------------->
-				  <!----------------------------------------------------------------------------->
+
 				  <!----------------------------------------------------------------------------->
 				  <!-----------------------------------END   FORM ------------------------------->
 				  <!----------------------------------------------------------------------------->
 				  <!----------------------------------------------------------------------------->
-				  <!----------------------------------------------------------------------------->
-				  <!----------------------------------------------------------------------------->   
-         
-         
-            <div class="box" style="width: 100%; position=center;">
+
+            <div class="box box-primary" style="width: 100%; position=center;">
+ 
               <div class="row" >
                 
                 <div class="col-xs-12 text-center" >
-              <div class="box box-default collapsed-box">
-            <div class="box-header with-border">
-              <h3 class="box-title"><i class="glyphicon glyphicon-list-alt"></i> Tableau dispatching</h3>
-
-			
-			<!-- /.box-tools -->
+              <div class="box box-primary ">
+            
+              
+              <div class="box-header with-border">
+              <h3 class="box-title"><i class="glyphicon glyphicon-user">
+              </i>&nbsp;Liste des techniciens</h3>
+                 
+               <div class="box-tools pull-right">
+                
+              </div>
+			  </div>
+		
 			</div>
-			<!-- /.box-header -->
-			
-			<!-- /.box-body -->
-			</div>
-			
-			
-			 <table>
+			 
+  
+			<div class="col-md-12">
+			<div class="box">
+			<div class="box-body">
+			 <table class="table table-bordered">
 			 <tr>
 			 <td>
 			 
 			 </td>
 			 
 			 </tr>
-			 
-			 
-			 <tr>
 			 <%
-			 int w=0;
-			 for(int i=w;i<2;i++){
-				List tmp=(List)list_resum_intev.get(i);
-				 %>
-				 <td>
-			 <%="-      "+tmp.get(0).toString()+"  "%><span class="pull-right badge bg-blue"><%=tmp.get(1).toString()%></span> 
-			 </td>
+			 int max_tab=5;
+			  int s=0;
+			 while (s<list_resum_intev.size())
+			 { %>
+				  
+				 <tr>
+				  <%
+				  for(int j = s; j < max_tab+s; j++)
+				 
+				 {
+					 if(j<list_resum_intev.size()){
+					 List tmp=(List)list_resum_intev.get(j);
+					 %>
+					 <td>
+					<%=" "+tmp.get(0).toString()+"  "%><span class="pull-right badge bg-red"><%=tmp.get(1).toString()%></span> 
+			 
+					</td>
+				
+					 <%}
+				 } %>
+				</tr>
 				 <% 
-				w=i+1; 
+				 s=s+max_tab;
+				 
 			 }
 			 %>
-			 </tr>
 			 
-			 <tr>
-			 <%
-			  
-			 for(int i=w;i<list_resum_intev.size();i++){
-				List tmp=(List)list_resum_intev.get(i);
-				 %>
-				 <td>
-			 <%="-      "+tmp.get(0).toString()+"  "+tmp.get(1).toString()+"     -"%>
-			 </td>
-				 <% }
-			 %>
-			 </tr>
-			 <tr>
-			 <%
-			  
-			 for(int i=w;i<list_resum_intev.size();i++){
-				List tmp=(List)list_resum_intev.get(i);
-				 %>
-				 <td>
-			 <%="-      "+tmp.get(0).toString()+"  "+tmp.get(1).toString()+"     -"%>
-			 </td>
-				 <% }
-			 %>
-			 </tr>
+			 
+		 
+			 
+			 
 			 </table>
-			      </div>
-			      
-			      
-			    </div>
-			  
 			  </div>
+			      </div>
+			      </div>
+			      </div>
+			    </div>
+			   </div>
+
+
+
+
+
+
 
 <!-- /.box -->
 
-          <div class="box">
+          <div class="box box-primary">
           
-            <div class="box-header">
-            <div class="box-tools">
+              <div class="box-header with-border text-center">
+              <h3 class="box-title">
+              <i class="glyphicon glyphicon-flash">
+              </i>&nbsp;Liste de suivi de signalisation</h3>
+              
+            <div class="box-tools pull-right">
                 
                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
                 </button>
                 
               </div>
-              <h3 class="box-title">Tableau de suivi des intervenction</h3>
-            </div>
+			  </div>
+          
+            
+              
+            
             <!-- /.box-header -->
-            <div class="box-body" >
+            <div class="box-body with-border" >
               <table id="example1" class="table table-bordered table-striped">
                 <thead>
                 <tr>
@@ -334,7 +344,7 @@ ArrayList list_resum_intev=(ArrayList) session.getAttribute("list_resum_intev");
 			      <th>SIGNALISATION</th>
 			         <th> </th>
 			         <th> </th>
-				  
+				    <th> </th>
                 </tr>
                 </thead>
                
@@ -345,8 +355,14 @@ ArrayList list_resum_intev=(ArrayList) session.getAttribute("list_resum_intev");
 			     for(int i=0;i<list_dispatch.size();i++)
 			     {
 			    	 Table_Dispatch td=(Table_Dispatch)list_dispatch.get(i);
+			    	 //bg-light-blue disabled color-palette
+			    	 String zeb="";
+			    	 if(td.getId_ticket().equalsIgnoreCase(id_ticket))
+			    	 {
+			    		 zeb="bg-light-blue disabled color-palette";
+			    	 }
 			     %>
-                <tr  >
+                <tr class="<%=zeb%>" >
                  
                   <td><%=td.getNOM_WILAYA() %></td>
                   <td><%=td.getID_CLIENT() %></td>
@@ -355,11 +371,21 @@ ArrayList list_resum_intev=(ArrayList) session.getAttribute("list_resum_intev");
 				  <td><%=td.getPROGRAMMER() %></td>
 				  <td><%=td.getNOM_TECHNICIEN() %></td>
 				 <td><%=td.getTYPE_SIGNALISATION() %></td>
-				 <td>
+				<td nowrap="nowrap">
+				<% if(td.getIndicateur_status().equalsIgnoreCase("0")&& td.getDATE_INTERVENTION()!=null)
+				{
+					%>
+					<span class="fa fa-circle-o text-yellow"></span>
+				<%	
+				}%>
+				</td>
+				 <td nowrap="nowrap">
+				
+				 
 				<span class="pull-right-container">
 				
 				<%
-			 
+				
 				if(td.getPROGRAMMER()==null ||td.getPROGRAMMER().isEmpty())
 				{
 					%>
@@ -385,21 +411,37 @@ ArrayList list_resum_intev=(ArrayList) session.getAttribute("list_resum_intev");
             </span>
 
 				</td>
-				 <td align="center" valign="middle">
-				 
-								<button type="button" id="button_1<%=td.getId_intervention()%>" class="btn-xs btn-social-icon btn-vk  disabled" onclick="modifier_intervention('<%=td.getId_intervention()%>','<%=td.getId_technicien()%>','<%=td.getPROGRAMMER()%>')">
-				                 <i class="glyphicon glyphicon-pencil" ></i>
-				                </button>
-                
-              
-					              <button type="button" id="button_2<%=td.getId_intervention()%>" class="btn-xs btn-social-icon btn-google" data-toggle="modal" data-target="#myModal<%=td.getId_intervention()%>"   >
-					               <i class="glyphicon glyphicon-eye-open"></i>
-					             </button>
-             
+				 <td align="center" valign="middle" nowrap="nowrap">
+				 <% if(!(td.getIndicateur_status().equalsIgnoreCase("0")&& td.getDATE_INTERVENTION()!=null))
+				{
+					%>
+					<button type="button" id="button_1<%=td.getId_intervention()%>" class="btn-xs btn-social-icon btn-vk  disabled" onclick="modifier_intervention('<%=td.getId_intervention()%>','<%=td.getId_technicien()%>','<%=td.getPROGRAMMER()%>')">
+				     <i class="glyphicon glyphicon-pencil" ></i>
+				      </button>
+				<%	
+				} else if  (td.getPROGRAMMER()==null || td.getId_technicien().equalsIgnoreCase("0")) {
+					
+					%>
+					<button type="button" data-toggle="myModalModif" data-target="#myModalModif" onclick="modifier_intervention('<%=td.getId_intervention()%>','<%=td.getId_technicien()%>','<%=td.getPROGRAMMER()%>')">
+			     <i class="glyphicon glyphicon-pencil" ></i>
+			      </button>
+				
+				
+				<% }
+				
+				
+				
+				%>
+                <button type="button" id="button_2<%=td.getId_intervention()%>" class="btn-xs btn-social-icon btn-google" data-toggle="modal" data-target="#myModal<%=td.getId_intervention()%>"   >
+              <i class="glyphicon glyphicon-eye-open"></i>
+            </button>
+       
 					             <button type="button" id="button_3<%=td.getId_intervention()%>" class="btn-xs btn-social-icon btn-dropbox" onclick="historique_ticket('<%=td.getId_ticket()%>')">
 					               <i class="glyphicon glyphicon-th-list"></i>
 								</button>
              
+
+ 
              
  <div class="modal modal-primary" id="myModal<%=td.getId_intervention()%>" role="dialog">
  
@@ -455,32 +497,21 @@ ArrayList list_resum_intev=(ArrayList) session.getAttribute("list_resum_intev");
       
     </div>
     </div>
-    
-    
+
+    <div class="modal text-center" id="myModalModif" role="dialog">
+    <div class="box-body text-center">
+     <div class="alert alert-warning alert-dismissible">
+			  <button type="button" class="close" data-dismiss="modal" aria-hidden="false">&times;</button>
+			  <h4><i class="icon fa fa-warning"></i> Attention!</h4>
+			  Vous devez attribuer un technicien et une date d'intervention , pour que vous puissiez la modifier 
+	</div>
+	</div>
+     </div>
    
  
     
-        <div class="modal modal-warning" id="myModal2" role="dialog">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title"><i class="glyphicon glyphicon-alert">&nbsp;Attention </i>  </h4>
-              </div>
-              <div class="modal-body">
-                <p>vous devez attribuer cette intervention a un technicien ,puis selectionner une date</p>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Fermer</button>
-                
-              </div>
-            </div>
-            <!-- /.modal-content -->
-          </div>
-          <!-- /.modal-dialog -->
-        </div>
-        <!-- /.modal -->
+               
+   
  
       
       
@@ -489,16 +520,24 @@ ArrayList list_resum_intev=(ArrayList) session.getAttribute("list_resum_intev");
              
               <% String dis="" ; 
               
-              if(td.getEtat_Validation().equalsIgnoreCase("1"))
+              if(td.getEtat_Validation().equalsIgnoreCase("1"))//si ell n pa valider
               {
             	  
             	  %> 
             	   <i class="glyphicon glyphicon-ok"></i>
             	   <% }
               else{ %> 
-              <button type="button"  id="button_4<%=td.getId_intervention()%>" class="btn-xs btn-social-icon btn-twitter"  onclick="valider_intervention('<%=td.getId_intervention()%>','<%=td.getNOM_TECHNICIEN()%>','<%=td.getPROGRAMMER()%>')">
-            <i class="glyphicon glyphicon-ok"></i>
-            </button>
+        <% if(!(td.getIndicateur_status().equalsIgnoreCase("0")&& td.getDATE_INTERVENTION()!=null))// si pa nouvelle affectation
+				{
+					%>
+					<button type="button"  id="button_4<%=td.getId_intervention()%>" class="btn-xs btn-social-icon btn-twitter"  onclick="valider_intervention('<%=td.getId_intervention()%>','<%=td.getNOM_TECHNICIEN()%>','<%=td.getPROGRAMMER()%>')">
+					<i class="glyphicon glyphicon-ok"></i>
+					</button>
+				<%	
+				}%>
+            
+            
+            
 				  <% }%> 
 				 
 				 </td>
@@ -545,6 +584,8 @@ ArrayList list_resum_intev=(ArrayList) session.getAttribute("list_resum_intev");
             <!-- /.box-body -->
           </div>
           <!-- /.box -->
+          
+
 
 		<div class="box" style="width: 100%; position=center;">
               <div class="row" >
@@ -553,11 +594,9 @@ ArrayList list_resum_intev=(ArrayList) session.getAttribute("list_resum_intev");
               <div class="box box-default collapsed-box">
             <div class="box-header with-border">
               <h3 class="box-title"><i class="glyphicon glyphicon-list-alt"></i> Tableau des interventions</h3>
-              <!-- /.box-tools -->
+             
             </div>
-            <!-- /.box-header -->
-            
-            <!-- /.box-body -->
+  
           </div>
                 </div>
                 
@@ -675,10 +714,20 @@ $('#collapseExample').collapse({
  
 </script>
  
-<% session.removeAttribute("ranifimodif"); %>
+<%session.removeAttribute("ranifimodif");
+ 
+%>
+
+
+<%session.removeAttribute("ranifimodif");
+ 
+%>
 
 </s:if>
 
+ <%
+ session.setAttribute("id_ticket","");
+%>
 <script>
 
 
@@ -782,27 +831,39 @@ $('#collapseExample').collapse({
   
   function modifier_intervention (Id_intervention,Id_technicien,date_intervention)
   {
+	  
+	  
+	  
 		   
   document.getElementById('Id_intervention').value=Id_intervention;
   document.getElementById('Id_technicien').value=Id_technicien;
   document.getElementById('date_intervention').value=date_intervention;
+  
+  if(Id_technicien=='null' ||date_intervention=='null')
+	 {
+	  $('#myModalModif').modal({
+		  keyboard: false
+		}) 
+	 
+	 }else{
+  
+  
   document.getElementById('f1').action="modifier_intervention?methodtocall=modifier_intervention";
   document.getElementById('f1').submit();
-
+	 }
 
   }
 
 
 function modif_dispatch (Id_intervention)
-{ 
+
+{
 	
-	   
-	
-	  
+  
  document.getElementById('Id_intervention').value=Id_intervention;
 document.getElementById('f1').action="modif_dispatch?methodtocall=modif_dispatch";
 document.getElementById('f1').submit();
-
+	 
 
 }
 
@@ -842,11 +903,19 @@ document.getElementById('f1').submit();
 
 }
 
+function annuler_Modification_dispatch() 
+     {
+
+
+	document.getElementById('f1').action="annuler_Modification_dispatch?methodtocall=annuler_Modification_dispatch";
+	document.getElementById('f1').submit();
+	
+	
+	
+	
+     }
 
 </script>    
-
-
- 
 
  
 </body>

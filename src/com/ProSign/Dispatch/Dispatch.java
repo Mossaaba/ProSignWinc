@@ -46,6 +46,7 @@ public class Dispatch extends ActionSupport implements ServletContextAware, Serv
 	     HttpSession session = this.request.getSession();
 		 dbap db=new dbap();
 		
+		 session.setAttribute("id_ticket","");
 		 
 		 ArrayList list_tech=(ArrayList) db.Get_ListeTechniciens();
 	     session.setAttribute("list_tech",list_tech);
@@ -53,18 +54,52 @@ public class Dispatch extends ActionSupport implements ServletContextAware, Serv
 	     ArrayList list_dispatch=(ArrayList) db.Get_result_Dispatch();
 	     session.setAttribute("list_dispatch",list_dispatch);
 	     
-	     ArrayList list_resum_intev=(ArrayList) db.Get_Nbr_Interv_tech();
-	     session.setAttribute("list_resum_intev",list_resum_intev);
-	   
+	 //    ArrayList list_resum_intev=(ArrayList) db.Get_Nbr_Interv_tech();
+	 //    session.setAttribute("list_resum_intev",list_resum_intev);
+	     ArrayList list_resum_intev=new ArrayList();
+	     
+	     
 	     session.setAttribute("historique_dispatching",new ArrayList());
 	     
 	     session.setAttribute("forTemp",new Form_temp());
+	     
+	     int cont=0;
+	     for(int i=0;i<list_tech.size();i++)
+	     {List tmp=(List)list_tech.get(i);
+	     
+	     List tt=new ArrayList();
+	     tt.add(tmp.get(1).toString());
+	     for(int j=0;j<list_dispatch.size();j++)
+	     { Table_Dispatch td=(Table_Dispatch)list_dispatch.get(j);
+	    	 if(tmp.get(0).toString().equalsIgnoreCase(td.getId_technicien()))
+	    	 {
+	    		 cont=cont+1;
+	    	 }
+	    	 
+	    	 
+	     }
+	     
+	     tt.add(cont);
+	     
+	     list_resum_intev.add(tt);
+	     cont=0;
+	     }
+	     
+	   
+	     
+	     
+	     session.setAttribute("list_resum_intev",list_resum_intev);
+	     
 	     
 	     
   return "dispatch";
  }
  
- 
+ public String annuler_Modification_dispatch() throws Exception 
+ {
+	    
+  return "dispatch";
+ }
  
  public String modifier_intervention() throws Exception {
 
@@ -165,6 +200,8 @@ public class Dispatch extends ActionSupport implements ServletContextAware, Serv
 	
 	 HttpSession session = this.request.getSession();
 	 String id_ticket=request.getParameter("id_ticket");
+	 session.setAttribute("id_ticket",id_ticket);
+	 
 	 
 	 dbap db=new dbap();
 	 
