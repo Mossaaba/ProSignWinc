@@ -140,8 +140,8 @@ Ticket_form tf =(Ticket_form)session.getAttribute("tf");
 				
      <s:form action="/Ticket.action" method="POST" id="f1" target="_parent"> 
      <input type ="hidden" name ="id_ticket" id="id_ticket" value="">
-     <input type ="hidden" name ="min_date" id="min_date" value="">
-     <input type ="hidden" name ="max_date" id="max_date" value="">
+     <input type ="hidden" name ="min_date" id="min_date" >
+     <input type ="hidden" name ="max_date" id="max_date"  >
      
      
       <!-- SELECT2 EXAMPLE -->
@@ -418,10 +418,6 @@ Ticket_form tf =(Ticket_form)session.getAttribute("tf");
               </div>
             </div> 			
 			</div>
-			
-			
-			
-			
 		 
             <!--------------------------------------------------------------------------->
             <!-----------------------------------DATE------------------------------------->
@@ -440,7 +436,7 @@ Ticket_form tf =(Ticket_form)session.getAttribute("tf");
                   <div class="input-group-addon">
                     <i class="fa fa-clock-o"></i>
                   </div>
-					<input type="text" id="min_date" name="min_date">
+					<input type="text"   id="min_date" name="min_date">
                                
                 </div>
                 
@@ -457,7 +453,7 @@ Ticket_form tf =(Ticket_form)session.getAttribute("tf");
                     <i class="fa fa-clock-o"></i>
                   </div>
 					
-                    <input type="text" id="max_date" name="max_date">               
+                    <input type="text"   id="max_date" name="max_date">               
                 </div>
               </div>
             </div> 			
@@ -851,11 +847,15 @@ function change_client()
 function genereTableau(min_date,max_date)
 {
 	
+	
+	
+	
 	var min_date = document.getElementById("min_date").value;
     document.getElementById("min_date").innerHTML = min_date;
     
     var max_date = document.getElementById("max_date").value;
     document.getElementById("max_date").innerHTML = max_date;
+    
    
 document.getElementById('f1').action="genereTableau?methodtocall=genereTableau";
 document.getElementById('f1').submit();

@@ -435,13 +435,13 @@ import com.ProSign.connect.connect;
         {
         	subreq=subreq+" TEC.ID_TECHNICIEN='"+tf.getTechnicien()+"' and ";
         }
-        if(!tf.getDate_range_min().equalsIgnoreCase("-1") && !tf.getDate_range_max().equalsIgnoreCase("-1") )
+        if(!(tf.getDate_range_min().equals("")) && !(tf.getDate_range_max().equals("")) )
         {
         	subreq=subreq+" T.DATE_SIGNALISATION >= '"+tf.getDate_range_min()+"' and T.DATE_SIGNALISATION <= '"+ tf.getDate_range_max()+ "' and ";
         }
        
 
-        req=req+subreq+" 1=1";
+        req=req+subreq+" 1=1 ";
         
            PreparedStatement pstmt = ma_connection.prepareStatement(req);
            ResultSet resultset = pstmt.executeQuery();

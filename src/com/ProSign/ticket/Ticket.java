@@ -166,7 +166,6 @@ public class Ticket extends ActionSupport implements ServletContextAware, Servle
 	    String agence=request.getParameter("agence");
 	    String type=request.getParameter("type");
 	    String technicien=request.getParameter("technicien");
-	
 	    String referece_machine=request.getParameter("referece_machine");
 	    String date_range_min = request.getParameter("min_date");
 	    String date_range_max = request.getParameter("max_date");
@@ -184,7 +183,6 @@ public class Ticket extends ActionSupport implements ServletContextAware, Servle
 	    tf.setAgence(agence);
 	    tf.setType(type);
 	    tf.setTechnicien(technicien);
-	   
 	    tf.setReferece_machine(referece_machine);
 	    tf.setDate_range_max(date_range_max);
 	    tf.setDate_range_min(date_range_min);
