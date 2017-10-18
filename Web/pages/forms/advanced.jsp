@@ -145,14 +145,21 @@ Ticket_form tf =(Ticket_form)session.getAttribute("tf");
      
      
       <!-- SELECT2 EXAMPLE -->
-      <div class="box box-default" style="width : 100%;">
+      <div class="box box-primary" style="width : 100%;">
+      
+           
+      	<div class="col-xs-12 text-center" >
         <div class="box-header with-border">
-          <h3 class="box-title">Filtres de recherche</h3>
+          <h3 class="box-title"><i class="glyphicon glyphicon-search">
+              </i> &nbsp; Filtres de recherche</h3>
 
           <div class="box-tools pull-right">
             <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
           </div>
         </div>
+        </div>
+        
+        
         <!-- /.box-header -->
         <div class="box-body">
           <div class="row">
@@ -280,11 +287,10 @@ Ticket_form tf =(Ticket_form)session.getAttribute("tf");
                   tt="selected=\"selected\""; //selection de l'option region
                   }
                  %>
-		                <option <%=tt%>   
-		                value="<%=tmp.get(0).toString()%>"><%=tmp.get(1).toString()%>
-		                </option>
-		         <%} %>
-                 
+                <option <%=tt%>   
+                value="<%=tmp.get(0).toString()%>"><%=tmp.get(1).toString()%>
+                </option>
+		         <%} %>  
                 </select>
               </div>
               </div>
@@ -490,8 +496,9 @@ Ticket_form tf =(Ticket_form)session.getAttribute("tf");
 		  
         </div>
 		
+	
 		
-		
+		</div>
 		</div>
 		 </s:form> 
 		 
@@ -506,23 +513,46 @@ Ticket_form tf =(Ticket_form)session.getAttribute("tf");
 				  <!----------------------------------------------------------------------------->
 				  <!----------------------------------------------------------------------------->   
          
-         
-            <div class="box" style="width: 100%; position=center;">
-              <div class="row" >
+       <div class="row" >
+                
                 <div class="col-xs-12 text-center" >
-              Resultat de recherche
-                </div>
+              <div class="box box-primary ">
+            
+              
+              <div class="box-header with-border">
+              <h3 class="box-title"><i class="glyphicon glyphicon-arrow-down">
+              </i>&nbsp;Resultat de recherche</h3>
+                 
+               <div class="box-tools pull-right">
                 
               </div>
-              <!-- /.row -->
-            </div>
+			  </div>
+		
+			</div>
+			</div>
+		
+			</div>
 
 <!-- /.box -->
 
-          <div class="box">
-            <div class="box-header">
-              <h3 class="box-title">Tableau de suivi des tickets</h3>
-            </div>
+          <div class="row" >
+             <div class="col-xs-12 text-center" >
+              <div class="box box-primary ">
+            
+              
+              <div class="box-header with-border">
+              <h3 class="box-title"><i class="glyphicon glyphicon-list-alt">
+              </i>&nbsp;Tableau de suivi des tickets</h3>
+                 
+               <div class="box-tools pull-right">
+                
+              </div>
+			  </div>
+		
+			
+			
+			
+			
             <!-- /.box-header -->
             <div class="box-body">
               <table id="example1" class="table table-bordered table-striped">
@@ -591,7 +621,10 @@ Ticket_form tf =(Ticket_form)session.getAttribute("tf");
               </table>
             </div>
             <!-- /.box-body -->
+         </div>
           </div>
+          </div>
+  
           <!-- /.box -->
 
 		
@@ -600,11 +633,13 @@ Ticket_form tf =(Ticket_form)session.getAttribute("tf");
 		<div class="row">
      
       
-	  <div class="col-xs-12">
+	  <div class="col-xs-12 text-center">
 	  
-	<div class="box">
+	<div class="box box-info">
             <div class="box-header">
-              <h3 class="box-title">Tableau des interventions</h3>
+            <i class="glyphicon glyphicon-eye-open">
+              </i>
+              <h3 class="box-title"> &nbsp;Tableau des interventions</h3>
               <div class="box-tools">
                 <div class="input-group input-group-sm" style="width: 150px;">
                   <input type="text" name="table_search" class="form-control pull-right" placeholder="Search">
