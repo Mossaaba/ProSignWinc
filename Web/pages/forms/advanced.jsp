@@ -12,11 +12,14 @@ ArrayList list_wilaya =(ArrayList)session.getAttribute("list_wilaya");
 ArrayList list_ville =(ArrayList)session.getAttribute("list_ville");
 ArrayList list_agence =(ArrayList)session.getAttribute("list_agence");
 ArrayList list_client =(ArrayList)session.getAttribute("list_client");
-ArrayList list_typeMachine =(ArrayList)session.getAttribute("list_typeMachine");
+
 ArrayList list_tech =(ArrayList)session.getAttribute("list_tech");
 List list_res =(List)session.getAttribute("list_res");
 List list_res_details =(List)session.getAttribute("list_res_details");
 Ticket_form tf =(Ticket_form)session.getAttribute("tf");
+ArrayList list_typeMachine =(ArrayList)session.getAttribute("list_typeMachine");
+ArrayList liste_refrenceMachine =(ArrayList)session.getAttribute("liste_refrenceMachine");
+
 %>
 <!DOCTYPE html>
 <html>
@@ -300,7 +303,7 @@ Ticket_form tf =(Ticket_form)session.getAttribute("tf");
 		    <!----------------------------------------------------------------------------->
                 <div class="form-group">
                 <label>Agence&nbsp;&nbsp;</label>
-                <select name="agence" class="form-control select2" style="width: 100%;">
+                <select name="agence" onchange="change_agence()" class="form-control select2" style="width: 100%;">
                   <option  value="-1" selected="selected">...</option>
             <!----------------------------- GET LA LISTE AGENCE--------------------------->
                   <%
@@ -330,7 +333,7 @@ Ticket_form tf =(Ticket_form)session.getAttribute("tf");
               <div class="col-md-3"> 
               <div class="form-group">
                 <label>Type&nbsp;&nbsp;</label>
-                <select name="type" class="form-control select2" style="width: 100%;">
+                <select name="type" onchange="change_type()" class="form-control select2" style="width: 100%;">
                   <option  value="-1" selected="selected">...</option>
                   
             <!----------------------------- GET LA LISTE TYPE MACHINE---------------------->
@@ -339,15 +342,15 @@ Ticket_form tf =(Ticket_form)session.getAttribute("tf");
                     	List tmp=(List)list_typeMachine.get(i);
                     	
                     	 String tt="";
-                     	
-                    	 if(tmp.get(0).toString().equalsIgnoreCase(tf.getReferece_machine()))	
-                         {
+                    	 
+                    	 if(tmp.get(0).toString().equalsIgnoreCase(tf.getType()))	
+                         {	
                          tt="selected=\"selected\""; //selection de l'option region
                          }
                 	 %>
    					<option <%=tt%>
    					value="<%=tmp.get(0).toString()%>">
-   					<%=tmp.get(1).toString()%></option>
+   					<%=tmp.get(0).toString()%></option>
    					
                  <%} %>
                 </select>
@@ -366,9 +369,24 @@ Ticket_form tf =(Ticket_form)session.getAttribute("tf");
                 <label>&nbsp;&nbsp;&nbsp;&nbsp;Code Machine&nbsp;&nbsp;&nbsp;</label>
                 <select name="referece_machine"  class="form-control select2" style="width: 100%;">
                   <option value="-1" selected="selected">...</option>
-                  <option>CINIEO</option>
-                  <option>2550</option>
-				  <option>Prima</option>
+                  <% 
+                  System.out.println("ssssssssssssssssssssss"+liste_refrenceMachine);
+                 
+                    for(int i=0;i<liste_refrenceMachine.size();i++){ 
+                    	List tmp=(List)liste_refrenceMachine.get(i);
+                    	
+                    	 String tt="";
+                     	
+                    	 if(tmp.get(0).toString().equalsIgnoreCase(tf.getReferece_machine()))	
+                         {
+                         tt="selected=\"selected\""; //selection de l'option region
+                         }
+                	 %>
+   					<option <%=tt%>
+   					value="<%=tmp.get(0).toString()%>">
+   					<%=tmp.get(0).toString()%></option>
+   					
+                 <%} %>
                 </select>
               </div>
             </div>
@@ -879,6 +897,24 @@ function change_client()
 	  document.getElementById('f1').submit();
 }
 
+function change_agence()
+
+{
+	
+	  document.getElementById('f1').action= "change_agence?methodtocall=change_agence";
+	  document.getElementById('f1').submit();
+}
+
+
+function change_type()
+{
+	
+	  document.getElementById('f1').action= "change_type?methodtocall=change_type";
+	  document.getElementById('f1').submit();
+}
+
+
+
 function genereTableau(min_date,max_date)
 {
 	
@@ -917,6 +953,9 @@ document.getElementById('f1').submit();
 
 
 }
+
+
+
 
 </SCRIPT>  
  

@@ -60,8 +60,12 @@ public class menu_ticket extends ActionSupport implements ServletContextAware, S
 		session.setAttribute("list_agence",list_agence );
 
 		
-		ArrayList list_typeMachine=(ArrayList) db.Get_ListeTypeMachine();
+		ArrayList list_typeMachine=(ArrayList) db.Get_ListeTypeMachine(list_agence);
 		session.setAttribute("list_typeMachine",list_typeMachine);
+		
+		ArrayList liste_refrenceMachine=(ArrayList) db.Get_ListeRefrence_Machine( list_typeMachine);
+		session.setAttribute("liste_refrenceMachine",liste_refrenceMachine);
+		
 		
 		ArrayList list_tech=(ArrayList) db.Get_ListeTechniciens();
 		session.setAttribute("list_tech",list_tech);

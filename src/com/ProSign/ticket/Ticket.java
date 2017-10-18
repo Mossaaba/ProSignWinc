@@ -13,6 +13,7 @@ import java.io.ByteArrayInputStream;
 import org.apache.struts2.util.ServletContextAware;
 import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.interceptor.ServletRequestAware; 
+import org.omg.CORBA.portable.RemarshalException;
 
 import javassist.expr.NewArray;
 
@@ -69,8 +70,11 @@ public class Ticket extends ActionSupport implements ServletContextAware, Servle
 		
 		ArrayList list_agence=(ArrayList) db.Get_AGENCE(region,"-1","-1","-1");
 		session.setAttribute("list_agence",list_agence );
-	 
-	 
+		
+		ArrayList list_typeMachine=(ArrayList) db.Get_ListeTypeMachine(list_agence);
+		session.setAttribute("list_typeMachine",list_typeMachine );
+		ArrayList liste_refrenceMachine = (ArrayList) db.Get_ListeRefrence_Machine(list_typeMachine);
+		session.setAttribute("liste_refrenceMachine",liste_refrenceMachine );
 	  return "advanced";
 	 }
  
@@ -98,13 +102,17 @@ public class Ticket extends ActionSupport implements ServletContextAware, Servle
 		session.setAttribute("list_agence",list_agence );
 		
 		
-		ArrayList list_typeMachine=(ArrayList) db.Get_ListeTypeMachine();
+		ArrayList list_typeMachine=(ArrayList) db.Get_ListeTypeMachine(list_agence);
 		session.setAttribute("list_typeMachine",list_typeMachine );
 	 
 		ArrayList list_tech =(ArrayList) db.Get_ListeTechniciens();
 		session.setAttribute("list_tech",list_tech );
-	 
-	  return "advanced";
+
+		ArrayList liste_refrenceMachine = (ArrayList) db.Get_ListeRefrence_Machine(list_typeMachine);
+		session.setAttribute("liste_refrenceMachine",liste_refrenceMachine );
+
+		
+		return "advanced";
 	 }
 
  public String change_ville() throws Exception {
@@ -127,8 +135,14 @@ public class Ticket extends ActionSupport implements ServletContextAware, Servle
 		ArrayList list_agence=(ArrayList) db.Get_AGENCE("-1","-1",ville,"-1");
 		session.setAttribute("list_agence",list_agence );
 	 
-	 
-	  return "advanced";
+		ArrayList list_typeMachine=(ArrayList) db.Get_ListeTypeMachine(list_agence);
+		session.setAttribute("list_typeMachine",list_typeMachine );
+
+		ArrayList liste_refrenceMachine = (ArrayList) db.Get_ListeRefrence_Machine(list_typeMachine);
+		session.setAttribute("liste_refrenceMachine",liste_refrenceMachine );
+
+		
+		return "advanced";
 	 }
  
  public String change_client() throws Exception {
@@ -147,14 +161,85 @@ public class Ticket extends ActionSupport implements ServletContextAware, Servle
 	    Ticket_form tf =(Ticket_form)session.getAttribute("tf");
 	    tf.setClient(client);
 	    session.setAttribute("tf",tf );
-	    System.out.println(""+client);
+
 		ArrayList list_agence=(ArrayList) db.Get_AGENCE(region,wilaya,ville,client);
 		session.setAttribute("list_agence",list_agence );
 	 
+		ArrayList list_typeMachine=(ArrayList) db.Get_ListeTypeMachine(list_agence);
+		session.setAttribute("list_typeMachine",list_typeMachine );
+		
+		ArrayList liste_refrenceMachine = (ArrayList) db.Get_ListeRefrence_Machine(list_typeMachine);
+		session.setAttribute("liste_refrenceMachine",liste_refrenceMachine );
+
 	 
 	  return "advanced";
 	 } 
 
+ public String change_agence() throws Exception {
+
+	    HttpSession session = this.request.getSession();
+	    String agence=request.getParameter("agence");
+		dbap db=new dbap(); 
+		
+	    Ticket_form tf =(Ticket_form)session.getAttribute("tf");
+	    tf.setAgence(agence);
+        session.setAttribute("tf",tf );
+ 
+        ArrayList list_agence = new ArrayList();
+        List tmp=new ArrayList();
+        tmp.add(agence);
+        tmp.add("");
+        tmp.add("");
+        tmp.add("");
+      
+        list_agence.add(tmp);
+        
+		ArrayList list_typeMachine=(ArrayList) db.Get_ListeTypeMachine(list_agence);
+		session.setAttribute("list_typeMachine",list_typeMachine );
+	 
+		ArrayList liste_refrenceMachine = (ArrayList) db.Get_ListeRefrence_Machine(list_typeMachine);
+		session.setAttribute("liste_refrenceMachine",liste_refrenceMachine );
+
+		
+	  return "advanced";
+	 } 
+ 
+ 
+ public String change_type() throws Exception {
+
+	    HttpSession session = this.request.getSession();
+	   
+	    String type=request.getParameter("type");
+	    
+		dbap db=new dbap(); 
+		
+	    Ticket_form tf =(Ticket_form)session.getAttribute("tf");
+	   
+	    tf.setType(type);
+        session.setAttribute("tf",tf );
+
+        
+        
+        ArrayList list_typeMachine = new ArrayList();
+        List tmp=new ArrayList();
+        tmp.add(type);
+         
+      
+        list_typeMachine.add(tmp);
+        
+      //  ArrayList list_agence =(ArrayList)session.getAttribute("list_agence");
+	         
+	//	ArrayList list_typeMachine=(ArrayList) db.Get_ListeTypeMachine(list_agence);
+        
+		ArrayList liste_refrenceMachine = (ArrayList) db.Get_ListeRefrence_Machine(list_typeMachine);
+		
+		session.setAttribute("liste_refrenceMachine",liste_refrenceMachine );
+	 
+	 
+	    return "advanced";
+	 } 
+ 
+ 
  public String genereTableau() throws Exception
  {
 
@@ -204,7 +289,7 @@ public class Ticket extends ActionSupport implements ServletContextAware, Servle
 	    
 		dbap db=new dbap(); 
         
-		
+		// vider l'objet ticket form
 	    Ticket_form tf =(Ticket_form)session.getAttribute("tf");
 	    tf.setClient("");
 	    tf.setRegion("");
@@ -218,8 +303,7 @@ public class Ticket extends ActionSupport implements ServletContextAware, Servle
 	    tf.setReferece_machine("");
 	    session.setAttribute("tf",tf );
 	    
-	    
-	   
+
 	    session.setAttribute("list_res",new ArrayList());
 	    session.setAttribute("list_res_details",new ArrayList());
 
@@ -240,7 +324,7 @@ public class Ticket extends ActionSupport implements ServletContextAware, Servle
 			Tableau_Sign_Details tsd =(Tableau_Sign_Details)session.getAttribute("Tsd1");
 
 		    session.setAttribute("tsd",tsd );
-		    System.out.println("azazaza"+tsd);
+		   
 
 		    List list_res_details= db.Get_result_rech_sign_details(id_ticket,tsd);
 		    session.setAttribute("list_res_details",list_res_details );

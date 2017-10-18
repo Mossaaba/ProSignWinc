@@ -98,7 +98,6 @@ import com.ProSign.connect.connect;
 
     }
 	
-	
 	public List Get_VILLE(String reg,String wil) 
 	{
 		String req = "SELECT N_VILLE,NOM_VILLE from dbo.VILLE";
@@ -146,7 +145,6 @@ import com.ProSign.connect.connect;
         return result;
 
     }
-	
 	
 	public List Get_CLIENT(String reg,String wil,String ville)
 
@@ -212,7 +210,8 @@ import com.ProSign.connect.connect;
         return result ;
 
     }
-	public List Get_AGENCE(String reg,String wil, String vil,String clin)
+	
+    public List Get_AGENCE(String reg,String wil, String vil,String clin)
 	{
 		String subreq = "";
 		String req = "SELECT a.ID_AGENCE,a.CODE_AGENCE,a.NOM_AGENCE,a.NCLIENT "
@@ -303,26 +302,43 @@ import com.ProSign.connect.connect;
 
     }
 	
-	
-	public ArrayList Get_ListeTypeMachine()
+	public ArrayList Get_ListeTypeMachine(ArrayList list_agence)
 	 {
+			
+		String subreq = "";
+		 String req1 = "select  distinct       " 
+         		
+         		+ "   m.TYPE_MACHINE   "
+         		
+         		+ "   from MACHINE m    "
+         		+ "    where   ";
+
+		  
+		for (int i=0;i<list_agence.size();i++)
+		{List tmp=(List)list_agence.get(i);
+			
+		
+		subreq=subreq+"'"+tmp.get(0).toString()+"',";
+		}
+		
+		subreq=subreq+"'-1'";		
+		subreq=" m.ID_AGENCE in  ("+subreq+") and ";   	
+	     req1=req1+subreq+" 1=1 ";
 
         ArrayList result = new ArrayList();
         try {
             connect dbc = new connect();
 
             Connection ma_connection = dbc.DbConnect();
-
-            String req = "select distinct TYPE_MACHINE,TYPE_MACHINE from TYPE_MACHINE";
-
-            PreparedStatement pstmt = ma_connection.prepareStatement(req);
+    
+            PreparedStatement pstmt = ma_connection.prepareStatement(req1);
 
             ResultSet resultset = pstmt.executeQuery();
             while (resultset.next()) {
                 List tp=new ArrayList();
                 
                 tp.add(resultset.getString(1));
-                tp.add(resultset.getString(1));
+                
                 
                 result.add(tp);
 
@@ -337,6 +353,66 @@ import com.ProSign.connect.connect;
         return result;
 
     }
+	
+	
+	public ArrayList Get_ListeRefrence_Machine( ArrayList list_type_machine)
+	 {
+		
+		 
+		String subreq2 = "";
+		 String req1 = "select  distinct    " 
+        		+ "   m.REFERENCE_MACHINE   "
+        		+ "   from MACHINE m        "
+        		+ "    where                ";
+
+		  
+		 
+		
+		for (int j=0;j<list_type_machine.size();j++)
+		
+		{
+			List tmp=(List)list_type_machine.get(j);
+			subreq2=subreq2+"'"+tmp.get(0).toString()+"',";
+			
+		}
+		
+	 
+		subreq2=subreq2+"'-1'";
+		
+		 
+		subreq2= " m.TYPE_MACHINE in ("+subreq2+")  and  ";
+		
+	     req1= req1 + subreq2 +" 1=1 ";
+
+       ArrayList result = new ArrayList();
+       try {
+           connect dbc = new connect();
+
+           Connection ma_connection = dbc.DbConnect();
+   
+           PreparedStatement pstmt = ma_connection.prepareStatement(req1);
+
+           ResultSet resultset = pstmt.executeQuery();
+           while (resultset.next()) {
+               List tp=new ArrayList();
+               
+               tp.add(resultset.getString(1));
+               
+               
+               result.add(tp);
+
+           }
+           resultset.close();
+           pstmt.close();
+           ma_connection.close();
+       } catch (Exception  ee) {
+           ee.printStackTrace();
+       }
+
+       return result;
+
+
+   }
 	
 	public ArrayList Get_ListeTechniciens()
 	 {
@@ -371,7 +447,6 @@ import com.ProSign.connect.connect;
         return result;
 
     }
-	
 	
 	public ArrayList Get_result_rech_sign(Ticket_form tf)
 {
@@ -472,7 +547,7 @@ import com.ProSign.connect.connect;
 
    }
 	
-			public ArrayList Get_result_rech_sign_details(String id_ticket , Tableau_Sign_Details tsd)
+    public ArrayList Get_result_rech_sign_details(String id_ticket , Tableau_Sign_Details tsd)
 		{
 		
 		       ArrayList result = new ArrayList();
@@ -526,7 +601,7 @@ import com.ProSign.connect.connect;
 		
 		   }
 			
-			 public ArrayList Get_result_Dispatch()
+	public ArrayList Get_result_Dispatch()
 	{
 
 	       ArrayList result = new ArrayList();
@@ -618,7 +693,7 @@ import com.ProSign.connect.connect;
 
 	   }
 
-	  public int UpdateDispatch(String id_interv,String id_tech,String date_inter) {
+	public int UpdateDispatch(String id_interv,String id_tech,String date_inter) {
 
           
 
@@ -691,7 +766,7 @@ import com.ProSign.connect.connect;
           return result;
 }	                
 	  
-	  public int ValiderDispatch(String id_interv) 
+	public int ValiderDispatch(String id_interv) 
 	  {
 
 
@@ -762,7 +837,7 @@ import com.ProSign.connect.connect;
           return result;
 }	   
 	  
-	  public ArrayList Get_result_rech_intervention (String id_ticket)
+	public ArrayList Get_result_rech_intervention (String id_ticket)
 	  {
 
 	       ArrayList result = new ArrayList();
@@ -815,9 +890,8 @@ import com.ProSign.connect.connect;
 		  
 		  
 	  }
-	  
-	  
-	  public ArrayList Envoi_SMS_AFTER_VALIDATION(String id_inter )
+	    
+	public ArrayList Envoi_SMS_AFTER_VALIDATION(String id_inter )
 	  {
 
 	         ArrayList result = new ArrayList();
@@ -891,9 +965,7 @@ String tel="";
 
 	     }
 	
-	  
-
-		public ArrayList Get_Nbr_Interv_tech()
+	public ArrayList Get_Nbr_Interv_tech()
 	{
 	
 	       ArrayList result = new ArrayList();

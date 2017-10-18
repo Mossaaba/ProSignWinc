@@ -78,6 +78,16 @@
       </action>
        
        
+       <action name="change_agence" method="change_agence" class="com.ProSign.ticket.Ticket">
+            <result name="advanced">/pages/forms/advanced.jsp</result>
+            <result name="no">/no.jsp</result>
+      </action>
+      
+      <action name="change_type" method="change_type" class="com.ProSign.ticket.Ticket">
+            <result name="advanced">/pages/forms/advanced.jsp</result>
+            <result name="no">/no.jsp</result>
+      </action>
+       
        <action name="genereTableau" method="genereTableau" class="com.ProSign.ticket.Ticket">
             <result name="advanced">advanced.jsp</result>
             <result name="no">/no.jsp</result>
