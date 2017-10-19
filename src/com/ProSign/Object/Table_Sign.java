@@ -77,16 +77,7 @@ public class Table_Sign
 
 
 
-	public String getStatus() {
-		return status;
-	}
-
-
-
-	public void setStatus(String status) {
-		this.status = status;
-	}
-
+	
 
 
 	public String getTechnicien() {
@@ -123,7 +114,7 @@ public class Table_Sign
 	 private String type_machine;
 	 private String refrence_machine;
 	 private String technicien;
-	 private String status;
+	 private String status_ticket;
 	 private String consult;
 
 	 
@@ -138,7 +129,7 @@ public class Table_Sign
 		  date_sign="";
 		  type_machine="";
 		  refrence_machine="";
-		  status="";
+		  status_ticket="";
 		  technicien="";
 		  consult="";
 	 }
@@ -153,6 +144,18 @@ public class Table_Sign
 
 	public void setRefrence_machine(String refrence_machine) {
 		this.refrence_machine = refrence_machine;
+	}
+
+
+
+	public String getStatus_ticket() {
+		return status_ticket;
+	}
+
+
+
+	public void setStatus_ticket(String status_ticket) {
+		this.status_ticket = status_ticket;
 	}
 	 
 	 

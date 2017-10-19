@@ -24,6 +24,7 @@ public class Ticket_form
 	 private String technicien;
 	 private String date_range_min;
 	 private String date_range_max;
+	 private String status_ticket;
 	 
 	
 	
@@ -40,6 +41,7 @@ public class Ticket_form
 	   technicien="";
 	   date_range_min="";
 	   date_range_max="";
+	   status_ticket="";
 
  }
 
@@ -167,4 +169,20 @@ public String getDate_range_min() {
 public void setDate_range_min(String date_range_min) {
 	this.date_range_min = date_range_min;
 }
+
+
+
+public String getStatus_ticket() {
+	return status_ticket;
+}
+
+
+
+public void setStatus_ticket(String status_ticket) {
+	this.status_ticket = status_ticket;
+}
+
+
+
+
 }

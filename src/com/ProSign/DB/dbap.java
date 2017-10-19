@@ -354,7 +354,6 @@ import com.ProSign.connect.connect;
 
     }
 	
-	
 	public ArrayList Get_ListeRefrence_Machine( ArrayList list_type_machine)
 	 {
 		
@@ -364,10 +363,7 @@ import com.ProSign.connect.connect;
         		+ "   m.REFERENCE_MACHINE   "
         		+ "   from MACHINE m        "
         		+ "    where                ";
-
-		  
-		 
-		
+	
 		for (int j=0;j<list_type_machine.size();j++)
 		
 		{
@@ -457,25 +453,25 @@ import com.ProSign.connect.connect;
 
            Connection ma_connection = dbc.DbConnect();
 
-           String req = "SELECT	  distinct         T.ID_TICKET,"+
-												   "C.ID_CLIENT,"+
-												   "V.NOM_VILLE,"+
-												   "A.NOM_AGENCE,"+
-												   "T.DATE_SIGNALISATION,"+
-												   "M.TYPE_MACHINE,"+
-												   "M.REFERENCE_MACHINE,"+
+           String req = "SELECT	  distinct         T.ID_TICKET,  "+
+												   " C.ID_CLIENT, "+
+												   " V.NOM_VILLE, "+
+												   " A.NOM_AGENCE,"+
+												   " T.DATE_SIGNALISATION , "+
+												   " M.TYPE_MACHINE, "+
+												   " M.REFERENCE_MACHINE, "+
 												   "'',"+
 												   "T.STATUS_TICKET"+
 												   
-											" FROM TICKET T "+
-											" inner join MACHINE M on  M.ID_MACHINE=T.ID_MACHINE "+
-											" inner join AGENCE A on A.ID_AGENCE=M.ID_AGENCE "+
-											" inner join VILLE V on V.N_VILLE=A.N_VILLE  "+
-											" inner join WILAYA W on W.N_WILAYA=V.N_WILAYA "+
-											" inner join REGION R on R.REGION=W.REGION "+
-											" inner join CLIENT C on C.NCLIENT=A.NCLIENT "+
-											" left join INTERVENTION I on I.ID_TICKET=T.ID_TICKET "+
-											" left join TECHNICIEN TEC on TEC.ID_TECHNICIEN=I.ID_TECHNICIEN where ";
+													" FROM TICKET T "+
+													" inner join MACHINE M on  M.ID_MACHINE=T.ID_MACHINE "+
+													" inner join AGENCE A on A.ID_AGENCE=M.ID_AGENCE "+
+													" inner join VILLE V on V.N_VILLE=A.N_VILLE  "+
+													" inner join WILAYA W on W.N_WILAYA=V.N_WILAYA "+
+													" inner join REGION R on R.REGION=W.REGION "+
+													" inner join CLIENT C on C.NCLIENT=A.NCLIENT "+
+													" left join INTERVENTION I on I.ID_TICKET=T.ID_TICKET "+
+													" left join TECHNICIEN TEC on TEC.ID_TECHNICIEN=I.ID_TECHNICIEN where ";
            String subreq="";
       	 
       	 if(!tf.getRegion().equalsIgnoreCase("-1"))
@@ -504,7 +500,7 @@ import com.ProSign.connect.connect;
         }
          if(!tf.getReferece_machine().equalsIgnoreCase("-1"))
          {
-          	subreq=subreq+"M.REFERENCE_MACHINE='"+tf.getMachine()+"' and ";
+          	subreq=subreq+"M.REFERENCE_MACHINE='"+tf.getReferece_machine()+"' and ";
          } 
         if(!tf.getTechnicien().equalsIgnoreCase("-1"))
         {
@@ -514,16 +510,27 @@ import com.ProSign.connect.connect;
         {
         	subreq=subreq+" T.DATE_SIGNALISATION >= '"+tf.getDate_range_min()+"' and T.DATE_SIGNALISATION <= '"+ tf.getDate_range_max()+ "' and ";
         }
-       
-
-        req=req+subreq+" 1=1 ";
         
+        if(!tf.getStatus_ticket().equalsIgnoreCase("-1"))
+        {
+        	subreq=subreq+" t.STATUS_TICKET ='"+tf.getStatus_ticket()+"' and  ";
+        }
+       
+        
+               
+
+            req=req+subreq+" 1=1 ";
+        
+            System.out.println(""+req);
+            
+            
            PreparedStatement pstmt = ma_connection.prepareStatement(req);
            ResultSet resultset = pstmt.executeQuery();
            while (resultset.next()) 
            
            {
         	   Table_Sign ts=new Table_Sign();
+        	   
                ts.setNticket(resultset.getString(1));
                ts.setClient(resultset.getString(2));
                ts.setVille(resultset.getString(3));
@@ -532,7 +539,8 @@ import com.ProSign.connect.connect;
                ts.setType_machine(resultset.getString(6));
                ts.setRefrence_machine(resultset.getString(7));
                ts.setTechnicien(resultset.getString(8));
-               ts.setStatus(resultset.getString(9));
+               ts.setStatus_ticket(resultset.getString(9));
+               
                result.add(ts);
 
            }
@@ -1005,4 +1013,41 @@ String tel="";
 	
 	   }
 
+	
+	public ArrayList Get_status_ticket()
+	{
+	
+	       ArrayList result = new ArrayList();
+	       try {
+	           connect dbc = new connect();
+	
+	           Connection ma_connection = dbc.DbConnect();
+	
+	           String req = "  select distinct "+
+							"  t.STATUS_TICKET "+
+							"  from TICKET t " ;
+	           PreparedStatement pstmt = ma_connection.prepareStatement(req);
+	           ResultSet resultset = pstmt.executeQuery();
+	           while (resultset.next()) 
+	           
+	           {
+	        	 List tmp=new ArrayList();
+	               
+	        	 tmp.add (resultset.getString(1));
+	       
+	              
+	               result.add(tmp);
+	
+	           }
+	           resultset.close();
+	           pstmt.close();
+	           ma_connection.close();
+	       } catch (Exception  ee) {
+	           ee.printStackTrace();
+	       }
+	
+	       return result;
+	
+	   }
+	
 }

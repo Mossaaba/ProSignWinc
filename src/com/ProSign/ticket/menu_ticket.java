@@ -40,6 +40,7 @@ public class menu_ticket extends ActionSupport implements ServletContextAware, S
 		dbap db=new dbap();
 		
 		Ticket_form tf=new Ticket_form();
+		
 		session.setAttribute("tf",tf );
 		
 		ArrayList list_region=(ArrayList) db.Get_REGION();
@@ -47,7 +48,6 @@ public class menu_ticket extends ActionSupport implements ServletContextAware, S
 		
 		ArrayList list_wilaya=(ArrayList) db.Get_WILAYA("-1");
 		session.setAttribute("list_wilaya",list_wilaya );
-		
 		
 		ArrayList list_ville=(ArrayList) db.Get_VILLE("-1","-1");
 		session.setAttribute("list_ville",list_ville );
@@ -64,13 +64,18 @@ public class menu_ticket extends ActionSupport implements ServletContextAware, S
 		session.setAttribute("list_typeMachine",list_typeMachine);
 		
 		ArrayList liste_refrenceMachine=(ArrayList) db.Get_ListeRefrence_Machine( list_typeMachine);
+		
 		session.setAttribute("liste_refrenceMachine",liste_refrenceMachine);
-		
-		
+
 		ArrayList list_tech=(ArrayList) db.Get_ListeTechniciens();
 		session.setAttribute("list_tech",list_tech);
 		
+		ArrayList type_status= (ArrayList) db.Get_status_ticket();
+		session.setAttribute("type_status",type_status);
+
 		session.setAttribute("list_res",new ArrayList() );
+		
+		
 		session.setAttribute("list_res_details",new ArrayList() );
 		
 		

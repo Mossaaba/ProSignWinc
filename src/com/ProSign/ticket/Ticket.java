@@ -73,8 +73,11 @@ public class Ticket extends ActionSupport implements ServletContextAware, Servle
 		
 		ArrayList list_typeMachine=(ArrayList) db.Get_ListeTypeMachine(list_agence);
 		session.setAttribute("list_typeMachine",list_typeMachine );
+		
 		ArrayList liste_refrenceMachine = (ArrayList) db.Get_ListeRefrence_Machine(list_typeMachine);
 		session.setAttribute("liste_refrenceMachine",liste_refrenceMachine );
+		
+		
 	  return "advanced";
 	 }
  
@@ -204,8 +207,9 @@ public class Ticket extends ActionSupport implements ServletContextAware, Servle
 	  return "advanced";
 	 } 
  
- 
  public String change_type() throws Exception {
+	 
+	 
 
 	    HttpSession session = this.request.getSession();
 	   
@@ -226,10 +230,7 @@ public class Ticket extends ActionSupport implements ServletContextAware, Servle
          
       
         list_typeMachine.add(tmp);
-        
-      //  ArrayList list_agence =(ArrayList)session.getAttribute("list_agence");
-	         
-	//	ArrayList list_typeMachine=(ArrayList) db.Get_ListeTypeMachine(list_agence);
+
         
 		ArrayList liste_refrenceMachine = (ArrayList) db.Get_ListeRefrence_Machine(list_typeMachine);
 		
@@ -239,11 +240,12 @@ public class Ticket extends ActionSupport implements ServletContextAware, Servle
 	    return "advanced";
 	 } 
  
- 
+
  public String genereTableau() throws Exception
  {
 
 	    HttpSession session = this.request.getSession();
+	    
 	    String client=request.getParameter("client");
 	    String region=request.getParameter("region");
 	    String wilaya=request.getParameter("wilaya");
@@ -254,7 +256,9 @@ public class Ticket extends ActionSupport implements ServletContextAware, Servle
 	    String referece_machine=request.getParameter("referece_machine");
 	    String date_range_min = request.getParameter("min_date");
 	    String date_range_max = request.getParameter("max_date");
-	    
+	    String status_ticket = request.getParameter("status_ticket");
+	
+	   
 	    
 	    
 		dbap db=new dbap(); 
@@ -271,6 +275,9 @@ public class Ticket extends ActionSupport implements ServletContextAware, Servle
 	    tf.setReferece_machine(referece_machine);
 	    tf.setDate_range_max(date_range_max);
 	    tf.setDate_range_min(date_range_min);
+	    tf.setStatus_ticket(status_ticket);
+	  
+	
 	    session.setAttribute("tf",tf );
 	    
 	    
@@ -301,6 +308,7 @@ public class Ticket extends ActionSupport implements ServletContextAware, Servle
 	    tf.setDate_range_max("");
 	    tf.setDate_range_min("");
 	    tf.setReferece_machine("");
+	    tf.setStatus_ticket("");
 	    session.setAttribute("tf",tf );
 	    
 

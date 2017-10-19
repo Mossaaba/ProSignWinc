@@ -76,8 +76,7 @@
             <result name="advanced">/pages/forms/advanced.jsp</result>
             <result name="no">/no.jsp</result>
       </action>
-       
-       
+
        <action name="change_agence" method="change_agence" class="com.ProSign.ticket.Ticket">
             <result name="advanced">/pages/forms/advanced.jsp</result>
             <result name="no">/no.jsp</result>

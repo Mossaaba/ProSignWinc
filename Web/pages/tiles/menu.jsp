@@ -9,7 +9,7 @@
       <!-- Sidebar user panel -->
       <div class="user-panel">
         <div class="pull-left image">
-          <img src="../../dist/img/avatar6.JPG" class="img-circ" alt="User Image">
+          <img src="../../dist/img/avatar6.JPG" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
           <p>Wincor User</p>

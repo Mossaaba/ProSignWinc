@@ -12,17 +12,17 @@ ArrayList list_wilaya =(ArrayList)session.getAttribute("list_wilaya");
 ArrayList list_ville =(ArrayList)session.getAttribute("list_ville");
 ArrayList list_agence =(ArrayList)session.getAttribute("list_agence");
 ArrayList list_client =(ArrayList)session.getAttribute("list_client");
-
 ArrayList list_tech =(ArrayList)session.getAttribute("list_tech");
 List list_res =(List)session.getAttribute("list_res");
 List list_res_details =(List)session.getAttribute("list_res_details");
 Ticket_form tf =(Ticket_form)session.getAttribute("tf");
 ArrayList list_typeMachine =(ArrayList)session.getAttribute("list_typeMachine");
 ArrayList liste_refrenceMachine =(ArrayList)session.getAttribute("liste_refrenceMachine");
-
+ArrayList type_status =(ArrayList)session.getAttribute("type_status");
 %>
 <!DOCTYPE html>
 <html>
+
 <script>
         $(document).ready(function () {
             $("#ToggleSideMenu").click(function (e) {
@@ -31,10 +31,9 @@ ArrayList liste_refrenceMachine =(ArrayList)session.getAttribute("liste_refrence
             });
         });
 </script>
+
+
 <head>
-
-
-
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>ProSign</title>
@@ -145,8 +144,7 @@ ArrayList liste_refrenceMachine =(ArrayList)session.getAttribute("liste_refrence
      <input type ="hidden" name ="id_ticket" id="id_ticket" value="">
      <input type ="hidden" name ="min_date" id="min_date" >
      <input type ="hidden" name ="max_date" id="max_date"  >
-     
-     
+  
       <!-- SELECT2 EXAMPLE -->
       <div class="box box-primary" style="width : 100%;">
       
@@ -340,7 +338,6 @@ ArrayList liste_refrenceMachine =(ArrayList)session.getAttribute("liste_refrence
                   <% 
                     for(int i=0;i<list_typeMachine.size();i++){ 
                     	List tmp=(List)list_typeMachine.get(i);
-                    	
                     	 String tt="";
                     	 
                     	 if(tmp.get(0).toString().equalsIgnoreCase(tf.getType()))	
@@ -370,8 +367,6 @@ ArrayList liste_refrenceMachine =(ArrayList)session.getAttribute("liste_refrence
                 <select name="referece_machine"  class="form-control select2" style="width: 100%;">
                   <option value="-1" selected="selected">...</option>
                   <% 
-                  System.out.println("ssssssssssssssssssssss"+liste_refrenceMachine);
-                 
                     for(int i=0;i<liste_refrenceMachine.size();i++){ 
                     	List tmp=(List)liste_refrenceMachine.get(i);
                     	
@@ -433,11 +428,26 @@ ArrayList liste_refrenceMachine =(ArrayList)session.getAttribute("liste_refrence
 			<div class="col-md-6">
               <div class="form-group">
                 <label>Status&nbsp;&nbsp;</label>
-                <select class="form-control select2" style="width: 100%;">
-                  <option value="-1" selected="selected">...</option>
-                  <option>EST</option>
-                  <option>OUEST</option>
-                  <option>SUD</option>
+                <select name ="status_ticket"  class="form-control select2" style="width: 100%;">
+                  <option value="-1"  selected="selected" >...</option>   
+                 <%
+                     
+                    for(int i=0;i<type_status.size();i++){ 
+                    	List tmp=(List)type_status.get(i);
+                    	
+                    	 String tt="";
+                      	
+                    	 if(tmp.get(0).toString().equalsIgnoreCase(tf.getStatus_ticket()))	
+                         {
+                         tt="selected=\"selected\""; //selection de l'option region
+                         }
+                    	
+                	 %>
+                  
+                  
+                  <option  <%=tt%> value="<%=tmp.get(0).toString()%>"><%=tmp.get(0).toString()%></option>
+                 <%} %>
+                 
                 </select>
               </div>
             </div> 			
@@ -460,7 +470,7 @@ ArrayList liste_refrenceMachine =(ArrayList)session.getAttribute("liste_refrence
                   <div class="input-group-addon">
                     <i class="fa fa-clock-o"></i>
                   </div>
-					<input type="text"   id="min_date" name="min_date">
+					<input type="text" value="<%=tf.getDate_range_min() %>" id="min_date" name="min_date">
                                
                 </div>
                 
@@ -476,8 +486,8 @@ ArrayList liste_refrenceMachine =(ArrayList)session.getAttribute("liste_refrence
                   <div class="input-group-addon">
                     <i class="fa fa-clock-o"></i>
                   </div>
-					
-                    <input type="text"   id="max_date" name="max_date">               
+                    <input type="text" value="<%=tf.getDate_range_max() %>"   id="max_date" name="max_date">               
+      
                 </div>
               </div>
             </div> 			
@@ -614,7 +624,7 @@ ArrayList liste_refrenceMachine =(ArrayList)session.getAttribute("liste_refrence
                   <td><%=tablSign.getAgence()%></td>
                   <td><%=tablSign.getDate_sign()%></td>
 				  <td><%=tablSign.getType_machine()%></td>
-                  <td><%=tablSign.getStatus()%></td>
+                  <td><%=tablSign.getStatus_ticket()%></td>
                   <td>
                   <a href="#" onclick="javascript:genereTableauDetail('<%=tablSign.getNticket()%>')" data-skin="skin-blue" data-toggle="popover" title="Popover Header" data-content="Some content inside the popover" class="btn btn-primary btn-xs">
                   <i class="fa fa-eye"></i>
@@ -676,11 +686,10 @@ ArrayList liste_refrenceMachine =(ArrayList)session.getAttribute("liste_refrence
                  
                   <th>Programmer</th>
                   <th>Date Intervention</th>
-                  <th>TECHNCHIEN</th>
-                  
+                  <th>Technicien</th> 
                   <th>status</th>
                   <th>Remarque</th>
-                  <th>intutule</th>
+                  <th>Intutule</th>
                 </tr>
                 
                 <% 
@@ -883,7 +892,6 @@ function change_wilaya(){
 	  document.getElementById('f1').submit();
 }
 
-
 function change_ville(){
 	 
 	  document.getElementById('f1').action= "change_ville?methodtocall=change_ville";
@@ -915,11 +923,8 @@ function change_type()
 
 
 
-function genereTableau(min_date,max_date)
+function genereTableau(min_date,max_date,status_ticket)
 {
-	
-	
-	
 	
 	var min_date = document.getElementById("min_date").value;
     document.getElementById("min_date").innerHTML = min_date;
@@ -927,9 +932,11 @@ function genereTableau(min_date,max_date)
     var max_date = document.getElementById("max_date").value;
     document.getElementById("max_date").innerHTML = max_date;
     
-   
-document.getElementById('f1').action="genereTableau?methodtocall=genereTableau";
-document.getElementById('f1').submit();
+    
+    document.getElementById('f1').action="genereTableau?methodtocall=genereTableau";
+    document.getElementById('f1').submit();
+
+
 }
 
 function genereTableauDetail(ID_ticket)
@@ -938,7 +945,6 @@ function genereTableauDetail(ID_ticket)
 document.getElementById('id_ticket').value=ID_ticket;
 document.getElementById('f1').action="genereTableauDetail?methodtocall=genereTableauDetail";
 document.getElementById('f1').submit();
-
 
 }
 
