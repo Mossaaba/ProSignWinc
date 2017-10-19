@@ -22,6 +22,56 @@
       </action>
       
       
+      <action name="preventive" class="com.ProSign.Preventive.Preventive">
+            <result name="preventive">/pages/forms/preventive.jsp</result>
+           
+      </action>
+      
+      <action name="change_region_prev" method="change_region_prev" class="com.ProSign.Preventive.Preventive">
+            <result name="preventive">/pages/forms/preventive.jsp</result>
+            <result name="no">/no.jsp</result>
+      </action>
+      
+      
+      
+         <action name="change_wilaya_prev" method="change_wilaya_prev" class="com.ProSign.Preventive.Preventive">
+            <result name="preventive">/pages/forms/preventive.jsp</result>
+            <result name="no">/no.jsp</result>
+      </action>
+      
+      
+      <action name="change_ville_prev" method="change_ville_prev" class="com.ProSign.Preventive.Preventive">
+            <result name="preventive">/pages/forms/preventive.jsp</result>
+            <result name="no">/no.jsp</result>
+      </action>
+      
+      
+      <action name="change_client_prev" method="change_client_prev" class="com.ProSign.Preventive.Preventive">
+            <result name="preventive">/pages/forms/preventive.jsp</result>
+            <result name="no">/no.jsp</result>
+      </action>
+
+       <action name="change_agence_prev" method="change_agence_prev" class="com.ProSign.Preventive.Preventive">
+            <result name="preventive">/pages/forms/preventive.jsp</result>
+            <result name="no">/no.jsp</result>
+      </action>
+      
+      <action name="change_type_prev" method="change_type_prev" class="com.ProSign.Preventive.Preventive">
+            <result name="preventive">/pages/forms/preventive.jsp</result>
+            <result name="no">/no.jsp</result>
+      </action>
+       
+       <action name="genereTableau_prev" method="genereTableau_prev" class="com.ProSign.Preventive.Preventive">
+          <result name="preventive">/pages/forms/preventive.jsp</result>
+            <result name="no">/no.jsp</result>
+      </action>
+     
+       <action name="effacerTableau_prev" method="effacerTableau_prev" class="com.ProSign.Preventive.Preventive">
+            <result name="preventive">/pages/forms/preventive.jsp</result>
+            <result name="no">/no.jsp</result>
+      </action>
+      
+      
       <action name="modifier_intervention" method="modifier_intervention" class="com.ProSign.Dispatch.Dispatch">
             <result name="dispatch">/pages/forms/Dispatch.jsp</result>
             
@@ -99,6 +149,14 @@
             <result name="advanced">/pages/forms/advanced.jsp</result>
             <result name="no">/no.jsp</result>
       </action>
+      
+      
+      
+      
+      
+      
+      
+      
       
       
    </package>

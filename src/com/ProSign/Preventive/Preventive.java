@@ -1,6 +1,4 @@
-package com.ProSign.ticket;
-
- 
+package com.ProSign.Preventive;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
@@ -9,43 +7,88 @@ import java.util.List;
 import java.util.Scanner;
 import java.io.ByteArrayOutputStream;
 import java.io.ByteArrayInputStream;
-
 import org.apache.struts2.util.ServletContextAware;
 import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.interceptor.ServletRequestAware; 
 import org.omg.CORBA.portable.RemarshalException;
-
 import javassist.expr.NewArray;
-
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import com.ProSign.DB.dbap;
 import com.ProSign.Object.Tableau_Sign_Details;
-import com.ProSign.Object.Ticket_form;
+import com.ProSign.Object.Preventive_form;
 import com.opensymphony.xwork2.ActionSupport;
 
-public class Ticket extends ActionSupport implements ServletContextAware, ServletRequestAware {
+
+
+public class Preventive extends ActionSupport implements ServletContextAware, ServletRequestAware {
 
 	private HttpServletRequest request;
-	 public void setServletRequest(HttpServletRequest request) {
+	private ServletContext context;
+	
+ public void setServletRequest(HttpServletRequest request)
+ {
 	  this.request = request;
-	 }   
-	 private ServletContext context;  
-	 public void setServletContext(ServletContext context) {  
-	  this.context = context;  
-	 } 
+	 }   	 	 
  
-
+public void setServletContext(ServletContext context) {  
+	  this.context = context;  
+} 
+ 
  public String execute() throws Exception 
  {
+	 HttpSession session = this.request.getSession();
+		dbap db=new dbap();
+		
+		Preventive_form tf=new Preventive_form();
+		
+		session.setAttribute("tf",tf );
+		
+		ArrayList list_region=(ArrayList) db.Get_REGION();
+		session.setAttribute("list_region",list_region );
+		
+		ArrayList list_wilaya=(ArrayList) db.Get_WILAYA("-1");
+		session.setAttribute("list_wilaya",list_wilaya );
+		
+		ArrayList list_ville=(ArrayList) db.Get_VILLE("-1","-1");
+		session.setAttribute("list_ville",list_ville );
+		
+		
+		ArrayList list_client=(ArrayList) db.Get_CLIENT("-1","-1","-1");
+		session.setAttribute("list_client",list_client);
+		
+		ArrayList list_agence=(ArrayList) db.Get_AGENCE("-1","-1","-1","-1");
+		session.setAttribute("list_agence",list_agence );
 
-  return "advanced";
+		
+		ArrayList list_typeMachine=(ArrayList) db.Get_ListeTypeMachine(list_agence);
+		session.setAttribute("list_typeMachine",list_typeMachine);
+		
+		ArrayList liste_refrenceMachine=(ArrayList) db.Get_ListeRefrence_Machine( list_typeMachine);
+		
+		session.setAttribute("liste_refrenceMachine",liste_refrenceMachine);
+
+		ArrayList list_tech=(ArrayList) db.Get_ListeTechniciens();
+		session.setAttribute("list_tech",list_tech);
+		
+	
+		session.setAttribute("list_res_preventive",new ArrayList() );
+		
+		
+		
+		
+		
+		// TODO Auto-generated method stub
+		
+	 
+	 
+	 
+  return "preventive";
  }
  
- public String change_region() throws Exception
+ public String change_region_prev() throws Exception
  {
 
 	 HttpSession session = this.request.getSession();
@@ -54,7 +97,7 @@ public class Ticket extends ActionSupport implements ServletContextAware, Servle
 	 
 	
 	 
-	 Ticket_form tf =(Ticket_form)session.getAttribute("tf");
+	 Preventive_form tf =(Preventive_form)session.getAttribute("tf");
 	 tf.setRegion(region);
 	 session.setAttribute("tf",tf );
 	 
@@ -78,10 +121,12 @@ public class Ticket extends ActionSupport implements ServletContextAware, Servle
 		session.setAttribute("liste_refrenceMachine",liste_refrenceMachine );
 		
 		
-	  return "advanced";
+		session.setAttribute("list_res_preventive",new ArrayList() );
+		
+	  return "preventive";
 	 }
  
- public String change_wilaya() throws Exception {
+ public String change_wilaya_prev() throws Exception {
 
 	 HttpSession session = this.request.getSession();
 	 String wilaya=request.getParameter("wilaya");
@@ -89,7 +134,7 @@ public class Ticket extends ActionSupport implements ServletContextAware, Servle
 	 
 	
 	 
-	 Ticket_form tf =(Ticket_form)session.getAttribute("tf");
+	 Preventive_form tf =(Preventive_form)session.getAttribute("tf");
 	 tf.setWilaya(wilaya);
 	 session.setAttribute("tf",tf );
 	 
@@ -113,12 +158,12 @@ public class Ticket extends ActionSupport implements ServletContextAware, Servle
 
 		ArrayList liste_refrenceMachine = (ArrayList) db.Get_ListeRefrence_Machine(list_typeMachine);
 		session.setAttribute("liste_refrenceMachine",liste_refrenceMachine );
-
+		session.setAttribute("list_res_preventive",new ArrayList() );
 		
-		return "advanced";
+		return "preventive";
 	 }
 
- public String change_ville() throws Exception {
+ public String change_ville_prev() throws Exception {
 
 	 HttpSession session = this.request.getSession();
 	 String ville=request.getParameter("ville");
@@ -126,7 +171,7 @@ public class Ticket extends ActionSupport implements ServletContextAware, Servle
 	 
 	 
 	 
-	 Ticket_form tf =(Ticket_form)session.getAttribute("tf");
+	 Preventive_form tf =(Preventive_form)session.getAttribute("tf");
 	 tf.setVille(ville);
 	 session.setAttribute("tf",tf );
 	 
@@ -143,12 +188,12 @@ public class Ticket extends ActionSupport implements ServletContextAware, Servle
 
 		ArrayList liste_refrenceMachine = (ArrayList) db.Get_ListeRefrence_Machine(list_typeMachine);
 		session.setAttribute("liste_refrenceMachine",liste_refrenceMachine );
-
+		session.setAttribute("list_res_preventive",new ArrayList() );
 		
-		return "advanced";
+		return "preventive";
 	 }
  
- public String change_client() throws Exception {
+ public String change_client_prev() throws Exception {
 
 	    HttpSession session = this.request.getSession();
 	    String client=request.getParameter("client");
@@ -161,7 +206,7 @@ public class Ticket extends ActionSupport implements ServletContextAware, Servle
 	 
 	
 	 
-	    Ticket_form tf =(Ticket_form)session.getAttribute("tf");
+	    Preventive_form tf =(Preventive_form)session.getAttribute("tf");
 	    tf.setClient(client);
 	    session.setAttribute("tf",tf );
 
@@ -174,17 +219,17 @@ public class Ticket extends ActionSupport implements ServletContextAware, Servle
 		ArrayList liste_refrenceMachine = (ArrayList) db.Get_ListeRefrence_Machine(list_typeMachine);
 		session.setAttribute("liste_refrenceMachine",liste_refrenceMachine );
 
-	 
-	  return "advanced";
+		session.setAttribute("list_res_preventive",new ArrayList() );
+	  return "preventive";
 	 } 
 
- public String change_agence() throws Exception {
+ public String change_agence_prev() throws Exception {
 
 	    HttpSession session = this.request.getSession();
 	    String agence=request.getParameter("agence");
 		dbap db=new dbap(); 
 		
-	    Ticket_form tf =(Ticket_form)session.getAttribute("tf");
+	    Preventive_form tf =(Preventive_form)session.getAttribute("tf");
 	    tf.setAgence(agence);
         session.setAttribute("tf",tf );
  
@@ -209,12 +254,12 @@ public class Ticket extends ActionSupport implements ServletContextAware, Servle
 	 
 		ArrayList liste_refrenceMachine = (ArrayList) db.Get_ListeRefrence_Machine(list_typeMachine);
 		session.setAttribute("liste_refrenceMachine",liste_refrenceMachine );
-
+		session.setAttribute("list_res_preventive",new ArrayList() );
 		
-	  return "advanced";
+	  return "preventive";
 	 } 
  
- public String change_type() throws Exception {
+ public String change_type_prev() throws Exception {
 	 
 	 
 
@@ -224,14 +269,14 @@ public class Ticket extends ActionSupport implements ServletContextAware, Servle
 	    
 		dbap db=new dbap(); 
 		
-	    Ticket_form tf =(Ticket_form)session.getAttribute("tf");
+	    Preventive_form tf =(Preventive_form)session.getAttribute("tf");
 	   
 	    tf.setType(type);
         session.setAttribute("tf",tf );
 
         
         
- ArrayList list_typeMachine = new ArrayList();
+        ArrayList list_typeMachine = new ArrayList();
         
         if(!type.equalsIgnoreCase("-1")){
         List tmp=new ArrayList();
@@ -241,18 +286,19 @@ public class Ticket extends ActionSupport implements ServletContextAware, Servle
         {
         	 list_typeMachine =(ArrayList)session.getAttribute("list_typeMachine");
         }
+      
+       
 
         
 		ArrayList liste_refrenceMachine = (ArrayList) db.Get_ListeRefrence_Machine(list_typeMachine);
 		
 		session.setAttribute("liste_refrenceMachine",liste_refrenceMachine );
+		session.setAttribute("list_res_preventive",new ArrayList() );
 	 
-	 
-	    return "advanced";
+	    return "preventive";
 	 } 
- 
 
- public String genereTableau() throws Exception
+ public String genereTableau_prev() throws Exception
  {
 
 	    HttpSession session = this.request.getSession();
@@ -274,7 +320,7 @@ public class Ticket extends ActionSupport implements ServletContextAware, Servle
 	    
 		dbap db=new dbap(); 
 
-	    Ticket_form tf =(Ticket_form)session.getAttribute("tf");
+	    Preventive_form tf =(Preventive_form)session.getAttribute("tf");
 	   
 	    tf.setClient(client);
 	    tf.setRegion(region);
@@ -292,17 +338,14 @@ public class Ticket extends ActionSupport implements ServletContextAware, Servle
 	    session.setAttribute("tf",tf );
 	    
 	    
-	    List list_res= db.Get_result_rech_sign(tf);
-	    session.setAttribute("list_res",list_res );
+	    List list_res_preventive= db.Get_result_rech_prevent(tf);
+	    session.setAttribute("list_res_preventive",list_res_preventive );
 	    
-	    session.setAttribute("list_res_details",new ArrayList() );
-
-	    return "advanced";
+	   
+	    return "preventive";
 	 } 
  
- 
-
- public String effacerTableau() throws Exception
+ public String effacerTableau_prev() throws Exception
  {
 
 	    HttpSession session = this.request.getSession();
@@ -310,7 +353,7 @@ public class Ticket extends ActionSupport implements ServletContextAware, Servle
 		dbap db=new dbap(); 
         
 		// vider l'objet ticket form
-	    Ticket_form tf =(Ticket_form)session.getAttribute("tf");
+	    Preventive_form tf =(Preventive_form)session.getAttribute("tf");
 	    tf.setClient("");
 	    tf.setRegion("");
 	    tf.setWilaya("");
@@ -328,30 +371,9 @@ public class Ticket extends ActionSupport implements ServletContextAware, Servle
 	    session.setAttribute("list_res",new ArrayList());
 	    session.setAttribute("list_res_details",new ArrayList());
 
-	  return "advanced";
+	  return "preventive";
 	 } 
  
  
-
- public String genereTableauDetail() throws Exception 
- {
-
-		    HttpSession session = this.request.getSession();
-		    String id_ticket=request.getParameter("id_ticket");
-		    
-		    
-			dbap db=new dbap(); 
-			
-			Tableau_Sign_Details tsd =(Tableau_Sign_Details)session.getAttribute("Tsd1");
-
-		    session.setAttribute("tsd",tsd );
-		   
-
-		    List list_res_details= db.Get_result_rech_sign_details(id_ticket,tsd);
-		    session.setAttribute("list_res_details",list_res_details );
-
-	 
-	  return "advanced";
-	 } 
 
 }

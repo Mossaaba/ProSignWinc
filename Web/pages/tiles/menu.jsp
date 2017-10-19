@@ -43,6 +43,13 @@
           </a>
           
         </li>
+        
+         <li class="treeview" >
+          <a href="<s:url action="pages/forms/preventive"/>">
+             <i class="fa fa-recycle"></i></i> <span>Préventive</span> 
+          </a>
+          
+        </li>
         <li class="treeview">
           <a href="#">
             <i class="fa fa-ticket"></i>

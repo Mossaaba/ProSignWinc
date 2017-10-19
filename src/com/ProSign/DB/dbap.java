@@ -14,9 +14,13 @@ import java.util.List;
  
 
 
+
+
 import com.ProSign.Object.Form_temp;
+import com.ProSign.Object.Preventive_form;
 import com.ProSign.Object.Table_Dispatch;
 import com.ProSign.Object.Table_Sign;
+import com.ProSign.Object.Table_preventive;
 import com.ProSign.Object.Tableau_Sign_Details;
 import com.ProSign.Object.Ticket_form;
 import com.ProSign.connect.connect;
@@ -555,6 +559,139 @@ import com.ProSign.connect.connect;
 
    }
 	
+	public ArrayList Get_result_rech_prevent(Preventive_form tf)
+	{
+
+	       ArrayList result = new ArrayList();
+	       try {
+	           connect dbc = new connect();
+
+	           Connection ma_connection = dbc.DbConnect();
+
+	           String req = "SELECT	  distinct           C.ID_CLIENT, "+
+													   " V.NOM_VILLE, "+ 
+													   " A.NOM_AGENCE,  "+
+													   " M.TYPE_MACHINE,  "+
+													   " M.REFERENCE_MACHINE, "+
+													   
+													   " ISNULL( pe.done,-2), "+
+													   " ISNULL(pe.tech,'VIDE'), "+
+													   " pe.DATE_INTERVENTION, "+
+													   " pe.date_fin, "+
+													   " pe.rest "+
+													   
+													   
+														" FROM MACHINE M    "+
+											 " inner join AGENCE A on A.ID_AGENCE=M.ID_AGENCE   "+
+											 "   inner join VILLE V on V.N_VILLE=A.N_VILLE    "+
+											 "   inner join WILAYA W on W.N_WILAYA=V.N_WILAYA   "+
+											 "  inner join REGION R on R.REGION=W.REGION   "+
+											 "  inner join CLIENT C on C.NCLIENT=A.NCLIENT   "+
+											 "  left join PREVENTIVE_ENCOUR pe on pe.ID_MACHINE=M.ID_MACHINE    where   ";
+	           
+	           
+	           String subreq="";
+	      	 
+	      	 if(!tf.getRegion().equalsIgnoreCase("-1"))
+	         {
+	         	subreq=subreq+" R.REGION='"+tf.getRegion()+"' and ";
+	         }
+	      	 if(!tf.getWilaya().equalsIgnoreCase("-1"))
+	         {
+	         	subreq=subreq+" W.N_WILAYA='"+tf.getWilaya()+"' and ";
+	         }
+	      	 if(!tf.getVille().equalsIgnoreCase("-1"))
+	         {
+	        	subreq=subreq+" V.N_VILLE='"+tf.getVille()+"' and ";
+	         }
+	  	     if(!tf.getClient().equalsIgnoreCase("-1"))
+		     {
+		       	subreq=subreq+" C.NCLIENT='"+tf.getClient()+"' and ";
+		     }  
+		     if(!tf.getAgence().equalsIgnoreCase("-1"))
+		     {
+		      subreq=subreq+" A.ID_AGENCE='"+tf.getAgence()+"' and ";
+		     }
+	         if(!tf.getType().equalsIgnoreCase("-1"))
+	        {
+	         	subreq=subreq+"M.TYPE_MACHINE='"+tf.getType()+"' and ";
+	        }
+	         if(!tf.getReferece_machine().equalsIgnoreCase("-1"))
+	         {
+	          	subreq=subreq+"M.REFERENCE_MACHINE='"+tf.getReferece_machine()+"' and ";
+	         } 
+	        if(!tf.getTechnicien().equalsIgnoreCase("-1"))
+	        {
+	        	subreq=subreq+" pe.ID_TECHNICIEN='"+tf.getTechnicien()+"' and ";
+	        }
+	        
+	        if(!(tf.getDate_range_min().equals("")) && !(tf.getDate_range_max().equals("")) )
+	        {
+	        	subreq=subreq+" pe.DATE_INTERVENTION >= '"+tf.getDate_range_min()+"' and pe.DATE_INTERVENTION <= '"+ tf.getDate_range_max()+ "' and ";
+	        }
+	        
+	        /////attention cela correspond au status preventive; done no done....
+	        if(tf.getStatus_ticket().equalsIgnoreCase("-3"))
+	        {
+	        	subreq=subreq+" ";
+	        }
+	       
+	        if(tf.getStatus_ticket().equalsIgnoreCase("-1"))
+	        {
+	        	subreq=subreq+" pe.done='-1'  and ";
+	        }
+	        
+	        if(tf.getStatus_ticket().equalsIgnoreCase("0"))
+	        {
+	        	subreq=subreq+" pe.done not in ('-1','-2')    and ";
+	        }
+	        
+	        if(tf.getStatus_ticket().equalsIgnoreCase("-2"))
+	        {
+	        	subreq=subreq+" pe.done is null    and ";
+	        }
+	               
+
+	            req=req+subreq+" 1=1 ";
+	        
+	            System.out.println(""+req);
+	            
+	            
+	           PreparedStatement pstmt = ma_connection.prepareStatement(req);
+	           ResultSet resultset = pstmt.executeQuery();
+	           while (resultset.next()) 
+	           
+	           {
+	        	   Table_preventive ts=new Table_preventive();
+	        	   
+	               
+	               ts.setClient(resultset.getString(1));
+	               ts.setVille(resultset.getString(2));
+	               ts.setAgence(resultset.getString(3));
+	               ts.setType_machine(resultset.getString(4));
+	               ts.setRefrence_machine(resultset.getString(5));
+	               ts.setDone(resultset.getString(6));
+	               ts.setTechnicien(resultset.getString(7));
+	               ts.setDate_prev(resultset.getString(8));
+	               ts.setDeadline(resultset.getString(9));
+	               ts.setRest(resultset.getString(10));
+	               result.add(ts);
+
+	           }
+	           resultset.close();
+	           pstmt.close();
+	           ma_connection.close();
+	       } catch (Exception  ee) {
+	           ee.printStackTrace();
+	       }
+
+	       return result;
+
+	   }
+	
+	
+	
+	
     public ArrayList Get_result_rech_sign_details(String id_ticket , Tableau_Sign_Details tsd)
 		{
 		
@@ -1049,5 +1186,11 @@ String tel="";
 	       return result;
 	
 	   }
+	
+	
+	
+	
+	
+	
 	
 }
