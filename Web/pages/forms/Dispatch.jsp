@@ -1,14 +1,10 @@
- 
- 
-
 <%@page import="com.ProSign.Object.Tableau_Sign_Details"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <%@ page import="java.util.*" %>
 <%@ page import="com.ProSign.Object.*" %>
-<%@ page import="com.ProSign.Dispatch.*" %>
- 
+<%@ page import="com.ProSign.Dispatch.*" %> 
 <%
 ArrayList list_tech =(ArrayList)session.getAttribute("list_tech");
 ArrayList list_dispatch=(ArrayList) session.getAttribute("list_dispatch");
@@ -16,6 +12,8 @@ ArrayList historique_dispatching=(ArrayList) session.getAttribute("historique_di
 Form_temp forTemp =(Form_temp)session.getAttribute("forTemp");
 ArrayList list_resum_intev=(ArrayList) session.getAttribute("list_resum_intev");
 String id_ticket=(String) session.getAttribute("id_ticket");
+
+
 %>
 <!DOCTYPE html>
 <html>
@@ -133,7 +131,7 @@ String id_ticket=(String) session.getAttribute("id_ticket");
 				  <!----------------------------------------------------------------------------->
 				  <!----------------------------------------------------------------------------->
 				
-     <s:form action="/Dispatch.action" method="POST" id="f1" target="_parent"> 
+                   <s:form action="/Dispatch.action" method="POST" id="f1" target="_parent"> 
      
           <input type ="hidden" name ="Id_intervention" id="Id_intervention" value="">
           <input type ="hidden" name ="Id_technicien" id="Id_technicien" value="">
@@ -216,23 +214,32 @@ String id_ticket=(String) session.getAttribute("id_ticket");
             <div class="col-md-2" onclick="annuler_Modification_dispatch()">
             
                <a class="btn btn-app btn-google">
-                <i class="glyphicon glyphicon-remove" ></i> Effacer
+                <i class="glyphicon glyphicon-remove" ></i> Annuler
               </a>
             </div> 
             
                           <!-- /.col -->
           </div>
           </div>
-      
-		
 		</div>
 		</div>
 		 </s:form> 
+		 
+		          <!----------------------------------------------------------------------------->
+				  <!--------------fin Modification Interventioin  ------------------------------->
+				  <!----------------------------------------------------------------------------->
+				  <!----------------------------------------------------------------------------->
+		          <div class="well">Laste Modification</div>
 
 				  <!----------------------------------------------------------------------------->
 				  <!-----------------------------------END   FORM ------------------------------->
 				  <!----------------------------------------------------------------------------->
 				  <!----------------------------------------------------------------------------->
+				  
+				  
+				   <!----------------------------------------------------------------------------->
+				   <!---------------------------Liste des technicien------------------------------>
+				   <!----------------------------------------------------------------------------->
 
             <div class="box box-primary" style="width: 100%; position=center;">
  
@@ -304,50 +311,59 @@ String id_ticket=(String) session.getAttribute("id_ticket");
 			    </div>
 			   </div>
 
+                   <!----------------------------------------------------------------------------->
+				   <!---------------------------Fin liste des techniciens------------------------->
+				   <!----------------------------------------------------------------------------->
 
 
-
-
-
-
-<!-- /.box -->
+                   <!----------------------------------------------------------------------------->
+				   <!---------------------------Tableau dispatching------------------------------->
+				   <!----------------------------------------------------------------------------->
 
           <div class="box box-primary">
+           <!-- box-header -->
           
               <div class="box-header with-border text-center">
-              <h3 class="box-title">
-              <i class="glyphicon glyphicon-flash">
-              </i>&nbsp;Liste de suivi de signalisation</h3>
-              
-            <div class="box-tools pull-right">
-                
-                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                </button>
-                
-              </div>
-			  </div>
-          
-            
-              
-            
+	              <h3 class="box-title">
+	              <i class="glyphicon glyphicon-flash">
+	              </i>&nbsp;Liste de suivi des signalisations</h3>
+	              <br>
+	              	              
+	              
+	               <div class="box-tools pull-right">
+	                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+	                </button>
+	                
+	                
+	              </div>
+	              
+			   </div>
+			   <div class="box-tools">
+	               
+	              <span class="btn btn-box-tool"><span class="label pull-right bg-red">#&nbsp;non affecté</span></span>
+                   <span class="btn btn-box-tool"><span class="label pull-right bg-yellow">@&nbsp;en cours</span></span>
+                   <span class="btn btn-box-tool"><span class="label pull-right bg-green">&&nbsp;valide</span></span>
+                   <span class="btn btn-box-tool"><span class="fa fa-circle-o text-yellow">&nbsp;precedents</span></span>
+	                
+	              </div>
             <!-- /.box-header -->
             <div class="box-body with-border" >
-              <table id="example1" class="table table-bordered table-striped">
+              <table id="example1" class="table table-bordered table-striped table-hover">
                 <thead>
+                
                 <tr>
-                  <th>WILAYA</th>
-                  <th>CLIENT</th>
-                  <th>AGENCE </th>
-				  <th>DATE SIGNALISATION</th>
-				  <th>PROGRAMMER</th>
-				  <th>TECHNICIEN</th>
-			      <th>SIGNALISATION</th>
-			         <th> </th>
-			         <th> </th>
-				    <th> </th>
+                  <th style="text-align: center;">WILAYA</th>
+                  <th style="text-align: center;">CLIENT</th>
+                  <th style="text-align: center;">AGENCE </th>
+				  <th style="text-align: center;">DATE SIGNALISATION</th>
+				  <th style="text-align: center;">PROGRAMMER</th>
+				  <th style="text-align: center;">TECHNICIEN</th>
+			      <th style="text-align: center;">SIGNALISATION</th>
+		          <th style="text-align: center;"><i class="glyphicon glyphicon-flag"></i></th>
+		          <th style="text-align: center;"><i class="glyphicon glyphicon-search"></i> </th>
+			      <th style="text-align: center;"> <i class="glyphicon glyphicon-cog"></i></th>
                 </tr>
                 </thead>
-               
 
 			   <tbody>
 			     
@@ -355,15 +371,17 @@ String id_ticket=(String) session.getAttribute("id_ticket");
 			     for(int i=0;i<list_dispatch.size();i++)
 			     {
 			    	 Table_Dispatch td=(Table_Dispatch)list_dispatch.get(i);
-			    	 //bg-light-blue disabled color-palette
-			    	 String zeb="";
+			   
+			    	 
+			    	 String color="";
 			    	 if(td.getId_ticket().equalsIgnoreCase(id_ticket))
 			    	 {
-			    		 zeb="bg-light-blue disabled color-palette";
-			    	 }
+			    		 color="warning";
+			    		
+			         }
 			     %>
-                <tr class="<%=zeb%>" >
-                 
+                  <tr class="<%=color%>">
+						             
                   <td align="center" ><%=td.getNOM_WILAYA() %></td>
                   <td align="center"><%=td.getID_CLIENT() %></td>
                   <td align="center"><%=td.getNOM_AGENCE() %> </td>
@@ -371,6 +389,7 @@ String id_ticket=(String) session.getAttribute("id_ticket");
 				  <td align="center"><%=td.getPROGRAMMER() %></td>
 				  <td align="center"><%=td.getNOM_TECHNICIEN() %></td>
 				 <td align="center"><%=td.getTYPE_SIGNALISATION() %></td>
+				 
 				<td align="center" nowrap="nowrap">
 				<% if(td.getIndicateur_status().equalsIgnoreCase("0")&& td.getDATE_INTERVENTION()!=null)
 				{
@@ -397,32 +416,31 @@ String id_ticket=(String) session.getAttribute("id_ticket");
 						%>
 						<small class="label pull-right bg-yellow">@</small>
 					<%
-					}else {
+					}else 
+					{
 						%>
 						<small class="label pull-right bg-green">&</small>
 				<%
 					}
 				%>
-				 
-              
-              
-            
-            
             </span>
 
 				</td>
 				 <td align="center" valign="middle" nowrap="nowrap">
 				 <% if(!(td.getIndicateur_status().equalsIgnoreCase("0")&& td.getDATE_INTERVENTION()!=null))
 				{
+					 
+					 
 					%>
-					<button type="button" id="button_1<%=td.getId_intervention()%>" class="btn-xs btn-social-icon btn-vk  disabled" onclick="modifier_intervention('<%=td.getId_intervention()%>','<%=td.getId_technicien()%>','<%=td.getPROGRAMMER()%>')">
+					<button type="button" id="button_1<%=td.getId_intervention()%>" class="btn-xs btn-social-icon btn-vk  disabled" onclick="modifier_intervention('<%=td.getId_intervention()%>','<%=td.getId_technicien()%>','<%=td.getPROGRAMMER()%>','<%=td.getId_ticket()%>')">
 				     <i class="glyphicon glyphicon-pencil" ></i>
 				      </button>
 				<%	
-				} else if  (td.getPROGRAMMER()==null || td.getId_technicien().equalsIgnoreCase("0")) {
+				} else if  (td.getPROGRAMMER()==null || td.getId_technicien().equalsIgnoreCase("0")) 
+				{
 					
 					%>
-					<button type="button" data-toggle="myModalModif" data-target="#myModalModif" onclick="modifier_intervention('<%=td.getId_intervention()%>','<%=td.getId_technicien()%>','<%=td.getPROGRAMMER()%>')">
+					<button type="button" data-toggle="myModalModif" data-target="#myModalModif" onclick="modifier_intervention('<%=td.getId_intervention()%>','<%=td.getId_technicien()%>','<%=td.getPROGRAMMER()%>','<%=td.getId_ticket()%>')">
 			     <i class="glyphicon glyphicon-pencil" ></i>
 			      </button>
 				
@@ -432,86 +450,144 @@ String id_ticket=(String) session.getAttribute("id_ticket");
 				
 				
 				%>
-                <button type="button" id="button_2<%=td.getId_intervention()%>" class="btn-xs btn-social-icon btn-google" data-toggle="modal" data-target="#myModal<%=td.getId_intervention()%>"   >
-              <i class="glyphicon glyphicon-eye-open"></i>
-            </button>
+				
+							<button type="button" id="button_2<%=td.getId_ticket() %>" class="btn-xs btn-social-icon btn-google" data-toggle="modal" data-target="#myModal<%=td.getId_ticket() %>" onclick="genrerDetailPop()">
+							<i class="glyphicon glyphicon-eye-open"></i>
+							</button>
+							<div class="modal fade" id="myModal<%=td.getId_ticket() %>"  role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                                   <div class="modal-dialog modal-lg ">
+								      <div class="modal-content with-border">
+								        <div class="modal-header">
+								          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+								          <h4 class="modal-title" id="myLargeModalLabel">Détails</h4>
+								        </div>
+								        <div class="box box-primary with-border">
+								        <div class="box-body with-border" >
+								            <h4> Emplacement</h4>
+													<table class="table table-bordered table-striped table-hover ">
+													 <tr>          
+													<th><i class="fa fa-map"></i> region</th>
+													<th><i class="fa fa-map-signs"></i> Wilaya</th>
+													<th><i class="fa fa-map-pin"></i> ville</th>
+												 
+													<th><i class="fa fa-gg"></i> Type Machine</th>
+													<th><i class="fa fa-barcode"></i> refrence Machine</th>
+													
+													</tr>
+													<tr>
+													<td><%=td.getREGION()%></td>
+													<td><%=td.getNOM_WILAYA()%></td>
+													<td><%=td.getNOM_VILLE() %></td>
+													<td><%=td.getType_machine() %></td>
+													<td><%=td.getRefrence_machine() %></td>
+													
+													  </tr>
+													</table>
+													<table class="table table-bordered table-striped table-hover ">
+													 <tr>          
+													<th><i class="fa fa-bolt"></i> Déscription du probléme</th>
+													<th><i class="fa fa-sticky-note-o"></i> Remarque</th>
+
+													</tr>
+													<tr>
+													<td><%=td.getDESCRIPTION_SIGNALISATION() %>.</td>
+													<td><%=td.getREMARQUE() %>.</td>
+													
+													  </tr>
+													</table>
+									    </div>
+								           </div>
+								        <div class="modal-footer">
+								          <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+								         
+								        </div>
+								      </div>
+								      <!-- /.modal-content -->
+								    </div>
+								    <!-- /.modal-dialog -->
+								  </div>
+							
+							
+							
+							
+							<button type="button" id="button_3<%=td.getId_intervention()%>" class="btn-xs btn-social-icon btn-dropbox" onclick="historique_ticket('<%=td.getId_ticket()%>')">
+							<i class="glyphicon glyphicon-th-list"></i>
+							</button>
        
-					             <button type="button" id="button_3<%=td.getId_intervention()%>" class="btn-xs btn-social-icon btn-dropbox" onclick="historique_ticket('<%=td.getId_ticket()%>')">
-					               <i class="glyphicon glyphicon-th-list"></i>
-								</button>
+
+                                                        <!-- PopOP DETAILS-->
+														<!-- PopOP DETAILS-->
+														<!-- PopOP DETAILS-->
+														<!-- PopOP DETAILS-->
+														<!-- PopOP DETAILS-->
+														<!-- PopOP DETAILS-->
+														<!-- PopOP DETAILS-->
              
-
- 
-             
- <div class="modal modal-primary" id="myModal<%=td.getId_intervention()%>" role="dialog">
- 
-    <div class="modal-dialog">
-    
-      <!-- Modal content-->
-      <div class="modal-content" >
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Description détaillées</h4>
-        </div>
-        <div class="box box-solid">
-            <div class="box-header with-border">
-              <i class="fa fa-map"></i>
-
-              <h3 class="box-title">Emplacement</h3>
-            </div>
-            <!-- /.box-header -->
-            <div class="box-body">
-              <dl class="dl-horizontal">
-                <dt> Region</dt>
-                <dd><%=td.getREGION() %></dd>
-                <dt>Wilaya</dt>
-                <dd><%=td.getNOM_WILAYA() %></dd>
-                <dt>Ville</dt>
-                <dd><%=td.getNOM_VILLE() %></dd>
-            <div class="box-header with-border">
-              <i class="fa fa-codepen"></i>
-
-              <h3 class="box-title">Machine</h3>
-            </div>
-                <dt>Type Machine</dt>
-                <dd><%=td.getType_machine() %></dd>
-                <dt>Reference Machine</dt>
-                <dd><%=td.getRefrence_machine() %></dd>
-                <div class="box-header with-border">
-              <i class="fa fa-warning"></i>
-
-              <h3 class="box-title">Machine</h3>
-            </div>
-                <dt>Description du Problem </dt>
-                <dd><%=td.getDESCRIPTION_SIGNALISATION() %></dd>
-                <dt>Remarque</dt>
-                <dd><%=td.getREMARQUE() %></dd>
-              </dl>
-            </div>
-            <!-- /.box-body -->
-          </div>
-        <div class="modal-footer">
-          <button type="button" class="btn-xs btn-default" data-dismiss="modal">Fermer</button>
-        </div>
-      </div>
-      
-    </div>
-    </div>
-
-    <div class="modal text-center" id="myModalModif" role="dialog">
-    <div class="box-body text-center">
-     <div class="alert alert-warning alert-dismissible">
-			  <button type="button" class="close" data-dismiss="modal" aria-hidden="false">&times;</button>
-			  <h4><i class="icon fa fa-warning"></i> Attention!</h4>
-			  Vous devez attribuer un technicien et une date d'intervention , pour que vous puissiez la modifier 
-	</div>
-	</div>
-     </div>
-   
+				
+								 
+								
+								    
+								      <!-- Modal content-->
+								   				
+			
+							      
+								  
+								          <!--   PopOP DETAILS-->
+													
+														<!-- PopOP -->
+		                            <div class="modal text-center" id="myModalModif" role="dialog">
+										    <div class="box-body text-center">
+												     <div class="alert alert-warning alert-dismissible">
+															  <button type="button" class="close" data-dismiss="modal" aria-hidden="false">&times;</button>
+															  <h4><i class="icon fa fa-warning"></i> Attention!</h4>
+															  Vous devez attribuer un technicien et une date d'intervention , pour que vous puissiez la modifier 
+													</div>
+											</div>
+								     </div>
+                                                        <!-- :!PopOP -->
+														<!-- /!PopOP -->
  
     
                
-   
+                                  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                                   <div class="modal-dialog modal-lg">
+								      <div class="modal-content">
+								        <div class="modal-header">
+								          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+								          <h4 class="modal-title" id="myLargeModalLabel">Détails</h4>
+								        </div>
+								        <div class="modal-body">
+													<table class="table table-striped">
+													 <tr>          
+													<th>region</th>
+													<th>Wilaya</th>
+													<th>ville</th>
+													<th>Agence</th>
+													<th>refrence Machine</th>
+													<th>Description du Problem</th>
+													<th>Remarque</th>
+													</tr>
+													<tr>
+													<td><%=td.getREGION()%></td>
+													<td><%=td.getNOM_WILAYA()%></td>
+													<td><%=td.getNOM_VILLE() %></td>
+													<td><%=td.getType_machine() %></td>
+													<td><%=td.getRefrence_machine() %></td>
+													<td><%=td.getDESCRIPTION_SIGNALISATION() %></td>
+													<td><%=td.getREMARQUE() %></td>
+													  </tr>
+													</table>
+								          
+								           </div>
+								        <div class="modal-footer">
+								          <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+								         
+								        </div>
+								      </div>
+								      <!-- /.modal-content -->
+								    </div>
+								    <!-- /.modal-dialog -->
+								  </div>  		
  
       
       
@@ -583,35 +659,34 @@ String id_ticket=(String) session.getAttribute("id_ticket");
             </div>
             <!-- /.box-body -->
           </div>
-          <!-- /.box -->
           
+                   <!----------------------------------------------------------------------------->
+				   <!----------------------fin Tableau dispatching-------------------------------->
+				   <!----------------------------------------------------------------------------->
 
 
-		<div class="box" style="width: 100%; position=center;">
+		  <div class="box" style="width: 100%; position=center;">
               <div class="row" >
-                
                 <div class="col-xs-12 text-center" >
-              <div class="box box-default collapsed-box">
-            <div class="box-header with-border">
-              <h3 class="box-title"><i class="glyphicon glyphicon-list-alt"></i> Tableau des interventions</h3>
-             
-            </div>
-  
-          </div>
-                </div>
-                
-                
+					<div class="box box-default collapsed-box">
+					<div class="box-header with-border">
+					<h3 class="box-title"><i class="glyphicon glyphicon-list-alt"></i> Tableau des interventions</h3>
+					</div>
+                   </div>
+               </div>
               </div>
               <!-- /.row -->
-            </div> 
-		
+          </div> 
+
+		<div class="well " align="center">Laste Validation</div>
+		           <!------------------------------------------------------------------------------>
+				   <!----------------------Tableau des intervention-------------------------------->
+				   <!------------------------------------------------------------------------------>
 		
 		<div class="row">
-     
-      
-	  <div class="col-xs-12">
+	    <div class="col-xs-12">
 	  
-	<div class="box">
+	    <div class="box">
             <div class="box-header">
               <h3 class="box-title">Tableau des interventions</h3>
               <div class="box-tools">
@@ -679,55 +754,31 @@ String id_ticket=(String) session.getAttribute("id_ticket");
 	  </div> 
 	  </div>   
 	             
-		
+		           <!------------------------------------------------------------------------------>
+				   <!----------------------fin Tableau des intervention---------------------------->
+				   <!------------------------------------------------------------------------------>
       
-        <!-- /.col (right) -->
+      
       </div>
-      <!-- /.row -->
-
-    </section>
-    <!-- /.content -->
-	
  <jsp:include page="/pages/tiles/footer.jsp" />
 
   
   </div>
-  <!-- /.content-wrapper -->
-  
-  
-  <!-- Add the sidebar's background. This div must be placed
-       immediately after the control sidebar -->
-  <div class="control-sidebar-bg"></div>
-</div>
-<!-- ./wrapper -->
 
-
- 
- 
-  <s:if test="#session.ranifimodif!=null">
+<s:if test="#session.ranifimodif!=null">
 <script>
 $('#collapseExample').collapse({
 	  toggle: true
 	});
-
- 
- 
 </script>
- 
-<%session.removeAttribute("ranifimodif");
- 
-%>
 
-
-<%session.removeAttribute("ranifimodif");
- 
-%>
-
+<%session.removeAttribute("ranifimodif");%>
+<%session.removeAttribute("ranifimodif");%>
 </s:if>
-
- <%
- session.setAttribute("id_ticket","");
-%>
+<%session.setAttribute("id_ticket","");%>
+<!------------------------------------------------------------------------------>
+<!---------------------------------Scripte jQuery------------------------------->
+<!------------------------------------------------------------------------------>
 <script>
 
 
@@ -797,19 +848,9 @@ $('#collapseExample').collapse({
     });
   });
 </script>
-<script>
-  $(function () {
-    $("#example1").DataTable();
-    $('#example2').DataTable({
-      "paging": true,
-      "lengthChange": false,
-      "searching": false,
-      "ordering": true,
-      "info": true,
-      "autoWidth": false
-    });
-  });
-</script>
+<!------------------------------------------------------------------------------>
+<!---------------------------------Scripte javaScript---------------------------->
+<!------------------------------------------------------------------------------>
 
 <script>
   $(function () {
@@ -825,16 +866,14 @@ $('#collapseExample').collapse({
   });
   
 
-  
- 
  
   
-  function modifier_intervention (Id_intervention,Id_technicien,date_intervention)
+  function modifier_intervention (Id_intervention,Id_technicien,date_intervention,id_ticket)
   {
 	  
 	  
 	  
-		   
+  document.getElementById('id_ticket').value=id_ticket;
   document.getElementById('Id_intervention').value=Id_intervention;
   document.getElementById('Id_technicien').value=Id_technicien;
   document.getElementById('date_intervention').value=date_intervention;
@@ -844,6 +883,8 @@ $('#collapseExample').collapse({
 	  $('#myModalModif').modal({
 		  keyboard: false
 		}) 
+		
+		
 	 
 	 }else{
   
@@ -855,27 +896,33 @@ $('#collapseExample').collapse({
   }
 
 
-function modif_dispatch (Id_intervention)
+function modif_dispatch (Id_intervention,id_ticket)
 
 {
-	
-  
+	document.getElementById('id_ticket').value=id_ticket;
  document.getElementById('Id_intervention').value=Id_intervention;
+ 
 document.getElementById('f1').action="modif_dispatch?methodtocall=modif_dispatch";
 document.getElementById('f1').submit();
 	 
 
 }
 
-function valider_intervention (Id_intervention,tec,dat)
+function valider_intervention (Id_intervention,tec,dat,id_ticket)
 { 
-	 if(tec=='null' ||dat=='null')
+	 
+
+	
+	document.getElementById('id_ticket').value=id_ticket;
+	if(tec=='null' ||dat=='null')
 		 {
 		 $('#myModal2').modal({
 			  keyboard: false
 			}) 
-		 
-		 }else{
+ 
+		 }
+	
+	else{
 			 
 			 document.getElementById('Id_intervention').value=Id_intervention;
 
@@ -914,9 +961,52 @@ function annuler_Modification_dispatch()
 	
 	
      }
+function setModalMaxHeight(element) {
+	  this.$element     = $(element);  
+	  this.$content     = this.$element.find('.modal-content');
+	  var borderWidth   = this.$content.outerHeight() - this.$content.innerHeight();
+	  var dialogMargin  = $(window).width() < 768 ? 20 : 60;
+	  var contentHeight = $(window).height() - (dialogMargin + borderWidth);
+	  var headerHeight  = this.$element.find('.modal-header').outerHeight() || 0;
+	  var footerHeight  = this.$element.find('.modal-footer').outerHeight() || 0;
+	  var maxHeight     = contentHeight - (headerHeight + footerHeight);
 
+	  this.$content.css({
+	      'overflow': 'hidden'
+	  });
+	  
+	  this.$element
+	    .find('.modal-body').css({
+	      'max-height': maxHeight,
+	      'overflow-y': 'auto'
+	    });
+	}
+
+	$('.modal').on('show.bs.modal', function() {
+	  $(this).show(); 
+	  setModalMaxHeight(this);
+	});
+
+	$(window).resize(function() {
+	  if ($('.modal.in').length == 1) {
+	    setModalMaxHeight($('.modal.in'));
+	  }
+	});
+
+	/* CodeMirror */
+	$('.code').each(function() {
+	  var $this = $(this),
+	      $code = $this.text(),
+	      $mode = $this.data('language');
+
+	  $this.empty();
+	  $this.addClass('cm-s-bootstrap');
+	  CodeMirror.runMode($code, $mode, this);
+	});
 </script>    
-
+<!------------------------------------------------------------------------------>
+<!----------------------------fin Scripte javaScript---------------------------->
+<!------------------------------------------------------------------------------>
  
 </body>
 </html>

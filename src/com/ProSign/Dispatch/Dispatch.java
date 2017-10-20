@@ -54,6 +54,10 @@ public class Dispatch extends ActionSupport implements ServletContextAware, Serv
 	     ArrayList list_dispatch=(ArrayList) db.Get_result_Dispatch();
 	     session.setAttribute("list_dispatch",list_dispatch);
 	     
+	    
+	     
+	     
+	     
 	 //    ArrayList list_resum_intev=(ArrayList) db.Get_Nbr_Interv_tech();
 	 //    session.setAttribute("list_resum_intev",list_resum_intev);
 	     ArrayList list_resum_intev=new ArrayList();
@@ -102,6 +106,8 @@ public class Dispatch extends ActionSupport implements ServletContextAware, Serv
  public String modifier_intervention() throws Exception {
 
 	 HttpSession session = this.request.getSession();
+	 String id_ticket=request.getParameter("id_ticket");
+	 session.setAttribute("id_ticket",id_ticket);
 	 String Id_intervention=request.getParameter("Id_intervention");
 	 String Id_technicien=request.getParameter("Id_technicien");
 	 String date_intervention=request.getParameter("date_intervention");
@@ -138,6 +144,9 @@ public class Dispatch extends ActionSupport implements ServletContextAware, Serv
 	 String Id_technicien=request.getParameter("newtechnicien");
 	 String date_intervention=request.getParameter("new_date_disp");
 	 
+	 String id_ticket=request.getParameter("id_ticket");
+	 session.setAttribute("id_ticket",id_ticket);
+	 
 	 session.setAttribute("forTemp", new Form_temp());
 	  
 		dbap db=new dbap(); 
@@ -162,6 +171,8 @@ public class Dispatch extends ActionSupport implements ServletContextAware, Serv
 	 HttpSession session = this.request.getSession();
 	 String Id_intervention=request.getParameter("Id_intervention");
 	 
+	 String id_ticket=request.getParameter("id_ticket");
+	 session.setAttribute("id_ticket",id_ticket);
 	 
 	 session.setAttribute("forTemp", new Form_temp());
 	  

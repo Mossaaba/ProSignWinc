@@ -7,7 +7,7 @@
    <package name="default"  extends="struts-default">
        
       <action name="acces" class="com.ProSign.acces">
-            <result name="starter">/starter.jsp</result>
+            <result name="starter">/pages/starter/starter.jsp</result>
             <result name="no">/no.jsp</result>
       </action>
       

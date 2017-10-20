@@ -34,7 +34,7 @@
 
 <div class="login-box">
   <div class="login-logo">
-    <a href="/starter.jsp"><b>Pro</b>SIGN</a>
+    <a href="/pages/starter/starter.jsp"><b>Pro</b>SIGN</a>
   </div>
   <!-- /.login-logo -->
   <div class="login-box-body">
