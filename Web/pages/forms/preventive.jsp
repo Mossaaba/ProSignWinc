@@ -149,16 +149,18 @@ ArrayList liste_refrenceMachine =(ArrayList)session.getAttribute("liste_refrence
       <div class="box box-primary" style="width : 100%;">
       
            
-      	<div class="col-xs-12 text-center" >
-        <div class="box-header with-border">
-          <h3 class="box-title"><i class="glyphicon glyphicon-search">
-              </i> &nbsp; Filtres de recherche</h3>
-
-          <div class="box-tools pull-right">
-            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-          </div>
-        </div>
-        </div>
+      		<div class="box-header with-border text-center">
+              <h3 class="box-title">
+              <i class="glyphicon glyphicon-search">
+              </i>&nbsp;Filter de recherche des preventives</h3>
+              
+            <div class="box-tools pull-right">
+                
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                </button>
+                
+              </div>
+			  </div>
         
         
         <!-- /.box-header -->
@@ -166,9 +168,10 @@ ArrayList liste_refrenceMachine =(ArrayList)session.getAttribute("liste_refrence
           <div class="row">
 		  <div class="col-md-12">
 		  <div class="box-header with-border" style="width: 50%;">
-          <h3 class="box-title">Emplacemen</h3>
+          <h3 class="box-title"><i class="glyphicon glyphicon-map-marker">
+              </i> Emplacement</h3>
 
-          
+        
         </div>
             <div class="col-md-4">
             <!----------------------------------------------------------------------------->
@@ -266,7 +269,9 @@ ArrayList liste_refrenceMachine =(ArrayList)session.getAttribute("liste_refrence
             <!-----------------------------------CLIENT---------------------------------->
 		    <!--------------------------------------------------------------------------->
 		   <div class="box-header with-border" style="width: 50%;">
-          <h3 class="box-title">Client</h3>
+          <h3 class="box-title">
+         
+			  <i class="fa  fa-bank"></i>&nbsp; Client</h3>
           
         </div>
             
@@ -392,14 +397,16 @@ ArrayList liste_refrenceMachine =(ArrayList)session.getAttribute("liste_refrence
 		    <!---------------------------------------------------------------------------> 
 		<div class="box-body">
           <div class="row">
-		  <div class="col-md-6">
+		  <div class="col-md-12">
 			  <div class="box-header with-border" style="width: 50%;">
-			  <h3 class="box-title">Ticket</h3>
+			  <h3 class="box-title ">
+			  <i class="fa fa-ticket"></i>
+			  Ticket</h3>
 			  </div>
 		    <!--------------------------------------------------------------------------->
             <!-----------------------------------TECHNICIEN------------------------------>
 		    <!---------------------------------------------------------------------------> 
-            <div class="col-md-6">
+            <div class="col-md-3">
               <div class="form-group">
                 <label>Technicien &nbsp;&nbsp;</label>
                 <select name="technicien" class="form-control select2" style="width: 100%;">
@@ -425,55 +432,46 @@ ArrayList liste_refrenceMachine =(ArrayList)session.getAttribute("liste_refrence
             <!--------------------------------------------------------------------------->
             <!-----------------------------------STATUS----------------------------------->
 		    <!----------------------------------------------------------------------------> 
-			<div class="col-md-6">
+			<div class="col-md-3">
               <div class="form-group">
                 <label>Status&nbsp;&nbsp;</label>
                 <select name ="status_ticket"  class="form-control select2" style="width: 100%;">
                   <option value="-3"  selected="selected" >...</option>   
-                  <option value="-1"   >Non Fait</option> 
+                  <option value="-1"  >Non Fait</option> 
                   <option value="0"   > Fait</option> 
                  <option value="-2"   > Not Affected</option> 
                 </select>
               </div>
             </div> 			
-			</div>
+			
 		 
             <!--------------------------------------------------------------------------->
             <!-----------------------------------DATE------------------------------------->
 		    <!----------------------------------------------------------------------------> 
-		<div class="col-md-6">
-			  <div class="box-header with-border" style="width: 50%;">
-			  <h3 class="box-title">Date</h3>
-			  </div>
+		
+			  
 		    <!--------------------------------------------------------------------------->
-            <!-----------------------------------TECHNICIEN------------------------------>
+            <!-----------------------------------date debut------------------------------>
 		    <!---------------------------------------------------------------------------> 
-            <div class="col-md-6">
+            <div class="col-md-3">
               <div class="form-group">
-                <label>Date debut &nbsp;&nbsp;</label>
-                <div class="input-group">
-                  <div class="input-group-addon">
-                    <i class="fa fa-clock-o"></i>
-                  </div>
-					<input type="text" value="<%=tf.getDate_range_min() %>" id="min_date" name="min_date">
-                               
-                </div>
-                
+              <label>Date debut&nbsp;&nbsp;</label>
+               <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                <input type="email" class="form-control" value="<%=tf.getDate_range_min() %>" id="min_date" name="min_date" placeholder="date debut">
+              </div>              
               </div>
             </div>
             <!--------------------------------------------------------------------------->
-            <!-----------------------------------STATUS----------------------------------->
+            <!-----------------------------------date fin----------------------------------->
 		    <!----------------------------------------------------------------------------> 
-			<div class="col-md-6">
+			<div class="col-md-3">
               <div class="form-group">
-                <label>Date fin&nbsp;&nbsp;</label>
+              <label>Date fin&nbsp;&nbsp;</label>
                 <div class="input-group">
-                  <div class="input-group-addon">
-                    <i class="fa fa-clock-o"></i>
-                  </div>
-                    <input type="text" value="<%=tf.getDate_range_max() %>"   id="max_date" name="max_date">               
-      
-                </div>
+                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                <input type="email" class="form-control" value="<%=tf.getDate_range_max() %>"  id="max_date" name="max_date" placeholder="date fine">
+              </div>
               </div>
             </div> 			
          </div>
@@ -532,7 +530,7 @@ ArrayList liste_refrenceMachine =(ArrayList)session.getAttribute("liste_refrence
               <div class="box box-primary ">
             
               
-              <div class="box-header with-border">
+              <div class="box-header with-border" style="padding: 1px;">
               <h3 class="box-title"><i class="glyphicon glyphicon-arrow-down">
               </i>&nbsp;Resultat de recherche</h3>
                  
@@ -549,15 +547,17 @@ ArrayList liste_refrenceMachine =(ArrayList)session.getAttribute("liste_refrence
 <!-- /.box -->
 
           <div class="row" >
-             <div class="col-xs-12 text-center" >
+             <div class="col-xs-12 " >
               <div class="box box-primary ">
             
               
-              <div class="box-header with-border">
+              <div class="box-header with-border text-center">
               <h3 class="box-title"><i class="glyphicon glyphicon-list-alt">
               </i>&nbsp;Tableau de suivi des tickets</h3>
-                 
                <div class="box-tools pull-right">
+                
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                </button>
                 
               </div>
 			  </div>
@@ -567,7 +567,7 @@ ArrayList liste_refrenceMachine =(ArrayList)session.getAttribute("liste_refrence
 			
 			
             <!-- /.box-header -->
-            <div class="box-body">
+            <div class="box-body text-center">
               <table id="example1" class="table table-bordered table-striped">
                 <thead>
                 <tr>
@@ -596,13 +596,12 @@ ArrayList liste_refrenceMachine =(ArrayList)session.getAttribute("liste_refrence
                     %> 
                   <tr >
                    
-                  <td><%=tablSign.getClient()%></td>
-                  <td><%=tablSign.getVille()%></td>
-                  <td><%=tablSign.getAgence()%></td>
-                    <td><%=tablSign.getDate_prev()%></td>
-				  <td><%=tablSign.getType_machine()%></td>
-				  
-				  <td>
+                  <td align="center" ><%=tablSign.getClient()%></td>
+                  <td align="center"><%=tablSign.getVille()%></td>
+                  <td align="center"><%=tablSign.getAgence()%></td>
+                  <td align="center"><%=tablSign.getDate_prev()%></td>
+				  <td align="center"><%=tablSign.getType_machine()%></td>
+				  <td align="center">
 				  <%if(tablSign.getDone().equalsIgnoreCase("-1")){
 				  
 				  %><small class="label pull-right bg-red">#</small>
@@ -617,8 +616,8 @@ ArrayList liste_refrenceMachine =(ArrayList)session.getAttribute("liste_refrence
                     <%}%>
                     </td>
                     
-                  <td><%=tablSign.getDeadline()%></td>
-                   <td><%=tablSign.getRest()%></td>		 
+                  <td align="center"><%=tablSign.getDeadline()%></td>
+                  <td align="center"><%=tablSign.getRest()%></td>		 
 				</tr>
 				
 				 <% }%>

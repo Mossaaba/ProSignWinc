@@ -74,9 +74,7 @@ public class Dispatch extends ActionSupport implements ServletContextAware, Serv
 	    	 if(tmp.get(0).toString().equalsIgnoreCase(td.getId_technicien()))
 	    	 {
 	    		 cont=cont+1;
-	    	 }
-	    	 
-	    	 
+	    	 } 
 	     }
 	     
 	     tt.add(cont);
@@ -159,7 +157,6 @@ public class Dispatch extends ActionSupport implements ServletContextAware, Serv
 	 }
  
  
- 
  public String valider_intervention() throws Exception {
 
 	 HttpSession session = this.request.getSession();
@@ -178,8 +175,6 @@ public class Dispatch extends ActionSupport implements ServletContextAware, Serv
 		return this.execute();
 	//  return this.execute();
 	 }
- 
- 
  
 
  public String cancel_intervention() throws Exception {

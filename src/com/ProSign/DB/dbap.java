@@ -689,9 +689,6 @@ import com.ProSign.connect.connect;
 
 	   }
 	
-	
-	
-	
     public ArrayList Get_result_rech_sign_details(String id_ticket , Tableau_Sign_Details tsd)
 		{
 		
@@ -1150,7 +1147,6 @@ String tel="";
 	
 	   }
 
-	
 	public ArrayList Get_status_ticket()
 	{
 	
@@ -1186,11 +1182,6 @@ String tel="";
 	       return result;
 	
 	   }
-	
-	
-	
-	
-	
 	
 	
 }

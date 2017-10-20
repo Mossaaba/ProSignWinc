@@ -364,14 +364,14 @@ String id_ticket=(String) session.getAttribute("id_ticket");
 			     %>
                 <tr class="<%=zeb%>" >
                  
-                  <td><%=td.getNOM_WILAYA() %></td>
-                  <td><%=td.getID_CLIENT() %></td>
-                  <td><%=td.getNOM_AGENCE() %> </td>
-				  <td><%=td.getDATE_SIGNALISATION() %></td>
-				  <td><%=td.getPROGRAMMER() %></td>
-				  <td><%=td.getNOM_TECHNICIEN() %></td>
-				 <td><%=td.getTYPE_SIGNALISATION() %></td>
-				<td nowrap="nowrap">
+                  <td align="center" ><%=td.getNOM_WILAYA() %></td>
+                  <td align="center"><%=td.getID_CLIENT() %></td>
+                  <td align="center"><%=td.getNOM_AGENCE() %> </td>
+				  <td align="center"><%=td.getDATE_SIGNALISATION() %></td>
+				  <td align="center"><%=td.getPROGRAMMER() %></td>
+				  <td align="center"><%=td.getNOM_TECHNICIEN() %></td>
+				 <td align="center"><%=td.getTYPE_SIGNALISATION() %></td>
+				<td align="center" nowrap="nowrap">
 				<% if(td.getIndicateur_status().equalsIgnoreCase("0")&& td.getDATE_INTERVENTION()!=null)
 				{
 					%>
