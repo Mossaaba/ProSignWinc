@@ -12,6 +12,8 @@ ArrayList historique_dispatching=(ArrayList) session.getAttribute("historique_di
 Form_temp forTemp =(Form_temp)session.getAttribute("forTemp");
 ArrayList list_resum_intev=(ArrayList) session.getAttribute("list_resum_intev");
 String id_ticket=(String) session.getAttribute("id_ticket");
+
+
 %>
 <!DOCTYPE html>
 <html>
@@ -94,7 +96,7 @@ String id_ticket=(String) session.getAttribute("id_ticket");
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
 </head>
-<body class="hold-transition skin-blue fixed sidebar-mini sidebar-toggle sidebar-collapse">
+<body class="hold-transition skin-blue sidebar-mini sidebar-toggle sidebar-collapse">
 <div class="wrapper">
  
  <jsp:include page="/pages/tiles/header.jsp" />
@@ -135,23 +137,10 @@ String id_ticket=(String) session.getAttribute("id_ticket");
           <input type ="hidden" name ="Id_technicien" id="Id_technicien" value="">
           <input type ="hidden" name ="date_intervention" id="date_intervention" value="">
           <input type ="hidden" name ="id_ticket" id="id_ticket" value="">
-          
-          
-          
-<!-- /.modal-dialog --><!-- /.modal-dialog --><!-- /.modal-dialog --><!-- /.modal-dialog --><!-- /.modal-dialog -->        
-<div class = "modal fade" id = "myModal" tabindex = "-1" role = "dialog" aria-labelledby = "myModalLabel" aria-hidden = "true">
-   <div class = "modal-dialog modal-lg">
-      <div class = "modal-content"> 
-         <div class = "modal-header">
-            <button type = "button" class = "close" data-dismiss = "modal" aria-hidden = "true"> × </button>
-            <h4 class = "modal-title" id = "myModalLabel">
-               Modification
-            </h4>
-         </div>
-         
-         <div class = "modal-body">
-            <div class="box box-primary">
-             <div class="box-header with-border" >
+     
+      <!-- SELECT2 EXAMPLE -->
+      <div class="box box-primary collapsed-box" data-target="id_box" data-name="id_box"  id="id_box"  style="width : 100%;" >
+        <div class="box-header with-border" >
           <h3 class="box-title" >Modification <a  data-skin="skin-blue" class="btn btn-xs disabled ">
                   <i class="fa fa-edit"></i>                  
                   </a></h3>
@@ -161,9 +150,13 @@ String id_ticket=(String) session.getAttribute("id_ticket");
           </div>
           
         </div>
-           <div class="row">
+        <!-- /.box-header -->
+        <div class="collapse" id="collapseExample"  >
+          <div class="row">
 		  <div class="col-md-12">
+		
            <div class="col-md-4">
+          
              <div class="form-group">
                 <label>Technicine:</label>
                 <div class="input-group date">
@@ -179,8 +172,7 @@ String id_ticket=(String) session.getAttribute("id_ticket");
                         {  String tt="";
                     	List tmp=(List)list_tech.get(i);
                     	
-                    	System.out.println("forTemp id intervention  "+forTemp.getid_technicien());
-                    	System.out.println("forTemp Date intervention  "+forTemp.getDate_intervention());
+                     
                     	
                     	 if(tmp.get(0).toString().equalsIgnoreCase(forTemp.getid_technicien()))	
                          {
@@ -208,7 +200,6 @@ String id_ticket=(String) session.getAttribute("id_ticket");
                     <i class="fa fa-calendar"></i>
                   </div>
                   <input name="new_date_disp" type="text" value ="<%=forTemp.getDate_intervention()%>"class="form-control pull-right" id="datepicker">
-                
                 </div>
                 <!-- /.input group -->
               </div>
@@ -220,7 +211,7 @@ String id_ticket=(String) session.getAttribute("id_ticket");
                 <i class="glyphicon glyphicon-ok" ></i> Valider
               </a>
             </div> 
-            <div class="col-md-2" onclick="annuler_Modification_dispatch()" data-dismiss = "modal">
+            <div class="col-md-2" onclick="annuler_Modification_dispatch()">
             
                <a class="btn btn-app btn-google">
                 <i class="glyphicon glyphicon-remove" ></i> Annuler
@@ -230,25 +221,15 @@ String id_ticket=(String) session.getAttribute("id_ticket");
                           <!-- /.col -->
           </div>
           </div>
-           
-         </div>
-         </div>
-         
-          
-      </div><!-- /.modal-content -->
-   </div><!-- /.modal-dialog -->
-   
-</div>
-<!-- /.modal-dialog --><!-- /.modal-dialog --><!-- /.modal-dialog --><!-- /.modal-dialog -->     
-
-    
+		</div>
+		</div>
 		 </s:form> 
 		 
 		          <!----------------------------------------------------------------------------->
 				  <!--------------fin Modification Interventioin  ------------------------------->
 				  <!----------------------------------------------------------------------------->
 				  <!----------------------------------------------------------------------------->
-		      
+		          <div class="well">Laste Modification</div>
 
 				  <!----------------------------------------------------------------------------->
 				  <!-----------------------------------END   FORM ------------------------------->
@@ -260,12 +241,12 @@ String id_ticket=(String) session.getAttribute("id_ticket");
 				   <!---------------------------Liste des technicien------------------------------>
 				   <!----------------------------------------------------------------------------->
 
-            <div class="box box-primary box-solid" style="width: 100%; position=center;">
+            <div class="box box-primary" style="width: 100%; position=center;">
  
               <div class="row" >
                 
                 <div class="col-xs-12 text-center" >
-              <div class="box box-primary box-solid  ">
+              <div class="box box-primary ">
             
               
               <div class="box-header with-border">
@@ -339,7 +320,7 @@ String id_ticket=(String) session.getAttribute("id_ticket");
 				   <!---------------------------Tableau dispatching------------------------------->
 				   <!----------------------------------------------------------------------------->
 
-          <div class="box box-primary box-solid">
+          <div class="box box-primary">
            <!-- box-header -->
           
               <div class="box-header with-border text-center">
@@ -381,7 +362,6 @@ String id_ticket=(String) session.getAttribute("id_ticket");
 		          <th style="text-align: center;"><i class="glyphicon glyphicon-flag"></i></th>
 		          <th style="text-align: center;"><i class="glyphicon glyphicon-search"></i> </th>
 			      <th style="text-align: center;"> <i class="glyphicon glyphicon-cog"></i></th>
-			     
                 </tr>
                 </thead>
 
@@ -447,28 +427,23 @@ String id_ticket=(String) session.getAttribute("id_ticket");
 
 				</td>
 				 <td align="center" valign="middle" nowrap="nowrap">
-				 <% if(!(td.getIndicateur_status().equalsIgnoreCase("1") && td.getDATE_INTERVENTION() !=null)   )
+				 <% if(!(td.getIndicateur_status().equalsIgnoreCase("0")&& td.getDATE_INTERVENTION()!=null))
 				{
 					 
 					 
 					%>
-                           
-                           
-                           
-                           <button type="button" class = " btn-xs btn-primary btn-lg" data-toggle = "modal" data-target = "#myModal" onclick="modifier_intervention('<%=td.getId_intervention()%>','<%=td.getId_technicien()%>','<%=td.getPROGRAMMER()%>','<%=td.getId_ticket()%>')">
-                            <i class="glyphicon glyphicon-pensil"></i>lllll
-                           </button>
+					<button type="button" id="button_1<%=td.getId_intervention()%>" class="btn-xs btn-social-icon btn-vk  disabled" onclick="modifier_intervention('<%=td.getId_intervention()%>','<%=td.getId_technicien()%>','<%=td.getPROGRAMMER()%>','<%=td.getId_ticket()%>')">
+				     <i class="glyphicon glyphicon-pencil" ></i>
+				      </button>
 				<%	
-				} 
-				 
-				 
-				   if  (td.getPROGRAMMER()==null || td.getId_technicien().equalsIgnoreCase("0")) 
+				} else if  (td.getPROGRAMMER()==null || td.getId_technicien().equalsIgnoreCase("0")) 
 				{
 					
 					%>
-					 
-				<a href="#" data-skin="skin-blue" data-toggle="popover" title="Popover Header" data-content="Some content inside the popover" class="btn btn-primary btn-xs">
-                  <i class="fa fa-plus"></i> </a>
+					<button type="button" data-toggle="myModalModif" data-target="#myModalModif" onclick="modifier_intervention('<%=td.getId_intervention()%>','<%=td.getId_technicien()%>','<%=td.getPROGRAMMER()%>','<%=td.getId_ticket()%>')">
+			     <i class="glyphicon glyphicon-pencil" ></i>
+			      </button>
+				
 				
 				<% }
 				
@@ -479,8 +454,6 @@ String id_ticket=(String) session.getAttribute("id_ticket");
 							<button type="button" id="button_2<%=td.getId_ticket() %>" class="btn-xs btn-social-icon btn-google" data-toggle="modal" data-target="#myModal<%=td.getId_ticket() %>" onclick="genrerDetailPop()">
 							<i class="glyphicon glyphicon-eye-open"></i>
 							</button>
-							
-							
 							<div class="modal fade" id="myModal<%=td.getId_ticket() %>"  role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
                                    <div class="modal-dialog modal-lg ">
 								      <div class="modal-content with-border">
@@ -510,7 +483,6 @@ String id_ticket=(String) session.getAttribute("id_ticket");
 													
 													  </tr>
 													</table>
-													 <br>
 													<table class="table table-bordered table-striped table-hover ">
 													 <tr>          
 													<th><i class="fa fa-bolt"></i> Déscription du probléme</th>
@@ -577,7 +549,45 @@ String id_ticket=(String) session.getAttribute("id_ticket");
  
     
                
-                                  
+                                  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                                   <div class="modal-dialog modal-lg">
+								      <div class="modal-content">
+								        <div class="modal-header">
+								          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+								          <h4 class="modal-title" id="myLargeModalLabel">Détails</h4>
+								        </div>
+								        <div class="modal-body">
+													<table class="table table-striped">
+													 <tr>          
+													<th>region</th>
+													<th>Wilaya</th>
+													<th>ville</th>
+													<th>Agence</th>
+													<th>refrence Machine</th>
+													<th>Description du Problem</th>
+													<th>Remarque</th>
+													</tr>
+													<tr>
+													<td><%=td.getREGION()%></td>
+													<td><%=td.getNOM_WILAYA()%></td>
+													<td><%=td.getNOM_VILLE() %></td>
+													<td><%=td.getType_machine() %></td>
+													<td><%=td.getRefrence_machine() %></td>
+													<td><%=td.getDESCRIPTION_SIGNALISATION() %></td>
+													<td><%=td.getREMARQUE() %></td>
+													  </tr>
+													</table>
+								          
+								           </div>
+								        <div class="modal-footer">
+								          <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+								         
+								        </div>
+								      </div>
+								      <!-- /.modal-content -->
+								    </div>
+								    <!-- /.modal-dialog -->
+								  </div>  		
  
       
       
@@ -606,12 +616,9 @@ String id_ticket=(String) session.getAttribute("id_ticket");
             
 				  <% }%> 
 				 
-				 
-				   
-				    
-				   
-				   
-				   </td>
+				 </td>
+			       
+				  
 				</tr>
 				 <s:if test="#session.ranifimodif!=null">
 					<script>
@@ -658,8 +665,20 @@ String id_ticket=(String) session.getAttribute("id_ticket");
 				   <!----------------------------------------------------------------------------->
 
 
-		  
-		 
+		  <div class="box" style="width: 100%; position=center;">
+              <div class="row" >
+                <div class="col-xs-12 text-center" >
+					<div class="box box-default collapsed-box">
+					<div class="box-header with-border">
+					<h3 class="box-title"><i class="glyphicon glyphicon-list-alt"></i> Tableau des interventions</h3>
+					</div>
+                   </div>
+               </div>
+              </div>
+              <!-- /.row -->
+          </div> 
+
+		<div class="well " align="center">Laste Validation</div>
 		           <!------------------------------------------------------------------------------>
 				   <!----------------------Tableau des intervention-------------------------------->
 				   <!------------------------------------------------------------------------------>
@@ -667,10 +686,10 @@ String id_ticket=(String) session.getAttribute("id_ticket");
 		<div class="row">
 	    <div class="col-xs-12">
 	  
-	    <div class="box box-primary box-solid text-center">
-            <div class="box-header box-solid">
+	    <div class="box">
+            <div class="box-header">
               <h3 class="box-title">Tableau des interventions</h3>
-              <div class="box-tools box-solid">
+              <div class="box-tools">
 
                 <div class="input-group input-group-sm pull-right" style="width: 150px;">
                   <input type="text" name="table_search" class="form-control pull-right" placeholder="Search">
@@ -684,8 +703,8 @@ String id_ticket=(String) session.getAttribute("id_ticket");
               </div>
             </div>
             <!-- /.box-header -->
-            <div class="box-body table-responsive box-solid text-center">
-              <table class="table table-hove text-centerr ">
+            <div class="box-body table-responsive no-padding">
+              <table class="table table-hover">
                 <tr>
                 
                  
@@ -708,35 +727,7 @@ String id_ticket=(String) session.getAttribute("id_ticket");
                   <td><%=frmTemp.getProgrammer()%></td>
                   <td><%=frmTemp.getDate_intervention()%></td>
                   <td><%=frmTemp.getTechnicien()%></td>
-                <%  if  (frmTemp.getStatus().equalsIgnoreCase("EN COURS"))
-                {%>
-                  
-                    <td><span class="label label-warning"><%=frmTemp.getStatus()%></span></td>
-                  
-                	
-                 <% }%>
-                 <%  if  (frmTemp.getStatus().equalsIgnoreCase("PROBLEME DE LIGNE"))
-                {%>
-                  
-                    <td><span class="label label-primary"><%=frmTemp.getStatus()%></span></td>
-                  
-                	
-                 <% }%>
-                 <%  if  (frmTemp.getStatus().equalsIgnoreCase("EN SERVICE"))
-                {%>
-                  
-                    <td><span class="label label-success"><%=frmTemp.getStatus()%></span></td>
-                  
-                	
-                 <% }%>
-                 <%  if  (frmTemp.getStatus().equalsIgnoreCase("ATTENTE BON DE COMMANDE"))
-                {%>
-                  
-                    <td><span class="label label-warning"><%=frmTemp.getStatus()%></span></td>
-                  
-                	
-                 <% }%>
-                  
+                  <td><%=frmTemp.getStatus()%></td>
                   <td><%=frmTemp.getRemarque()%></td>
                   
                 </tr>
@@ -857,7 +848,9 @@ $('#collapseExample').collapse({
     });
   });
 </script>
-
+<!------------------------------------------------------------------------------>
+<!---------------------------------Scripte javaScript---------------------------->
+<!------------------------------------------------------------------------------>
 
 <script>
   $(function () {
@@ -872,21 +865,33 @@ $('#collapseExample').collapse({
     });
   });
   
-  
+
+ 
   
   function modifier_intervention (Id_intervention,Id_technicien,date_intervention,id_ticket)
   {
-	  alert(Id_technicien)
 	  
-	 
+	  
 	  
   document.getElementById('id_ticket').value=id_ticket;
   document.getElementById('Id_intervention').value=Id_intervention;
   document.getElementById('Id_technicien').value=Id_technicien;
   document.getElementById('date_intervention').value=date_intervention;
   
+  if(Id_technicien=='null' ||date_intervention=='null')
+	 {
+	  $('#myModalModif').modal({
+		  keyboard: false
+		}) 
+		
+		
+	 
+	 }else{
+  
+  
   document.getElementById('f1').action="modifier_intervention?methodtocall=modifier_intervention";
   document.getElementById('f1').submit();
+	 }
 
   }
 
@@ -894,11 +899,7 @@ $('#collapseExample').collapse({
 function modif_dispatch (Id_intervention,id_ticket)
 
 {
-	
-	
-	
-	
-document.getElementById('id_ticket').value=id_ticket;
+	document.getElementById('id_ticket').value=id_ticket;
  document.getElementById('Id_intervention').value=Id_intervention;
  
 document.getElementById('f1').action="modif_dispatch?methodtocall=modif_dispatch";
@@ -910,22 +911,25 @@ document.getElementById('f1').submit();
 function valider_intervention (Id_intervention,tec,dat,id_ticket)
 { 
 	 
+
+	
 	document.getElementById('id_ticket').value=id_ticket;
 	if(tec=='null' ||dat=='null')
 		 {
 		 $('#myModal2').modal({
 			  keyboard: false
 			}) 
-			
+ 
 		 }
 	
 	else{
-		
-		
 			 
-		document.getElementById('Id_intervention').value=Id_intervention;
-		document.getElementById('f1').action="valider_intervention?methodtocall=valider_intervention";
-		   document.getElementById('f1').submit();   
+			 document.getElementById('Id_intervention').value=Id_intervention;
+
+
+
+			 document.getElementById('f1').action="valider_intervention?methodtocall=valider_intervention";
+		document.getElementById('f1').submit();   
 		 }
  
 } 
