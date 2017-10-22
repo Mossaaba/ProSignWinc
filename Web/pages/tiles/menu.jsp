@@ -2,10 +2,15 @@
     pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="s" uri="/struts-tags" %>
 
+<style>
+
+ 
+
+</style>
  <!-- Left side column. contains the sidebar -->
-  <aside class="main-sidebar">
+  <aside class="main-sidebar   ">
     <!-- sidebar: style can be found in sidebar.less -->
-    <section class="sidebar">
+    <section class="sidebar ">
       <!-- Sidebar user panel -->
       <div class="user-panel">
         <div class="pull-left image">
@@ -39,7 +44,10 @@
         </li>
         <li class="treeview" >
           <a href="<s:url action="pages/forms/GoDispatch"/>">
-            <i class="fa fa-wheelchair"></i> <span>Suivie des signalisations</span> 
+            <i class="fa fa-wheelchair"></i> <span>Suivie des signalisations &nbsp; </span> 
+            <span class="pull-right-container">
+              <small class="label pull-right bg-red">&nbsp;5</small>
+            </span>
           </a>
           
         </li>
@@ -57,71 +65,14 @@
             
           </a>
           <ul class="treeview-menu">
-            <li><a href="pages/forms/general.html"><i class="fa fa-circle-o"></i>Ajout</a></li>
-            <li><a href="pages/forms/general.html"><i class="fa fa-circle-o"></i>Modification</a></li>
+          
             <li><a  href="<s:url action="pages/forms/menu_ticket"/>" ><i class="fa fa-circle-o"></i>Recherche</a></li>
-            <li><a href="pages/UI/timeline.html"><i class="fa fa-circle-o"></i>Timeline</a></li>
-          </ul>
-        </li>
-        <li>
-          <a href="/widgets.html">
-		  
-            <i class="fa fa-bolt"></i> <span>Signalisation</span>
-			  <span class="pull-right-container">
-              <small class="label pull-right bg-red">3</small>
-              </span>
-          </a>
-		  <ul class="treeview-menu">
-            <li><a href="pages/forms/general.html"><i class="fa fa-circle-o"></i>Ajout</a></li>
-            <li><a href="pages/forms/general.html"><i class="fa fa-circle-o"></i>Modification</a></li>
-            <li><a href="pages/mailbox/mailbox.html"><i class="fa fa-circle-o"></i>Recherche</a></li>
             
           </ul>
         </li>
-        <li class="treeview">
-          <a href="#">
-            <i class="fa fa-recycle"></i>
-            <span>Préventive</span>
-            
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="pages/forms/general.html"><i class="fa fa-circle-o"></i>Ajout</a></li>
-            <li><a href="pages/forms/general.html"><i class="fa fa-circle-o"></i>Modification</a></li>
-            <li><a href="pages/calendar.html"><i class="fa fa-circle-o"></i>Liste</a></li>
-          </ul>
-        </li> 
-        <li class="treeview">
-          <a href="#">
-            <i class="fa fa-laptop"></i>
-            <span>Rapport</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li><a href=""><i class="fa fa-circle-o"></i>General</a></li>
-            <li><a href=""><i class="fa fa-circle-o"></i>Tickets</a></li>
-            <li><a href=""><i class="fa fa-circle-o"></i>Intervention</a></li>
-            <li><a href=""><i class="fa fa-circle-o"></i>Préventives</a></li>
-            <li><a href=""><i class="fa fa-circle-o"></i>Techniciens</a></li>
-            
-          </ul>
-        </li>
-        <li class="treeview">
-          <a href="#">
-            <i class="fa fa-edit"></i> <span>Administration</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="pages/examples/profile.html"><i class="fa fa-circle-o"></i>Utilisateurs</a></li>
-            <li><a href="pages/examples/profile.html"><i class="fa fa-circle-o"></i>Clients</a></li>
-            <li><a href="pages/examples/profile.html"><i class="fa fa-circle-o"></i>Agence</a></li>
-			<li><a href="pages/examples/profile.html"><i class="fa fa-circle-o"></i>Matériel</a></li>
-			<li><a href="pages/examples/profile.html"><i class="fa fa-circle-o"></i>Gestion des privilèges</a></li>
-          </ul>
-        </li>
+        
+         
+         
        </ul>
     </section>
     <!-- /.sidebar -->

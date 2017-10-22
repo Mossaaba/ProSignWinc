@@ -111,7 +111,11 @@ public class Dispatch extends ActionSupport implements ServletContextAware, Serv
 	 String Id_intervention=request.getParameter("Id_intervention");
 	 String Id_technicien=request.getParameter("Id_technicien");
 	 String date_intervention=request.getParameter("date_intervention");
+	
 	 
+	 System.out.println(""+Id_intervention);
+	 System.out.println(""+Id_technicien);
+	 System.out.println(""+date_intervention);
 	  
 		dbap db=new dbap(); 
 	 

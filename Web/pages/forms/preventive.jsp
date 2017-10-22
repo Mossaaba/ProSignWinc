@@ -105,7 +105,7 @@ ArrayList liste_refrenceMachine =(ArrayList)session.getAttribute("liste_refrence
 <script src="../../plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="../../plugins/datatables/dataTables.bootstrap.min.js"></script>
 </head>
-<body class="hold-transition skin-blue sidebar-mini">
+<body class="hold-transition fixed skin-blue sidebar-mini">
 <div class="wrapper">
  
  <jsp:include page="/pages/tiles/header.jsp" />
@@ -123,8 +123,8 @@ ArrayList liste_refrenceMachine =(ArrayList)session.getAttribute("liste_refrence
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Recherche Preventive
-        <small>Avanc&eacute;</small>
+       <i class="fa fa-recycle"></i>  Recherche Preventive  
+        
       </h1>
       
     </section>
@@ -146,7 +146,7 @@ ArrayList liste_refrenceMachine =(ArrayList)session.getAttribute("liste_refrence
      <input type ="hidden" name ="max_date" id="max_date"  >
   
       <!-- SELECT2 EXAMPLE -->
-      <div class="box box-primary" style="width : 100%;">
+      <div class="box box-warning box-solid" style="width : 100%;">
       
            
       		<div class="box-header with-border text-center">
@@ -168,8 +168,8 @@ ArrayList liste_refrenceMachine =(ArrayList)session.getAttribute("liste_refrence
           <div class="row">
 		  <div class="col-md-12">
 		  <div class="box-header with-border" style="width: 50%;">
-          <h3 class="box-title"><i class="glyphicon glyphicon-map-marker">
-              </i> Emplacement</h3>
+          <h3 class="box-title"><i class="glyphicon glyphicon-map-marker"></i>
+              <small>Emplacement</small></h3>
 
         
         </div>
@@ -270,8 +270,8 @@ ArrayList liste_refrenceMachine =(ArrayList)session.getAttribute("liste_refrence
 		    <!--------------------------------------------------------------------------->
 		   <div class="box-header with-border" style="width: 50%;">
           <h3 class="box-title">
-         
-			  <i class="fa  fa-bank"></i>&nbsp; Client</h3>
+        
+			  <i class="fa  fa-bank"></i>&nbsp; <small>Client</small></h3>
           
         </div>
             
@@ -401,7 +401,9 @@ ArrayList liste_refrenceMachine =(ArrayList)session.getAttribute("liste_refrence
 			  <div class="box-header with-border" style="width: 50%;">
 			  <h3 class="box-title ">
 			  <i class="fa fa-ticket"></i>
-			  Ticket</h3>
+			  
+			   <small>Intervention</small>
+			  </h3>
 			  </div>
 		    <!--------------------------------------------------------------------------->
             <!-----------------------------------TECHNICIEN------------------------------>
@@ -437,7 +439,7 @@ ArrayList liste_refrenceMachine =(ArrayList)session.getAttribute("liste_refrence
                 <label>Status&nbsp;&nbsp;</label>
                 <select name ="status_ticket"  class="form-control select2" style="width: 100%;">
                   <option value="-3"  selected="selected" >...</option>   
-                  <option value="-1"  >Non Fait</option> 
+                  <option value="-1"  > Non Fait</option> 
                   <option value="0"   > Fait</option> 
                  <option value="-2"   > Not Affected</option> 
                 </select>
@@ -527,10 +529,10 @@ ArrayList liste_refrenceMachine =(ArrayList)session.getAttribute("liste_refrence
        <div class="row" >
                 
                 <div class="col-xs-12 text-center" >
-              <div class="box box-primary ">
+              <div class="box   box-warning box-solid ">
             
               
-              <div class="box-header with-border" style="padding: 1px;">
+              <div class="box-header" style="padding: 1px;">
               <h3 class="box-title"><i class="glyphicon glyphicon-arrow-down">
               </i>&nbsp;Resultat de recherche</h3>
                  
@@ -548,12 +550,12 @@ ArrayList liste_refrenceMachine =(ArrayList)session.getAttribute("liste_refrence
 
           <div class="row" >
              <div class="col-xs-12 " >
-              <div class="box box-primary ">
+              <div class="box box-primary box-warning box-solid">
             
               
               <div class="box-header with-border text-center">
-              <h3 class="box-title"><i class="glyphicon glyphicon-list-alt">
-              </i>&nbsp;Tableau de suivi des tickets</h3>
+              <h3 class="box-title"><i class="fa fa-recycle">
+              </i>&nbsp;Tableau de suivi des preventives</h3>
                <div class="box-tools pull-right">
                 
                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
@@ -567,19 +569,20 @@ ArrayList liste_refrenceMachine =(ArrayList)session.getAttribute("liste_refrence
 			
 			
             <!-- /.box-header -->
-            <div class="box-body text-center">
+            <div class="box-body  ">
               <table id="example1" class="table table-bordered table-striped">
                 <thead>
-                <tr>
+                <tr align="center" >
                   
-                  <th>Client</th>
-                  <th>Ville</th>
-                  <th>Agence</th>
-                  <th>Date preventive</th>
-				  <th>Type Machine</th>
-				  <th>Status</th>
-				  <th>deadline</th>
-				  <th>Reste</th>
+                  <th align="center" >Client</th>
+                  <th align="center" >Ville</th>
+                  <th align="center" >Agence</th>
+                  <th align="center" >Date preventive</th>
+				  <th align="center" >Type Machine</th>
+				  <th align="center" >Status</th>
+				  <th align="center" >deadline</th>
+				  <th align="center" >Reste</th>
+				  <th align="center" > </th>
                 </tr>
                 </thead>
                
@@ -617,7 +620,17 @@ ArrayList liste_refrenceMachine =(ArrayList)session.getAttribute("liste_refrence
                     </td>
                     
                   <td align="center"><%=tablSign.getDeadline()%></td>
-                  <td align="center"><%=tablSign.getRest()%></td>		 
+                  <td align="center"><%=tablSign.getRest()%></td>	
+                  
+                  
+                  <td align="center" >
+                  <a href="#" data-skin="skin-blue" data-toggle="popover" title="Popover Header" data-content="Some content inside the popover" class="btn btn-primary btn-xs">
+                  <i class="fa fa-plus"></i>
+                  </a>
+                  </td>	
+                  
+                  
+                   
 				</tr>
 				
 				 <% }%>

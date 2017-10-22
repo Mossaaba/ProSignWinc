@@ -105,7 +105,7 @@ ArrayList type_status =(ArrayList)session.getAttribute("type_status");
 <script src="../../plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="../../plugins/datatables/dataTables.bootstrap.min.js"></script>
 </head>
-<body class="hold-transition skin-blue sidebar-mini">
+<body class="hold-transition fixed skin-blue sidebar-mini">
 <div class="wrapper">
  
  <jsp:include page="/pages/tiles/header.jsp" />
@@ -123,7 +123,7 @@ ArrayList type_status =(ArrayList)session.getAttribute("type_status");
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Recherche Tickets
+       <i class="glyphicon glyphicon-flash"></i> Recherche Tickets
         <small>Avanc&eacute;</small>
       </h1>
       
@@ -146,7 +146,7 @@ ArrayList type_status =(ArrayList)session.getAttribute("type_status");
      <input type ="hidden" name ="max_date" id="max_date"  >
   
       <!-- SELECT2 EXAMPLE -->
-      <div class="box box-primary" style="width : 100%;">
+      <div class="box box-primary box-solid" style="width : 100%;">
       
            
       	<div class="box-header with-border text-center">
@@ -168,9 +168,10 @@ ArrayList type_status =(ArrayList)session.getAttribute("type_status");
           <div class="row">
 		  <div class="col-md-12">
 		  <div class="box-header with-border" style="width: 50%;">
-          <h3 class="box-title">Emplacement</h3>
-
-          
+ 
+           <h3 class="box-title">
+        
+			 <i class="glyphicon glyphicon-map-marker"></i>&nbsp; <small>Emplacement</small></h3>
         </div>
             <div class="col-md-4">
             <!----------------------------------------------------------------------------->
@@ -268,7 +269,10 @@ ArrayList type_status =(ArrayList)session.getAttribute("type_status");
             <!-----------------------------------CLIENT---------------------------------->
 		    <!--------------------------------------------------------------------------->
 		   <div class="box-header with-border" style="width: 50%;">
-          <h3 class="box-title">Client</h3>
+           <h3 class="box-title">
+        
+			  <i class="fa  fa-bank"></i>&nbsp; <small>Client</small></h3>
+          
           
         </div>
             
@@ -392,11 +396,13 @@ ArrayList type_status =(ArrayList)session.getAttribute("type_status");
 		    <!---------------------------------------------------------------------------> 
 		    <!-----------------------------------box ticket------------------------------>
 		    <!---------------------------------------------------------------------------> 
-		<div class="box-body">
+		 
           <div class="row">
 		  <div class="col-md-12">
 			  <div class="box-header with-border" style="width: 50%;">
-			  <h3 class="box-title">Ticket</h3>
+			 <h3 class="box-title">
+        
+			 <i class="glyphicon glyphicon-flash"></i>&nbsp; <small>Tiket</small></h3>
 			  </div>
 		    <!--------------------------------------------------------------------------->
             <!-----------------------------------TECHNICIEN------------------------------>
@@ -483,31 +489,34 @@ ArrayList type_status =(ArrayList)session.getAttribute("type_status");
               </div>
             </div>
 		  </div>
-		  </div>
+		   
 		    <!---------------------------------------------------------------------------->
             <!----------------------------------CHEREHCER--------------------------------->
 		    <!----------------------------------------------------------------------------> 
-		  
-		  <div class="row no-print">
-		  
-        <div class="col-xs-12">
+		   <div class="row ">
+		  <div class="col-md-12">
+		   
         
             <!---------------------------------------------------------------------------->
             <!----------------------------------CHEREHCER Filter-------------------------->
 		    <!----------------------------------------------------------------------------> 
+		    <div class="col-md-6">
           <button type="button"  class="btn btn-primary pull-right"  onclick="genereTableau()" >
           <i class="fa fa-search"></i> 
             Chercher
           </button>
+            </div>
           
            <!---------------------------------------------------------------------------->
             <!----------------------------------Effacer Fi:ter -------------------------->
 		    <!---------------------------------------------------------------------------->
-          <button type="button"  class="btn btn-danger pull-right" style="margin-right: 5px;" onclick="effacerTableau()">
+		    <div class="col-md-6">
+          <button type="button"  class="btn btn-danger  pull-left"   style="margin-right: 5px;" onclick="effacerTableau()">
             <i class="glyphicon glyphicon-remove"></i> 
             Effacer
           </button>
         </div>
+          </div>
       </div> 
 		 
 		  
@@ -533,16 +542,13 @@ ArrayList type_status =(ArrayList)session.getAttribute("type_status");
        <div class="row" >
                 
                 <div class="col-xs-12 text-center" >
-              <div class="box box-primary " >
+              <div class="box box-primary box-solid" >
             
               
               <div class="box-header with-border" style="padding: 1px;">
               <h3 class="box-title"><i class="glyphicon glyphicon-arrow-down">
               </i>&nbsp;Resultat de recherche</h3>
-                 
-               <div class="box-tools pull-right">
-                
-              </div>
+ 
 			  </div>
 		
 			</div>
@@ -554,7 +560,7 @@ ArrayList type_status =(ArrayList)session.getAttribute("type_status");
 
           <div class="row" >
              <div class="col-xs-12 " >
-              <div class="box box-primary ">
+              <div class="box box-primary box-solid">
             
               
         <div class="box-header with-border text-center ">
@@ -602,16 +608,16 @@ ArrayList type_status =(ArrayList)session.getAttribute("type_status");
 			       }
 			      
                        for(int i=0;i<list_res.size();i++)
-                    { String col="";
+                    { String color="";
                     	   
                     	   Table_Sign tablSign = (Table_Sign)list_res.get(i) ;
                     	  if(tablSign.getNticket().equalsIgnoreCase(idcol)) 
                     	  {
-                    		  col="red";
+                    		  color="warning";
                     	  }
                     	
                     %> 
-                <tr style="color: <%=col%>">
+                <tr class="<%=color%>">
                   <td align="center"><%=tablSign.getNticket()%>  </td>
                   <td align="center"><%=tablSign.getClient()%></td>
                   <td align="center"><%=tablSign.getVille()%></td>
@@ -657,7 +663,7 @@ ArrayList type_status =(ArrayList)session.getAttribute("type_status");
       
 	  <div class="col-xs-12 text-center">
 	  
-	<div class="box box-info">
+	<div class="box box-info box-solid">
             <div class="box-header">
             <i class="glyphicon glyphicon-eye-open">
               </i>
@@ -673,17 +679,17 @@ ArrayList type_status =(ArrayList)session.getAttribute("type_status");
               </div>
             </div>
             <!-- /.box-header -->
-            <div class="box-body table-responsive no-padding">
-              <table class="table table-hover">
+            <div class="box-body  ">
+              <table class="table table-hover table-bordered table-striped">
                 <tr>
                 
                  
-                  <th>Programmer</th>
-                  <th>Date Intervention</th>
-                  <th>Technicien</th> 
-                  <th>status</th>
-                  <th>Remarque</th>
-                  <th>Intutule</th>
+                  <th align="center">Programmer</th>
+                  <th align="center">Date Intervention</th>
+                  <th align="center">Technicien</th> 
+                  <th align="center">status</th>
+                  <th align="center">Remarque</th>
+                  <th align="center">Intutule</th>
                 </tr>
                 
                 <% 
@@ -695,12 +701,47 @@ ArrayList type_status =(ArrayList)session.getAttribute("type_status");
                     	
                     %> 
                  <tr>
-                 <td><%=tablSignDet.getPROGRAMMER()%></td>
-                   <td><%=tablSignDet.getDATE_INTERVENTION()%></td>
-                  <td><%=tablSignDet.getTechnicien()%></td>
-                  <td><span class="label label-warning"><%=tablSignDet.getSTATUS() %></span></td>
-                  <td><%=tablSignDet.getREMARQUE()%></td>
-                  <td><%=tablSignDet.getINTITULE()%></td>
+                 <td align="center"><%=tablSignDet.getPROGRAMMER()%></td>
+                   <td align="center"><%=tablSignDet.getDATE_INTERVENTION()%></td>
+                  <td align="center"><%=tablSignDet.getTechnicien()%></td>
+                  
+                   <% 
+                   if (tablSignDet.getSTATUS().equalsIgnoreCase("1"))
+                   
+                   {
+                   %> 
+                  <td align="center">
+                  <span class="label label-warning"><%=tablSignDet.getSTATUS() %></span>
+                  </td>
+                 <%   }    
+                  if (tablSignDet.getSTATUS().equalsIgnoreCase("2"))
+                   
+                   {
+                   %> 
+                  <td align="center">
+                  <span class="label label-warning"><%=tablSignDet.getSTATUS() %></span>
+                  </td>
+                 <%   }  
+                  if (tablSignDet.getSTATUS().equalsIgnoreCase("EN SERVICE"))
+                   
+                   {
+                   %> 
+                  <td align="center">
+                  <span class="label pull-right bg-green"><%=tablSignDet.getSTATUS() %></span>
+                  </td>
+                 <%   }  
+                  if (tablSignDet.getSTATUS().equalsIgnoreCase("EN COURS"))
+                   
+                   {
+                   %> 
+                  <td align="center">
+                  <span class="label label-warning"><%=tablSignDet.getSTATUS() %></span>
+                  </td>
+                 <%   }  %> 
+                  
+                  <td align="center"><%=tablSignDet.getREMARQUE()%></td>
+                  <td align="center"><%=tablSignDet.getINTITULE()%></td>
+                  <td align="center"><%=tablSignDet.getINTITULE()%></td>
                 </tr>
                  <% }%>
 				
@@ -823,20 +864,23 @@ ArrayList type_status =(ArrayList)session.getAttribute("type_status");
 <script>
   $(function () {
     $("#example1").DataTable();
+    
     $('#example2').DataTable({
       "paging": true,
-      "lengthChange": false,
-      "searching": false,
+      "lengthChange": true,
+      "searching": true,
       "ordering": true,
       "info": true,
-      "autoWidth": false
+      "autoWidth": true
     });
+    
   });
 </script>
 
 <script>
   $(function () {
     $("#example1").DataTable();
+    
     $('#example2').DataTable({
       "paging": true,
       "lengthChange": false,
@@ -845,8 +889,9 @@ ArrayList type_status =(ArrayList)session.getAttribute("type_status");
       "info": true,
       "autoWidth": false
     });
+    
   });
-  
+ 
   
   $(function() {
 	  $( "#min_date" ).datepicker({
@@ -953,11 +998,31 @@ document.getElementById('f1').submit();
 
 
 }
+function select_row()
+{
 
-
-
-
+$(document).ready(function() 
+		{
+    var table = $('#example1').DataTable();
+ 
+    $('#example1 tbody').on( 'click', 'tr', function () {
+        if ( $(this).hasClass('selected') ) {
+            $(this).removeClass('selected');
+        }
+        else {
+            table.$('tr.selected').removeClass('selected');
+            $(this).addClass('selected');
+        }
+    } );
+ 
+    $('#button').click( function () {
+        table.row('.selected').remove().draw( false );
+    } );
+} );
+}
 </SCRIPT>  
+
+ 
  
 
 </body>
