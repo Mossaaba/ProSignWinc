@@ -1,11 +1,14 @@
 package com.ProSign.Dispatch;
 import com.ProSign.Object.*;
+import com.ProSign.commun.Commun;
 import com.ProSign.ticket.*;
 
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 import java.io.ByteArrayOutputStream;
@@ -43,6 +46,14 @@ public class Dispatch extends ActionSupport implements ServletContextAware, Serv
  public String execute() throws Exception 
  {
 	 
+	 
+	 
+	 Commun cn = new Commun();
+	
+ List datDisp =    cn.getDateDispatch();
+
+     
+	 
 	     HttpSession session = this.request.getSession();
 		 dbap db=new dbap();
 		
@@ -75,7 +86,9 @@ public class Dispatch extends ActionSupport implements ServletContextAware, Serv
 	     tt.add(tmp.get(1).toString());
 	     for(int j=0;j<list_dispatch.size();j++)
 	     { Table_Dispatch td=(Table_Dispatch)list_dispatch.get(j);
-	    	 if(tmp.get(0).toString().equalsIgnoreCase(td.getId_technicien()))
+	     
+	      
+	    	 if(tmp.get(0).toString().equalsIgnoreCase(td.getId_technicien()) && datDisp.contains(td.getPROGRAMMER()) )
 	    	 {
 	    		 cont=cont+1;
 	    	 } 
@@ -111,11 +124,10 @@ public class Dispatch extends ActionSupport implements ServletContextAware, Serv
 	 String Id_intervention=request.getParameter("Id_intervention");
 	 String Id_technicien=request.getParameter("Id_technicien");
 	 String date_intervention=request.getParameter("date_intervention");
-	
+	 String Etat_Validation=request.getParameter("Etat_Validation");
 	 
-	 System.out.println(""+Id_intervention);
-	 System.out.println(""+Id_technicien);
-	 System.out.println(""+date_intervention);
+	 Commun cn= new Commun();
+	 String d=cn.ModifFormatFromBase(date_intervention);
 	  
 		dbap db=new dbap(); 
 	 
@@ -124,7 +136,7 @@ public class Dispatch extends ActionSupport implements ServletContextAware, Serv
 	 
 	 forTemp.setid_technicien(Id_technicien);
 	 forTemp.setId_intervention(Id_intervention);
-	 forTemp.setDate_intervention(date_intervention);
+	 forTemp.setDate_intervention(cn.ModifFormatFromBase(date_intervention));
 	
 	
 	 session.setAttribute("forTemp",forTemp);
@@ -134,8 +146,9 @@ public class Dispatch extends ActionSupport implements ServletContextAware, Serv
 		
 		
 		session.setAttribute("ranifimodif", "ranifimodif");
-		
-	 
+		session.setAttribute("Etat_Validation", Etat_Validation);
+		session.setAttribute("Id_technicien", Id_technicien);
+		session.setAttribute("date_intervention", date_intervention);
 	  return "dispatch";
 	//  return this.execute();
 	 }
@@ -156,15 +169,38 @@ public class Dispatch extends ActionSupport implements ServletContextAware, Serv
 		dbap db=new dbap(); 
 	 
 	
-	 
-	 
+		 Commun cn= new Commun();
+		  
+		
 	
-	
 	 
 	 
-		int rest=db.UpdateDispatch(Id_intervention, Id_technicien, date_intervention) ;
+		int rest=db.UpdateDispatch(Id_intervention, Id_technicien, cn.ModifFormatToBase(date_intervention)) ;
 		
 	 
+		String 	Etat_Validation_old=(String)session.getAttribute("Etat_Validation");
+		String 	Id_technicien_old=(String)session.getAttribute("Id_technicien");
+		String 	date_intervention_old=(String)session.getAttribute("date_intervention");
+	
+		 
+		if (Etat_Validation_old.equalsIgnoreCase("1"))
+		{
+			
+		if (!Id_technicien_old.equalsIgnoreCase(Id_technicien))	
+		{
+			db.Envoi_SMS_AFTER_VALIDATION(Id_intervention,"annul");
+			
+			
+		}else if (!date_intervention_old.equalsIgnoreCase(date_intervention))	
+		{
+			
+			db.Envoi_SMS_AFTER_VALIDATION(Id_intervention,"modif");
+			
+		}
+			
+		}
+		
+		
 		return this.execute();
 	//  return this.execute();
 	 }
@@ -182,8 +218,17 @@ public class Dispatch extends ActionSupport implements ServletContextAware, Serv
 	  
 		dbap db=new dbap(); 
 
+		
+		
+		
+		
+		
+	
+	 
+		
+		 
 		int rest=db.ValiderDispatch(Id_intervention) ;
-		db.Envoi_SMS_AFTER_VALIDATION(Id_intervention);
+		db.Envoi_SMS_AFTER_VALIDATION(Id_intervention,"");
 	 
 		session.removeAttribute("ranifimodif");
 		

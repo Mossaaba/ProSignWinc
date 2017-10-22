@@ -16,6 +16,10 @@ import java.util.List;
 
 
 
+
+
+
+import com.ProSign.Cryptage.UserCrypt;
 import com.ProSign.Object.Form_temp;
 import com.ProSign.Object.Preventive_form;
 import com.ProSign.Object.Table_Dispatch;
@@ -23,6 +27,8 @@ import com.ProSign.Object.Table_Sign;
 import com.ProSign.Object.Table_preventive;
 import com.ProSign.Object.Tableau_Sign_Details;
 import com.ProSign.Object.Ticket_form;
+import com.ProSign.Object.user;
+import com.ProSign.commun.Commun;
 import com.ProSign.connect.connect;
 
 
@@ -450,7 +456,7 @@ import com.ProSign.connect.connect;
 	
 	public ArrayList Get_result_rech_sign(Ticket_form tf)
 {
-
+		Commun cn= new Commun();
        ArrayList result = new ArrayList();
        try {
            connect dbc = new connect();
@@ -510,9 +516,14 @@ import com.ProSign.connect.connect;
         {
         	subreq=subreq+" TEC.ID_TECHNICIEN='"+tf.getTechnicien()+"' and ";
         }
-        if(!(tf.getDate_range_min().equals("")) && !(tf.getDate_range_max().equals("")) )
+        if(!(tf.getDate_range_min().equals("")) )
         {
-        	subreq=subreq+" T.DATE_SIGNALISATION >= '"+tf.getDate_range_min()+"' and T.DATE_SIGNALISATION <= '"+ tf.getDate_range_max()+ "' and ";
+        	subreq=subreq+" T.DATE_SIGNALISATION >= '"+cn.ModifFormatToBase(tf.getDate_range_min())+"' and ";
+        }
+        
+        if(!(tf.getDate_range_max().equals("")) )
+        {
+        	subreq=subreq+" T.DATE_SIGNALISATION <= '"+cn.ModifFormatToBase(tf.getDate_range_max()) + "' and ";
         }
         
         if(!tf.getStatus_ticket().equalsIgnoreCase("-1"))
@@ -1033,7 +1044,7 @@ import com.ProSign.connect.connect;
 		  
 	  }
 	    
-	public ArrayList Envoi_SMS_AFTER_VALIDATION(String id_inter )
+	public ArrayList Envoi_SMS_AFTER_VALIDATION(String id_inter , String nature)
 	  {
 
 	         ArrayList result = new ArrayList();
@@ -1066,13 +1077,29 @@ import com.ProSign.connect.connect;
 	             
 String tx="";
 String tel="";
+
+
+if (nature.equalsIgnoreCase("annul"))
+	
+{
+	tx="Annulation       ";
+
+
+}
+if (nature.equalsIgnoreCase("modif"))
+	
+{
+	tx="Modification     ";
+
+
+}
 	             PreparedStatement pstmt = ma_connection.prepareStatement(req);
 	             ResultSet resultset = pstmt.executeQuery();
 	             while (resultset.next()) 
 	             
 	             {
 	          	
-				    tx=resultset.getString(1)+"\r"+
+				    tx=tx+resultset.getString(1)+"\r"+
 					resultset.getString(2)+"\r"+
 					resultset.getString(3)+"\r"+
 					resultset.getString(4)+"\r"+
@@ -1183,5 +1210,258 @@ String tel="";
 	
 	   }
 	
-	
+	  public user GetInfotUser_login(String id) {
+          user u = new user();
+
+          try {
+        	  connect dbc = new connect();
+
+              Connection ma_connection = dbc.DbConnect();
+
+              if(ma_connection==null){
+            	  
+            	  u.setid_user("--1");
+              }
+              
+              String req = "select u.id_user, u.Nom_user, u.prenom_user, u.etat, u.date_create, u.date_modif,u.pass " +
+                           " FROM UTILISATEUR u where u.id_user='" + id + "' and supprim_user='0'";
+
+              PreparedStatement pstmt = ma_connection.prepareStatement(req);
+
+              ResultSet resultset = pstmt.executeQuery();
+              while (resultset.next()) {
+
+                  u.setid_user(resultset.getString(1));
+                  u.setnom_user(resultset.getString(2));
+                  u.setprenom_user(resultset.getString(3));
+                  u.setetat_user(resultset.getString(4));
+                  u.setdate_create(resultset.getString(5));
+                  u.setdate_modif(resultset.getString(6));
+                  u.setpass(resultset.getString(7));
+
+              }
+              resultset.close();
+              pstmt.close();
+              ma_connection.close();
+          } catch (Exception ee) {
+              ee.printStackTrace();
+          }
+
+          return u;
+
+    }
+	  
+	  
+	  public int UpdatePWD(user u,String newpwd) {
+
+          SimpleDateFormat formater = null;
+          formater = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+
+          Date actuelle = new Date();
+
+          String sysdate = formater.format(actuelle);
+
+          int result = 1;
+          List list = new ArrayList();
+          connect dbc = new connect();
+          Connection ma_connection = dbc.DbConnect();
+          PreparedStatement pstmt = null;
+          ResultSet resultat = null;
+          FileInputStream stream = null;
+
+          try {
+
+//////////////////////////////////////////////////////////////////////////////////////
+
+              ma_connection.setAutoCommit(false);
+
+              Statement statement = ma_connection.createStatement();
+              // stream = new FileInputStream(fichier) ;
+              //FileChannel in  = new FileInputStream(fichier).getChannel();
+              ;
+
+              /******************************************insert ********************************************************************/
+              String req = "update UTILISATEUR SET pass = '"+newpwd+"'"+
+   "  where id_user= '"+u.getid_user()+"'"; //
+
+              ////System.out.println(req);
+
+              pstmt = ma_connection.prepareStatement(req);
+
+              pstmt.executeUpdate();
+
+              ma_connection.commit();
+              //statement.close();
+              pstmt.close();
+              ma_connection.close();
+
+          } catch (SQLException sqle) {
+              try {
+                  sqle.printStackTrace();
+                  ma_connection.rollback();
+                  ma_connection.rollback();
+                  pstmt.close();
+                  ma_connection.close();
+                  result=-1;
+              } catch (Exception e) {
+               
+                  sqle.printStackTrace();
+              }
+          } catch (Exception e) {
+              try {
+                  ma_connection.rollback();
+                  pstmt.close();
+                  ma_connection.close();
+                  e.printStackTrace();
+                  
+              } catch (Exception ee) {
+                  e.printStackTrace();
+                  
+              }
+          }finally {
+              try {
+           	   stream.close();
+           	               } catch (Exception ex1) {
+           	               }
+           	           }
+          return result;
+}
+	  
+	   public user GetInfotUser(String id) {
+	        user u = new user();
+
+	        try {
+	        	 connect dbc = new connect();
+
+	            Connection ma_connection = dbc.DbConnect();
+
+	            String req = "select u.id_user, u.Nom_user, u.prenom_user, u.etat, u.date_create, u.date_modif " +
+	                         " FROM UTILISATEUR u where u.id_user='" + id + "'";
+
+	            PreparedStatement pstmt = ma_connection.prepareStatement(req);
+
+	            ResultSet resultset = pstmt.executeQuery();
+	            while (resultset.next()) {
+
+	                u.setid_user(resultset.getString(1));
+	                u.setnom_user(resultset.getString(2));
+	                u.setprenom_user(resultset.getString(3));
+	                u.setetat_user(resultset.getString(4));
+	                u.setdate_create(resultset.getString(5));
+	                u.setdate_modif(resultset.getString(6));
+	               
+
+	            }
+	            resultset.close();
+	            pstmt.close();
+	            ma_connection.close();
+	        } catch (Exception ee) {
+	            ee.printStackTrace();
+	        }
+
+	        return u;
+
+	    }	  
+	  
+	   
+	   public List InsertUser(user u) {
+
+	        SimpleDateFormat formater = null;
+	        formater = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+
+	        Date actuelle = new Date();
+
+	        String sysdate = formater.format(actuelle);
+
+	        String result = "-1";
+	        List list = new ArrayList();
+	        connect dbc = new connect();
+	        Connection ma_connection = dbc.DbConnect();
+	        PreparedStatement pstmt = null;
+	        ResultSet resultat = null;
+	        FileInputStream stream = null;
+	Commun cn=new Commun();
+	        try {
+
+	//////////////////////////////////////////////////////////////////////////////////////
+	        	
+	        	//   List tracelog=new ArrayList();
+	        	//  tracelog.add("-->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Ajout user"+u.getid_user());
+	        	// 	tracelog= cn.Ecrire_Log(tracelog);
+	            ma_connection.setAutoCommit(false);
+
+	            Statement statement = ma_connection.createStatement();
+	            // stream = new FileInputStream(fichier) ;
+	            //FileChannel in  = new FileInputStream(fichier).getChannel();
+	            ;
+	            UserCrypt uc = new UserCrypt();
+	            /******************************************insert ********************************************************************/
+	            String req = "insert into UTILISATEUR ( " +
+	                         " id_user " +
+	                         " ,nom_user " +
+	                         " ,prenom_user " +
+	                         " ,pass " +
+	                         " ,etat " +
+	                         " ,date_create " +
+	                         " ,date_modif " +
+	                         " ,supprim_user "+
+	                         
+	                         " ) VALUES ( " +
+	                         " '"+u.getid_user().replaceAll("'","''")+"'  " + // -- id_user
+	                         " ,'" + u.getnom_user().replaceAll("'","''") + "'  " + //-- Non_user
+	                         " ,'" + u.getprenom_user().replaceAll("'","''") + "' " + // -- prenom_user
+	                         " ,'" +uc.Cryptage(u.getid_user().replaceAll("'","''")) + "' " + // -- pass
+	                         " ,'1' " + // -- etat
+	                         " ,'" + sysdate + "' " + // -- date_create
+	                         " ,'" + sysdate + "' " + //-- date_modif
+	                         " ,0 " + //-- date_modif
+	                        
+	                         ") "; //
+
+	            ////System.out.println(req);
+
+	            pstmt = ma_connection.prepareStatement(req);
+
+	            pstmt.executeUpdate();
+
+	            ma_connection.commit();
+	            //statement.close();
+	            pstmt.close();
+	            ma_connection.close();
+
+	        } catch (SQLException sqle) {
+	        	//   List tracelog=new ArrayList();
+	        	//  	 tracelog.add("probleme lors de l\'ajout user"+u.getid_user());
+	        	//  	tracelog= cn.Ecrire_Log(tracelog);
+	            try {
+	                sqle.printStackTrace();
+	                ma_connection.rollback();
+	                ma_connection.rollback();
+	                pstmt.close();
+	                ma_connection.close();
+	                list = new ArrayList();
+	            } catch (Exception e) {
+	                list = new ArrayList();
+	                sqle.printStackTrace();
+	            }
+	        } catch (Exception e) {
+	            try {
+	                ma_connection.rollback();
+	                pstmt.close();
+	                ma_connection.close();
+	                e.printStackTrace();
+	                list = new ArrayList();
+	            } catch (Exception ee) {
+	                e.printStackTrace();
+	                list = new ArrayList();
+	            }
+	        }finally {
+	            try {
+	stream.close();
+	            } catch (Exception ex1) {
+	            }
+	        }
+	        return list;
+	    }
+	   
 }

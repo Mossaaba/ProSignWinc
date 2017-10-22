@@ -1,6 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="s" uri="/struts-tags" %>
+
+<%@ page import="com.ProSign.Object.*" %>
+
+<%
+user u = (user)session.getAttribute("info_user");
+
+
+%>
+
 <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>ProSign</title>
@@ -109,7 +118,7 @@
               <!-- The user image in the navbar-->
               <img src="../../dist/img/avatar6.JPG" class="user-image" alt="User Image">
               <!-- hidden-xs hides the username on small devices so only the image appears. -->
-              <span class="hidden-xs">Wincor User</span>
+              <span class="hidden-xs"><%=u.getnom_user()+" " +u.getprenom_user()%>    </span>
             </a>
             <ul class="dropdown-menu">
               <!-- The user image in the menu -->

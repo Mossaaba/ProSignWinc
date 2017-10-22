@@ -44,10 +44,8 @@
         </li>
         <li class="treeview" >
           <a href="<s:url action="pages/forms/GoDispatch"/>">
-            <i class="fa fa-wheelchair"></i> <span>Suivie des signalisations &nbsp; </span> 
-            <span class="pull-right-container">
-              <small class="label pull-right bg-red">&nbsp;5</small>
-            </span>
+            <i class="fa fa-wheelchair"></i> <span>Suivie des signalisations &nbsp;   </span> 
+             
           </a>
           
         </li>
@@ -71,6 +69,18 @@
           </ul>
         </li>
         
+         <li class="treeview">
+          <a href="#">
+            <i class="fa fa-ticket"></i>
+            <span>Administration</span>
+            
+          </a>
+          <ul class="treeview-menu">
+          
+            <li><a  href="<s:url action="pages/Admin/User"/>" ><i class="fa fa-circle-o"></i>Ajouter User</a></li>
+            
+          </ul>
+        </li>
          
          
        </ul>

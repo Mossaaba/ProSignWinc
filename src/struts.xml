@@ -8,8 +8,18 @@
        
       <action name="acces" class="com.ProSign.acces">
             <result name="starter">/pages/starter/starter.jsp</result>
-            <result name="no">/no.jsp</result>
+            <result name="login">/login.jsp</result>
+            <result name="change_pass">/change_pass.jsp</result>
+            
       </action>
+      
+       <action name="change_pwd" method="change_pwd" class="com.ProSign.acces">
+            <result name="starter">/pages/starter/starter.jsp</result>
+            <result name="login">/login.jsp</result>
+            <result name="change_pass">/change_pass.jsp</result>
+            
+      </action>
+      
       
        <action name="TableauDeBord" class="com.ProSign.acces">
             <result name="starter">/pages/charts/chartjs.jsp</result>
@@ -151,10 +161,16 @@
       </action>
       
       
+      <action name="User"  class="com.ProSign.Admin.User">
+            <result name="create_user">/pages/Admin/create_user.jsp</result>
+            <result name="no">/no.jsp</result>
+      </action>
       
       
-      
-      
+        <action name="Creation_User"  method="Creation_User" class="com.ProSign.Admin.User">
+            <result name="create_user">/pages/Admin/create_user.jsp</result>
+            <result name="no">/no.jsp</result>
+      </action>
       
       
       

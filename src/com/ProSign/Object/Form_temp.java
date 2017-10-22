@@ -21,7 +21,6 @@ public class Form_temp
 	private String id_intervention;
 	private String id_technicien;
 	
-	
 	private String  programmer; 
 	private String  technicien;
 	private String  status;
