@@ -37,7 +37,7 @@ public class User extends ActionSupport implements ServletContextAware, ServletR
 		// TODO Auto-generated method stub
 		 HttpSession session = this.request.getSession();
 		 
-		 
+		 System.out.println(" SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS " );
 		 
 			return "create_user";
 	} 
@@ -51,20 +51,36 @@ public class User extends ActionSupport implements ServletContextAware, ServletR
 		// TODO Auto-generated method stub
 		 HttpSession session = this.request.getSession();
 		 
+		 System.out.println(" PPPPPPPPPPPPPPPPPPPPPPP " );
+	 
 	        Commun cn = new Commun();
+	        
 	        user u = cn.recup_info_user(request);
+	        
 	        dbap db = new dbap();
+	        
 	        user Verifu = db.GetInfotUser(u.getid_user());
-	        if(Verifu.getid_user().equalsIgnoreCase(""))	           
+	        
+	        if(Verifu.getid_user().equalsIgnoreCase("")) 
+	        {
 	        	db.InsertUser(u);
-	       
-		 
-		 
+	        }
+ 
+	         
 			return "create_user";
 	} 
-	
-	
-	
+	 
+	public String initaliser_User() throws Exception 
+	{
+		// TODO Auto-generated method stub
+		 HttpSession session = this.request.getSession();
+		 
+		 String id_user_reini=request.getParameter("id_user_reini");
+	 
+		 System.out.println(" DDDDD "+id_user_reini );
+ 
+			return "Reinitaliser_User";
+	} 
 	
 	
 	

@@ -96,7 +96,7 @@ String id_ticket=(String) session.getAttribute("id_ticket");
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
 </head>
-<body class="hold-transition skin-blue sidebar-mini sidebar-toggle sidebar-collapse">
+<body class="hold-transition skin-blue sidebar-mini ">
 <div class="wrapper">
  
  <jsp:include page="/pages/tiles/header.jsp" />
@@ -141,7 +141,7 @@ String id_ticket=(String) session.getAttribute("id_ticket");
      
       <!-- SELECT2 EXAMPLE -->
       <div class="box box-primary collapsed-box box-solide" data-target="id_box" data-name="id_box"  id="id_box"  style="width : 100%;" >
-        <div class="box-header with-border" >
+        <div class="box-header with-border box-solid" >
           <h3 class="box-title" >Modification <a  data-skin="skin-blue" class="btn btn-xs disabled ">
                   <i class="fa fa-edit"></i>                  
                   </a></h3>
@@ -152,7 +152,7 @@ String id_ticket=(String) session.getAttribute("id_ticket");
           
         </div>
         <!-- /.box-header -->
-        <div class="collapse" id="collapseExample"  >
+        <div class="collapse" id="collapseExample" >
           <div class="row">
 		  <div class="col-md-12">
 		
@@ -242,12 +242,12 @@ String id_ticket=(String) session.getAttribute("id_ticket");
 				   <!---------------------------Liste des technicien------------------------------>
 				   <!----------------------------------------------------------------------------->
 
-            <div class="box box-primary" style="width: 100%; position=center;">
+            <div class="box box-primary box-solid" style="width: 100%; position=center;">
  
               <div class="row" >
                 
                 <div class="col-xs-12 text-center" >
-              <div class="box box-primary ">
+              <div class="box box-primary box-solid ">
             
               
               <div class="box-header with-border">
@@ -325,7 +325,7 @@ String id_ticket=(String) session.getAttribute("id_ticket");
            <!-- box-header -->
           
               <div class="box-header with-border text-center box-solide ">
-	              <h3 class="box-title">
+	              <h3 class="box-title box-solid">
 	              <i class="glyphicon glyphicon-flash">
 	              </i>&nbsp;Liste de suivi des signalisations</h3>
 	              <br>

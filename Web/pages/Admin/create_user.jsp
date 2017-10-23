@@ -133,11 +133,11 @@
     	  <section class="content">
       <div class="row">
 		
-		  <div class="col-md-12">
+		  <div class="col-md-6">
           <!-- general form elements -->
           <div class="box box-primary">
             <div class="box-header with-border">
-              <h3 class="box-title">Quick Example</h3>
+              <h3 class="box-title">Crerer un nouveau utilisateur</h3>
             </div>
             <!-- /.box-header -->
             <!-- form start -->
@@ -145,15 +145,15 @@
               <div class="box-body">
                 <div class="form-group">
                   <label for="exampleInputEmail1">ID</label>
-                  <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Enter email" name="id_user">
+                  <input type="text" class="form-control" id="exampleInputEmail1" placeholder="ID utilisateur" name="id_user">
                 </div>
                 <div class="form-group">
                   <label for="exampleInputPassword1">Nom</label>
-                  <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Password"  name="nom">
+                  <input type="text" class="form-control" id="exampleInputPassword1" placeholder="NOM"  name="nom">
                 </div>
                  <div class="form-group">
                   <label for="exampleInputPassword1">Prenom</label>
-                  <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Password"  name="prenom">
+                  <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Prenom"  name="prenom">
                 </div>
                 
               </div>
@@ -172,6 +172,39 @@
         
 
         </div>
+        <div class="col-md-6">
+          <!-- general form elements -->
+          <div class="box box-primary">
+            <div class="box-header with-border">
+              <h3 class="box-title">Rinitialiser mot de passe</h3>
+            </div>
+            <!-- /.box-header -->
+            <!-- form start -->
+            <form role="form">
+              <div class="box-body">
+                <div class="form-group">
+                  <label for="exampleInputEmail1">ID</label>
+                  <input type="text" class="form-control" id="id_user_reini" placeholder="ID utilisateur" name="id_user_reini">
+                </div>
+                
+                
+              </div>
+              <!-- /.box-body -->
+
+              <div class="box-footer">
+                 <button onclick="Reinitaliser_User()" class="btn btn-primary   btn-flat">Ok</button>
+              </div>
+            </form>
+          </div>
+          <!-- /.box -->
+
+       
+              
+
+        
+
+        </div>
+		
 		
 		 </div>
 		
@@ -293,15 +326,27 @@
   
 function Creation_User() 
      {
-
-
-	document.getElementById('f1').action="Creation_User?methodtocall=Creation_User";
+		document.getElementById('f1').action="Creation_User?methodtocall=Creation_User";
+	 
 	document.getElementById('f1').submit();
-	
-	
-	
-	
-     }
+   }
+     
+     
+function Reinitaliser_User() 
+{
+ 
+ 
+document.getElementById('f1').action="initaliser_User?methodtocall=initaliser_User";
+	alert(document.getElementById('f1').action)
+
+document.getElementById('f1').submit();
+
+
+
+
+}
+
+
 function setModalMaxHeight(element) {
 	  this.$element     = $(element);  
 	  this.$content     = this.$element.find('.modal-content');

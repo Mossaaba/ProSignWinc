@@ -147,8 +147,7 @@ ArrayList type_status =(ArrayList)session.getAttribute("type_status");
   
       <!-- SELECT2 EXAMPLE -->
       <div class="box box-primary box-solid" style="width : 100%;">
-      
-           
+    
       	<div class="box-header with-border text-center">
               <h3 class="box-title">
               <i class="glyphicon glyphicon-search">

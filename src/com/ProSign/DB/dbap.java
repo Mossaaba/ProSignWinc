@@ -1327,6 +1327,7 @@ if (nature.equalsIgnoreCase("modif"))
           return result;
 }
 	  
+	 
 	   public user GetInfotUser(String id) {
 	        user u = new user();
 
@@ -1362,7 +1363,8 @@ if (nature.equalsIgnoreCase("modif"))
 	        return u;
 
 	    }	  
-	  
+	   
+ 
 	   
 	   public List InsertUser(user u) {
 
@@ -1463,5 +1465,43 @@ if (nature.equalsIgnoreCase("modif"))
 	        }
 	        return list;
 	    }
+	   
+	   
+	   
+	   public List  GetPrevilUser (String id) {
+		   List userPrev = new ArrayList();
+
+	        try {
+	        	 connect dbc = new connect();
+
+	            Connection ma_connection = dbc.DbConnect();
+
+	            String req = " select obu.id_objet_menu from OBJET_USER obu "+
+	            		"WHERE obu.id_user =  "+id ;
+ 
+ 
+ 
+
+
+	            PreparedStatement pstmt = ma_connection.prepareStatement(req);
+
+	            ResultSet resultset = pstmt.executeQuery();
+	            while (resultset.next()) {
+
+	            	userPrev.add(resultset.getString(1));
+	            	 
+	               
+
+	            }
+	            resultset.close();
+	            pstmt.close();
+	            ma_connection.close();
+	        } catch (Exception ee) {
+	            ee.printStackTrace();
+	        }
+
+	        return userPrev;
+	    }	  
+	  
 	   
 }

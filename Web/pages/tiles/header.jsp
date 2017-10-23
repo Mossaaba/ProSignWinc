@@ -126,8 +126,8 @@ user u = (user)session.getAttribute("info_user");
                 <img src="../../dist/img/avatar6.JPG" class="img-circle" alt="User Image">
 
                 <p>
-                  User Wincor
-                  <small>User User dicr</small>
+                 <%=u.getnom_user()+" " +u.getprenom_user()%>
+                  <small> </small>
                 </p>
               </li>
               <!-- Menu Body -->
@@ -151,7 +151,7 @@ user u = (user)session.getAttribute("info_user");
                   <a href="#" class="btn btn-default btn-flat">Profile</a>
                 </div>
                 <div class="pull-right">
-                  <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                  <a href="<s:url action="/login.jsp"/>" class="btn btn-default btn-flat">Sign out</a>
                 </div>
               </li>
             </ul>

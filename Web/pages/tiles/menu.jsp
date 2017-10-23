@@ -2,11 +2,15 @@
     pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="s" uri="/struts-tags" %>
 
-<style>
 
+<%@ page import="com.ProSign.Object.*" %>
+<%@ page import="java.util.*" %>
+<%
+user u = (user)session.getAttribute("info_user");
+List userPrev = (List) session.getAttribute("userPrev");
+
+%>
  
-
-</style>
  <!-- Left side column. contains the sidebar -->
   <aside class="main-sidebar   ">
     <!-- sidebar: style can be found in sidebar.less -->
@@ -17,7 +21,7 @@
           <img src="../../dist/img/avatar6.JPG" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
-          <p>Wincor User</p>
+          <p><%=u.getnom_user()+" " +u.getprenom_user()%></p>
           <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
         </div>
       </div>
@@ -43,18 +47,21 @@
           
         </li>
         <li class="treeview" >
+        
+        <%if(userPrev.indexOf("w-pr-0001")>=0){ %>
           <a href="<s:url action="pages/forms/GoDispatch"/>">
             <i class="fa fa-wheelchair"></i> <span>Suivie des signalisations &nbsp;   </span> 
              
           </a>
-          
+          <%}%>
         </li>
         
          <li class="treeview" >
+         <%if(userPrev.indexOf("w-ss-0001")>=0){ %>
           <a href="<s:url action="pages/forms/preventive"/>">
              <i class="fa fa-recycle"></i></i> <span>Préventive</span> 
           </a>
-          
+           <%}%>
         </li>
         <li class="treeview">
           <a href="#">

@@ -14,7 +14,6 @@ ArrayList list_agence =(ArrayList)session.getAttribute("list_agence");
 ArrayList list_client =(ArrayList)session.getAttribute("list_client");
 ArrayList list_tech =(ArrayList)session.getAttribute("list_tech");
 List list_res_preventive =(List)session.getAttribute("list_res_preventive");
-
 Preventive_form tf =(Preventive_form)session.getAttribute("tf");
 ArrayList list_typeMachine =(ArrayList)session.getAttribute("list_typeMachine");
 ArrayList liste_refrenceMachine =(ArrayList)session.getAttribute("liste_refrenceMachine");
