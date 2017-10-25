@@ -40,7 +40,7 @@ List userPrev = (List) session.getAttribute("userPrev");
       <ul class="sidebar-menu">
         <li class="header">MAIN NAVIGATION</li>
         <li class="treeview">
-          <a href="<s:url action="pages/forms/TableauDeBord"/>">
+          <a href="#">
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
             
           </a>
@@ -85,6 +85,7 @@ List userPrev = (List) session.getAttribute("userPrev");
           <ul class="treeview-menu">
           
             <li><a  href="<s:url action="pages/Admin/User"/>" ><i class="fa fa-circle-o"></i>Ajouter User</a></li>
+            <li><a  href="<s:url action="pages/Admin/Go_init_user"/>" ><i class="fa fa-circle-o"></i>Reinitialiser User</a></li>
             
           </ul>
         </li>

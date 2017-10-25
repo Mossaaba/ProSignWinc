@@ -173,8 +173,13 @@
       </action>
       
       
-      <action name="initaliser_User"  method="initaliser_User" class="com.ProSign.Admin.User">
-            <result name="Reinitaliser_User">/pages/Admin/create_user.jsp</result>
+      <action name="Go_init_user"  method="initaliser_User" class="com.ProSign.Admin.User">
+            <result name="Reinitaliser_User">/pages/Admin/init_user.jsp</result>
+            <result name="no">/no.jsp</result>
+      </action>
+      
+      <action name="initPassword_User"  method="initPassword_User" class="com.ProSign.Admin.User">
+            <result name="password_init">/pages/Admin/init_user.jsp</result>
             <result name="no">/no.jsp</result>
       </action>
       

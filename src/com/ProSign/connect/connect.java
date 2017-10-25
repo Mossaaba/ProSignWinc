@@ -23,6 +23,7 @@ public class connect extends ActionSupport  implements SessionAware{
 	 private String user;
 	 private String password;
 	 private String name;
+	 
 	 /*
 	 ResultSet curseurJava;
 	 Statement etat;

@@ -142,8 +142,16 @@ ArrayList type_status =(ArrayList)session.getAttribute("type_status");
 				
      <s:form action="/Ticket.action" method="POST" id="f1" target="_parent"> 
      <input type ="hidden" name ="id_ticket" id="id_ticket" value="">
+     
      <input type ="hidden" name ="min_date" id="min_date" >
-     <input type ="hidden" name ="max_date" id="max_date"  >
+     <input type ="hidden" name ="max_date" id="max_date" >
+     
+      
+     <input type ="hidden" name ="min_date_prog" id="min_date_prog" >
+     <input type ="hidden" name ="max_date_prog" id="max_date_prog"  >
+     
+     <input type ="hidden" name ="min_date_interv" id="min_date_interv" >
+     <input type ="hidden" name ="max_date_interv" id="max_date_interv"  >
   
       <!-- SELECT2 EXAMPLE -->
       <div class="box box-primary box-solid" style="width : 100%;">
@@ -466,28 +474,99 @@ ArrayList type_status =(ArrayList)session.getAttribute("type_status");
 	 <!--------------------------------------------------------------------------->
             <!-----------------------------------date debut------------------------------>
 		    <!---------------------------------------------------------------------------> 
-            <div class="col-md-3">
+            <div class="col-md-6">
+             <div class="box box-info  " style="width : 100%;">
+    
+      
+        
+        <!-- /.box-header -->
+        <div class="box-body">
+          
+             <div class="row ">
+              <h6 class="box-title">
+              <i class="glyphicon glyphicon-flash">
+              </i>&nbsp;Date Signalisation</h6>
+		 <div class="col-md-6">
               <div class="form-group">
-              <label>Date debut&nbsp;&nbsp;</label>
+              <label>Date Signalisation debut&nbsp;&nbsp;</label>
                <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                <input type="email" class="form-control" value="<%=tf.getDate_range_min() %>" id="min_date" name="min_date" placeholder="date debut">
+                <input type="email" class="form-control" value="<%=tf.getDate_range_min() %>" id="min_date" name="min_date" placeholder="Date Sign debut">
               </div>              
               </div>
             </div>
             <!--------------------------------------------------------------------------->
             <!-----------------------------------date fin----------------------------------->
 		    <!----------------------------------------------------------------------------> 
-			<div class="col-md-3">
+			<div class="col-md-6">
               <div class="form-group">
-              <label>Date fin&nbsp;&nbsp;</label>
+              <label>Date Signalisation fin&nbsp;&nbsp;</label>
                 <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                <input type="email" class="form-control" value="<%=tf.getDate_range_max() %>"  id="max_date" name="max_date" placeholder="date fine">
+                <input type="email" class="form-control" value="<%=tf.getDate_range_max() %>"  id="max_date" name="max_date" placeholder="Date Sign fine">
               </div>
               </div>
             </div>
-		  </div>
+      </div>  
+     
+       <div class="row ">
+       <h6 class="box-title">
+              <i class="glyphicon glyphicon-pushpin">
+              </i>&nbsp;Date Programmation</h6>
+		 <div class="col-md-6">
+              <div class="form-group">
+              <label>Date Programmation debut&nbsp;&nbsp;</label>
+               <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                <input type="email" class="form-control" value="<%=tf.getDate_range_min_prog() %>" id="min_date_prog" name="min_date_prog" placeholder="Date prog debut">
+              </div>              
+              </div>
+            </div>
+            <!--------------------------------------------------------------------------->
+            <!-----------------------------------date fin----------------------------------->
+		    <!----------------------------------------------------------------------------> 
+			<div class="col-md-6">
+              <div class="form-group">
+              <label>Date Programmation fin&nbsp;&nbsp;</label>
+                <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                <input type="email" class="form-control" value="<%=tf.getDate_range_max_prog() %>"  id="max_date_prog" name="max_date_prog" placeholder="Date prog fine">
+              </div>
+              </div>
+            </div>
+      </div>  <div class="row ">
+      <h6 class="box-title">
+              <i class="glyphicon glyphicon-wrench">
+              </i>&nbsp;Date Intervention</h6>
+		 <div class="col-md-6">
+              <div class="form-group">
+              <label>Date Intervention debut&nbsp;&nbsp;</label>
+               <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                <input type="email" class="form-control" value="<%=tf.getDate_range_min_interv() %>" id="min_date_interv" name="min_date_interv" placeholder="Date inter debut">
+              </div>              
+              </div>
+            </div>
+            <!--------------------------------------------------------------------------->
+            <!-----------------------------------date fin----------------------------------->
+		    <!----------------------------------------------------------------------------> 
+			<div class="col-md-6">
+              <div class="form-group">
+              <label>Date Intervention fin&nbsp;&nbsp;</label>
+                <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                <input type="email" class="form-control" value="<%=tf.getDate_range_max_interv() %>"  id="max_date" name="max_date_interv" placeholder="Date inter fine">
+              </div>
+              </div>
+            </div>
+      </div>  
+         
+		
+	
+		
+		</div>
+		</div>
+            </div>
 		   
 		    <!---------------------------------------------------------------------------->
             <!----------------------------------CHEREHCER--------------------------------->
@@ -560,8 +639,7 @@ ArrayList type_status =(ArrayList)session.getAttribute("type_status");
           <div class="row" >
              <div class="col-xs-12 " >
               <div class="box box-primary box-solid">
-            
-              
+       
         <div class="box-header with-border text-center ">
               <h3 class="box-title">
               <i class="glyphicon glyphicon-flash">
@@ -590,7 +668,7 @@ ArrayList type_status =(ArrayList)session.getAttribute("type_status");
                   <th>Date signalisation</th>
 				  <th>Type Machine</th>
 				  <th>Status</th>
-				  <th  >Consultation</th>
+				  <th >Consultation</th>
 				  
 				 
                 </tr>
@@ -961,7 +1039,7 @@ function change_type()
 
 
 
-function genereTableau(min_date,max_date,status_ticket)
+function genereTableau(min_date,max_date,status_ticket,min_date_prog,max_date_prog,min_date_interv,max_date_interv)
 {
 	
 	var min_date = document.getElementById("min_date").value;
@@ -969,6 +1047,20 @@ function genereTableau(min_date,max_date,status_ticket)
     
     var max_date = document.getElementById("max_date").value;
     document.getElementById("max_date").innerHTML = max_date;
+    
+    
+    var min_date = document.getElementById("min_date_prog").value;
+    document.getElementById("min_date_prog").innerHTML = min_date;
+    
+    var max_date = document.getElementById("max_date_prog").value;
+    document.getElementById("max_date_prog").innerHTML = max_date;
+    
+    
+    var min_date = document.getElementById("min_date_interv").value;
+    document.getElementById("min_date_interv").innerHTML = min_date;
+    
+    var max_date = document.getElementById("max_date_interv").value;
+    document.getElementById("max_date_interv").innerHTML = max_date;
     
     
     document.getElementById('f1').action="genereTableau?methodtocall=genereTableau";

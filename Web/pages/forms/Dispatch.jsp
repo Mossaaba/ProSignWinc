@@ -349,21 +349,23 @@ String id_ticket=(String) session.getAttribute("id_ticket");
 	              </div>
             <!-- /.box-header -->
             <div class="box-body with-border" >
-              <table id="example1" class="table table-bordered table-striped table-hover">
+              <table id="example1" class="table table-bordered table-striped ">
                 <thead>
                 
                 <tr>
-                  <th style="text-align: center;">WILAYA</th>
+                 
                   <th style="text-align: center;">CLIENT</th>
                   <th style="text-align: center;">AGENCE </th>
 				  <th style="text-align: center;">DATE SIGNALISATION</th>
 				  <th style="text-align: center;">PROGRAMMER</th>
 				  <th style="text-align: center;">TECHNICIEN</th>
 			      <th style="text-align: center;">SIGNALISATION</th>
+			      <th style="text-align: center;"> </th>
+			      <th style="text-align: center;"> </th>
 		          <th style="text-align: center;"><i class="glyphicon glyphicon-flag"></i></th>
 		          <th style="text-align: center;"><i class="glyphicon glyphicon-search"></i> </th>
 			      <th style="text-align: center;"> <i class="glyphicon glyphicon-cog"></i></th>
-                </tr>
+                </tr> 
                 </thead>
 
 			   <tbody>
@@ -383,13 +385,26 @@ String id_ticket=(String) session.getAttribute("id_ticket");
 			     %>
                   <tr class="<%=color%>">
 						             
-                  <td align="center" ><%=td.getNOM_WILAYA() %></td>
+                  
                   <td align="center"><%=td.getID_CLIENT() %></td>
                   <td align="center"><%=td.getNOM_AGENCE() %> </td>
 				  <td align="center"><%=td.getDATE_SIGNALISATION() %></td>
 				  <td align="center"><%=td.getPROGRAMMER() %></td>
 				  <td align="center"><%=td.getNOM_TECHNICIEN() %></td>
 				 <td align="center"><%=td.getTYPE_SIGNALISATION() %></td>
+				 
+				 
+				 <td align="center" >				 
+				 
+				 
+				 </td>
+				
+				
+				
+				 <td align="center">
+				 
+				 
+				  </td>
 				 
 				<td align="center" nowrap="nowrap">
 				<% if(td.getIndicateur_status().equalsIgnoreCase("0")&& td.getDATE_INTERVENTION()!=null)

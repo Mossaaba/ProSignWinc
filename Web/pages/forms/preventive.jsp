@@ -459,7 +459,7 @@ ArrayList liste_refrenceMachine =(ArrayList)session.getAttribute("liste_refrence
               <label>Date debut&nbsp;&nbsp;</label>
                <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                <input type="email" class="form-control" value="<%=tf.getDate_range_min() %>" id="min_date" name="min_date" placeholder="date debut">
+                <input type="email" class="form-control" value="<%=tf.getDate_range_min() %>" id="min_date" name="min_date" placeholder="Date debut">
               </div>              
               </div>
             </div>
@@ -471,7 +471,7 @@ ArrayList liste_refrenceMachine =(ArrayList)session.getAttribute("liste_refrence
               <label>Date fin&nbsp;&nbsp;</label>
                 <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                <input type="email" class="form-control" value="<%=tf.getDate_range_max() %>"  id="max_date" name="max_date" placeholder="date fine">
+                <input type="email" class="form-control" value="<%=tf.getDate_range_max() %>"  id="max_date" name="max_date" placeholder="Date fine">
               </div>
               </div>
             </div> 			
@@ -581,7 +581,7 @@ ArrayList liste_refrenceMachine =(ArrayList)session.getAttribute("liste_refrence
 				  <th align="center" >Status</th>
 				  <th align="center" >deadline</th>
 				  <th align="center" >Reste</th>
-				  <th align="center" > </th>
+				  
                 </tr>
                 </thead>
                
@@ -622,11 +622,7 @@ ArrayList liste_refrenceMachine =(ArrayList)session.getAttribute("liste_refrence
                   <td align="center"><%=tablSign.getRest()%></td>	
                   
                   
-                  <td align="center" >
-                  <a href="#" data-skin="skin-blue" data-toggle="popover" title="Popover Header" data-content="Some content inside the popover" class="btn btn-primary btn-xs">
-                  <i class="fa fa-plus"></i>
-                  </a>
-                  </td>	
+                  
                   
                   
                    
@@ -643,7 +639,7 @@ ArrayList liste_refrenceMachine =(ArrayList)session.getAttribute("liste_refrence
                   <th></th>
 				  <th></th>
 				  <th></th>
-				  <th></th>
+				   
                 </tr>
                 </tfoot>
               </table>

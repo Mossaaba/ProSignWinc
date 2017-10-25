@@ -74,12 +74,33 @@ public class User extends ActionSupport implements ServletContextAware, ServletR
 	{
 		// TODO Auto-generated method stub
 		 HttpSession session = this.request.getSession();
-		 
-		 String id_user_reini=request.getParameter("id_user_reini");
-	 
-		 System.out.println(" DDDDD "+id_user_reini );
+	
  
 			return "Reinitaliser_User";
+	} 
+	
+	public String initPassword_User() throws Exception 
+	{
+		// TODO Auto-generated method stub
+		 HttpSession session = this.request.getSession();
+		 Commun cn = new Commun();
+	        
+	        user u = cn.recup_info_user(request);
+	        
+	        dbap db = new dbap();
+	        
+		 
+		 String id_user_reini=request.getParameter("id_user_reini");
+		 user Verifu = db.GetInfotUser(id_user_reini);
+		 
+		 
+		 
+		 
+		db.UpdatePWD(Verifu, id_user_reini);
+		 
+		 
+ 
+			return "password_init";
 	} 
 	
 	

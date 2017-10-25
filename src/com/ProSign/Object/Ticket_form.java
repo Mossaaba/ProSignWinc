@@ -24,7 +24,61 @@ public class Ticket_form
 	 private String technicien;
 	 private String date_range_min;
 	 private String date_range_max;
+	 private String date_range_min_prog;
+	 private String date_range_max_prog;
+	 private String date_range_min_interv;
+	 private String date_range_max_interv;
 	 private String status_ticket;
+	 
+	 public String getDate_range_min_prog() {
+		return date_range_min_prog;
+	}
+
+
+
+	public void setDate_range_min_prog(String date_range_min_prog) {
+		this.date_range_min_prog = date_range_min_prog;
+	}
+
+
+
+	public String getDate_range_max_prog() {
+		return date_range_max_prog;
+	}
+
+
+
+	public void setDate_range_max_prog(String date_range_max_prog) {
+		this.date_range_max_prog = date_range_max_prog;
+	}
+
+
+
+	public String getDate_range_min_interv() {
+		return date_range_min_interv;
+	}
+
+
+
+	public void setDate_range_min_interv(String date_range_min_interv) {
+		this.date_range_min_interv = date_range_min_interv;
+	}
+
+
+
+	public String getDate_range_max_interv() {
+		return date_range_max_interv;
+	}
+
+
+
+	public void setDate_range_max_interv(String date_range_max_interv) {
+		this.date_range_max_interv = date_range_max_interv;
+	}
+
+
+
+
 	 
 	
 	
@@ -41,6 +95,10 @@ public class Ticket_form
 	   technicien="";
 	   date_range_min="";
 	   date_range_max="";
+	   date_range_min_prog="";
+	   date_range_max_prog="";
+	   date_range_min_interv="";
+	   date_range_max_interv="";
 	   status_ticket="";
 
  }

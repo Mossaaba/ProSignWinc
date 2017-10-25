@@ -1,6 +1,6 @@
 {
   "name": "AdminLTE",
-  "homepage": "http://almsaeedstudio.com",
+   
   "authors": [
     "Abdullah Almsaeed <abdullah@almsaeedstudio.com>"
   ],
@@ -30,4 +30,7 @@
     "composer.json",
     "documentation"
   ]
+}
+"dependencies": {
+  "admin-lte": "2.3.6"
 }

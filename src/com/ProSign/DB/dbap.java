@@ -526,6 +526,32 @@ import com.ProSign.connect.connect;
         	subreq=subreq+" T.DATE_SIGNALISATION <= '"+cn.ModifFormatToBase(tf.getDate_range_max()) + "' and ";
         }
         
+        
+        /////Date Programmation 
+        if(!(tf.getDate_range_min_prog().equals("")) )
+        {
+        	subreq=subreq+" I.PROGRAMMER >= '"+cn.ModifFormatToBase(tf.getDate_range_min_prog())+"' and ";
+        }
+        
+        if(!(tf.getDate_range_max_prog().equals("")) )
+        {
+        	subreq=subreq+" I.PROGRAMMER <= '"+cn.ModifFormatToBase(tf.getDate_range_max_prog()) + "' and ";
+        }
+        
+        
+	       /////Date Intervention
+        
+        if(!(tf.getDate_range_min_interv().equals("")) )
+        {
+        	subreq=subreq+" I.DATE_INTERVENTION >= '"+cn.ModifFormatToBase(tf.getDate_range_min_interv())+"' and ";
+        }
+        
+        if(!(tf.getDate_range_max_interv().equals("")) )
+        {
+        	subreq=subreq+" I.DATE_INTERVENTION <= '"+cn.ModifFormatToBase(tf.getDate_range_max_interv()) + "' and ";
+        }
+        
+        
         if(!tf.getStatus_ticket().equalsIgnoreCase("-1"))
         {
         	subreq=subreq+" t.STATUS_TICKET ='"+tf.getStatus_ticket()+"' and  ";

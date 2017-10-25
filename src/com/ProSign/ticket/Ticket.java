@@ -267,6 +267,15 @@ public class Ticket extends ActionSupport implements ServletContextAware, Servle
 	    String referece_machine=request.getParameter("referece_machine");
 	    String date_range_min = request.getParameter("min_date");
 	    String date_range_max = request.getParameter("max_date");
+	    
+	    String date_range_min_prog = request.getParameter("min_date_prog");
+	    String date_range_max_prog = request.getParameter("max_date_prog");
+	    
+	    String date_range_min_interv = request.getParameter("min_date_interv");
+	    String date_range_max_interv = request.getParameter("max_date_interv");
+	    
+	    
+	    
 	    String status_ticket = request.getParameter("status_ticket");
 	
 	   
@@ -286,6 +295,13 @@ public class Ticket extends ActionSupport implements ServletContextAware, Servle
 	    tf.setReferece_machine(referece_machine);
 	    tf.setDate_range_max(date_range_max);
 	    tf.setDate_range_min(date_range_min);
+	    
+	    tf.setDate_range_max_prog(date_range_max_prog);
+	    tf.setDate_range_min_prog(date_range_min_prog);
+	    
+	    tf.setDate_range_max_interv(date_range_max_interv);
+	    tf.setDate_range_min_interv(date_range_min_interv);
+	    
 	    tf.setStatus_ticket(status_ticket);
 	  
 	
