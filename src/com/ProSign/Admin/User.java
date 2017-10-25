@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.util.ServletContextAware;
 
+import com.ProSign.Cryptage.UserCrypt;
 import com.ProSign.DB.dbap;
 import com.ProSign.Object.user;
 import com.ProSign.commun.Commun;
@@ -37,7 +38,7 @@ public class User extends ActionSupport implements ServletContextAware, ServletR
 		// TODO Auto-generated method stub
 		 HttpSession session = this.request.getSession();
 		 
-		 System.out.println(" SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS " );
+		 
 		 
 			return "create_user";
 	} 
@@ -51,7 +52,7 @@ public class User extends ActionSupport implements ServletContextAware, ServletR
 		// TODO Auto-generated method stub
 		 HttpSession session = this.request.getSession();
 		 
-		 System.out.println(" PPPPPPPPPPPPPPPPPPPPPPP " );
+		 
 	 
 	        Commun cn = new Commun();
 	        
@@ -93,10 +94,10 @@ public class User extends ActionSupport implements ServletContextAware, ServletR
 		 String id_user_reini=request.getParameter("id_user_reini");
 		 user Verifu = db.GetInfotUser(id_user_reini);
 		 
+		  UserCrypt uc = new UserCrypt();
 		 
 		 
-		 
-		db.UpdatePWD(Verifu, id_user_reini);
+		db.UpdatePWD(Verifu, uc.Cryptage(id_user_reini.replaceAll("'","''")));
 		 
 		 
  

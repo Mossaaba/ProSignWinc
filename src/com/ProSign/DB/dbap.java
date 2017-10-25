@@ -19,6 +19,7 @@ import java.util.List;
 
 
 
+
 import com.ProSign.Cryptage.UserCrypt;
 import com.ProSign.Object.Form_temp;
 import com.ProSign.Object.Preventive_form;
@@ -810,8 +811,9 @@ import com.ProSign.connect.connect;
 	        		  "     m.TYPE_MACHINE , "+
 	        		   "    m.REFERENCE_MACHINE,  "+
 	        		   "    ISNULL(SI.INDICATEUR,'-1'),  "+
-	        		   "    i.DATE_INTERVENTION  "+
-
+	        		   "    i.DATE_INTERVENTION,  "+
+	        		   "    sm.d_envoi_sys,  "+
+	        		   "    sm.d_reception  "+
 	        		   "	  from TICKET t"+
 	        		   "	  inner join machine m on m.ID_MACHINE=t.ID_MACHINE "+
 	        		   "	  inner join AGENCE a on a.ID_AGENCE=m.ID_AGENCE "+
@@ -823,11 +825,11 @@ import com.ProSign.connect.connect;
 	        		   "	left join STATUS_INTERVENTION SI on SI.ID_STATUS=I.ID_STATUS and SI.INDICATEUR<>1"+
 	        		  
 	        		   "	left join TECHNICIEN tec on tec.ID_TECHNICIEN=i.ID_TECHNICIEN"+
+	        		   " left join sms sm on sm.ID_INTERVENTION=i.ID_INTERVENTION and ID_SMS=(select max(SSS.ID_SMS) from SMS SSS where SSS.Id_Intervention=i.ID_INTERVENTION)  "+     
+	        		   
 	        		   "	where t.STATUS_TICKET='OPEN'      "+
-	        		   "	order by r.REGION,                "+
-	        		   "	w.NOM_WILAYA,                     "+
-	        		   "	v.NOM_VILLE,"+
-	        		   "	c.ID_CLIENT";  
+	        		   "	order by I.PROGRAMMER,i.ETAT_VALIDATION                ";
+	        		    
 	   
 	           System.out.println(req);
 	           PreparedStatement pstmt = ma_connection.prepareStatement(req);
@@ -858,6 +860,11 @@ import com.ProSign.connect.connect;
 	        	   tsd1.setRefrence_machine(resultset.getString(19));
 	        	   tsd1.setIndicateur_status(resultset.getString(20));
 	        	   tsd1.setDATE_INTERVENTION(resultset.getString(21));
+	        	   
+	        	   
+	        	   tsd1.setSMS_DATE_ENVOI(resultset.getString(22));
+	        	   tsd1.setSMS_DATE_RECEPT(resultset.getString(23));
+	        	   
 	        	   
 	               result.add(tsd1); }
 	           
@@ -1070,7 +1077,7 @@ import com.ProSign.connect.connect;
 		  
 	  }
 	    
-	public ArrayList Envoi_SMS_AFTER_VALIDATION(String id_inter , String nature)
+	public ArrayList Envoi_SMS_AFTER_VALIDATION(String id_inter , String nature,String oldphone)
 	  {
 
 	         ArrayList result = new ArrayList();
@@ -1088,7 +1095,10 @@ import com.ProSign.connect.connect;
 							 " t.DESCRIPTION_SIGNALISATION,"+
 							 "i.PROGRAMMER,"+
 							 "i.TYPE_INTERVENTION "+
-							 " ,tec.TEL_TECHNICIEN "+
+							 " ,tec.TEL_TECHNICIEN ,"+
+							 " t.TYPE_SIGNALISATION, "+
+							 " t.PROBLEME_SIGNALER "+
+							 
 	 " from ticket t "+
 	 " inner join machine m on m.ID_MACHINE=t.ID_MACHINE "+
 	 " inner join AGENCE a on a.ID_AGENCE=m.ID_AGENCE "+
@@ -1126,11 +1136,13 @@ if (nature.equalsIgnoreCase("modif"))
 	             {
 	          	
 				    tx=tx+resultset.getString(1)+"\r"+
+				    resultset.getString(11)+"\r"+
 					resultset.getString(2)+"\r"+
 					resultset.getString(3)+"\r"+
 					resultset.getString(4)+"\r"+
 					resultset.getString(5)+"\r"+
 					resultset.getString(6)+"\r"+
+					resultset.getString(12)+"\r"+
 					resultset.getString(7)+"\r"+
 					resultset.getString(8)+"\r"+
 					resultset.getString(9);
@@ -1139,7 +1151,20 @@ if (nature.equalsIgnoreCase("modif"))
 	             }
 	             resultset.close();
 	             
-	             req=  "INSERT INTO SMS(NTEL,TEXT) VALUES ('"+tel+"','"+tx+"')";
+	             
+	             
+	             if (nature.equalsIgnoreCase("annul"))
+	            		
+	             {
+	            	 tel=oldphone;
+
+
+	             }
+	             
+	             
+	             
+	             
+	             req=  "INSERT INTO SMS(NTEL,TEXT,id_intervention) VALUES ('"+tel+"','"+tx+"',"+id_inter+")";
 	             
 	             pstmt = ma_connection.prepareStatement(req);
 
@@ -1530,4 +1555,153 @@ if (nature.equalsIgnoreCase("modif"))
 	    }	  
 	  
 	   
+	   
+	   
+			   public String Get_phone_tech(String id) {
+	          String u = "";
+
+	          try {
+	        	  connect dbc = new connect();
+
+	              Connection ma_connection = dbc.DbConnect();
+
+	               
+	              
+	              String req = "SELECT TEL_TECHNICIEN "+
+	  "  FROM TECHNICIEN "+
+	  " where ID_TECHNICIEN="+id;
+
+	              PreparedStatement pstmt = ma_connection.prepareStatement(req);
+
+	              ResultSet resultset = pstmt.executeQuery();
+	              while (resultset.next()) {
+
+	                  u=resultset.getString(1);
+
+	              }
+	              resultset.close();
+	              pstmt.close();
+	              ma_connection.close();
+	          } catch (Exception ee) {
+	              ee.printStackTrace();
+	          }
+
+	          return u;
+
+	    }
+
+			   
+			   public ArrayList Get_result_Jour()
+				{
+				   SimpleDateFormat formater = null;
+				   formater  = new SimpleDateFormat("yyyy-MM-dd");
+				     Date actuelle = new Date();
+
+				     String dat = formater.format(actuelle);
+				  
+				   
+				       ArrayList result = new ArrayList();
+				       try {
+				           connect dbc = new connect();
+
+				           Connection ma_connection = dbc.DbConnect();
+
+				           String req =  "  select "+
+				        		   "	r.REGION,"+
+				        		   "	w.NOM_WILAYA,"+
+				        		   "	v.NOM_VILLE,"+
+				        		   "	c.ID_CLIENT,"+
+				        		   "	a.CODE_AGENCE, "+
+				        		   "	a.NOM_AGENCE,"+
+				        		   "	convert(varchar(11),t.DATE_SIGNALISATION,106), "+
+				        		   "	t.TYPE_SIGNALISATION,"+
+				        		   "	t.DESCRIPTION_SIGNALISATION,  "+
+				        		   "	i.PROGRAMMER,"+
+				        		   "	i.REMARQUE, "+
+				        		   "	SI.LIB_STATUS,"+
+				        		   "	tec.NOM_TECHNICIEN+' '+tec.PRENOM_TECHNICIEN as tec , "+
+				        		   "    I.ID_INTERVENTION        ,"+
+				        		   "    tec.ID_TECHNICIEN   ,      "+
+				        		   "    ISNULL(I.ETAT_VALIDATION , 0)    ,  "+
+				        		   "    t.ID_TICKET                      ,  "+
+				        		  "     m.TYPE_MACHINE , "+
+				        		   "    m.REFERENCE_MACHINE,  "+
+				        		   "    ISNULL(SI.INDICATEUR,'-1'),  "+
+				        		   "    replace( i.DATE_INTERVENTION, '-', '/'),  "+
+				        		   "    sm.d_envoi_sys,  "+
+				        		   "    sm.d_reception,  "+
+				        		   "    t.STATUS_TICKET  "+
+
+				        		   "	  from TICKET t"+
+				        		   "	  inner join machine m on m.ID_MACHINE=t.ID_MACHINE "+
+				        		   "	  inner join AGENCE a on a.ID_AGENCE=m.ID_AGENCE "+
+				        		   "	  inner join CLIENT c  on c.NCLIENT=a.NCLIENT"+
+				        		   "	  inner join VILLE v on v.N_VILLE=a.N_VILLE  "+
+				        		   "	  inner join WILAYA w on w.N_WILAYA=v.N_WILAYA"+
+				        		   "	  inner join REGION r on r.REGION=w.REGION "+
+				        		   "	left join INTERVENTION I on i.ID_TICKET=t.ID_TICKET  and i.ID_INTERVENTION=(select max(e.ID_INTERVENTION) from INTERVENTION e where e.ID_TICKET=t.ID_TICKET)"+
+				        		   "	left join STATUS_INTERVENTION SI on SI.ID_STATUS=I.ID_STATUS and SI.INDICATEUR<>1"+
+				        		  
+				        		   "	left join TECHNICIEN tec on tec.ID_TECHNICIEN=i.ID_TECHNICIEN"+
+				        		   " left join sms sm on sm.ID_INTERVENTION=i.ID_INTERVENTION and ID_SMS=(select max(SSS.ID_SMS) from SMS SSS where SSS.Id_Intervention=i.ID_INTERVENTION)  "+     
+				        		   
+				        		   "	where      "+
+				        		   
+				        		   "  ((t.DATE_SIGNALISATION='"+dat+"') or (i.PROGRAMMER='"+dat+"')or (i.DATE_INTERVENTION='"+dat+"'))"+
+				        		   "	order by I.PROGRAMMER,i.ETAT_VALIDATION                ";
+				        		    
+				   
+				           System.out.println(req);
+				           PreparedStatement pstmt = ma_connection.prepareStatement(req);
+				           ResultSet resultset = pstmt.executeQuery();
+				           while (resultset.next()) 
+				           
+				           {
+				        	   Table_Dispatch tsd1 = new Table_Dispatch();
+				               
+				        	   tsd1.setREGION(resultset.getString(1));   
+				        	   tsd1.setNOM_WILAYA(resultset.getString(2));                    
+				        	   tsd1.setNOM_VILLE(resultset.getString(3));                     
+				        	   tsd1.setID_CLIENT(resultset.getString(4));                     
+				        	   tsd1.setCODE_AGENCE(resultset.getString(5));                   
+				        	   tsd1.setNOM_AGENCE(resultset.getString(6));                    
+				        	   tsd1.setDATE_SIGNALISATION(resultset.getString(7));            
+				        	   tsd1.setTYPE_SIGNALISATION(resultset.getString(8));            
+				        	   tsd1.setDESCRIPTION_SIGNALISATION(resultset.getString(9));     
+				        	   tsd1.setPROGRAMMER(resultset.getString(10));                    
+				        	   tsd1.setREMARQUE(resultset.getString(11));
+				        	   tsd1.setLIB_STATUS(resultset.getString(12));                   
+				        	   tsd1.setNOM_TECHNICIEN(resultset.getString(13));
+				        	   tsd1.setId_intervention(resultset.getString(14));
+				        	   tsd1.setId_technicien(resultset.getString(15));
+				        	   tsd1.setEtat_Validation(resultset.getString(16));
+				        	   tsd1.setId_ticket(resultset.getString(17));
+				        	   tsd1.setType_machine(resultset.getString(18));
+				        	   tsd1.setRefrence_machine(resultset.getString(19));
+				        	   tsd1.setIndicateur_status(resultset.getString(20));
+				        	   tsd1.setDATE_INTERVENTION(resultset.getString(21));
+				        	   
+				        	   
+				        	   tsd1.setSMS_DATE_ENVOI(resultset.getString(22));
+				        	   tsd1.setSMS_DATE_RECEPT(resultset.getString(23));
+				        	   
+				        	   tsd1.setTicket_status(resultset.getString(24));
+				        	   
+				               result.add(tsd1); }
+				           
+				           resultset.close();
+				           pstmt.close();
+				           ma_connection.close();
+				       } catch (Exception  ee) {
+				           ee.printStackTrace();
+				       }
+
+				       return result;
+
+				   }
+			   
+			   
+			   
+			   
+			   
 }

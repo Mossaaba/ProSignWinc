@@ -183,7 +183,12 @@
             <result name="no">/no.jsp</result>
       </action>
       
+      <action name="Gojour" class="com.ProSign.jour.jour">
+            <result name="jour">/pages/forms/jour.jsp</result>
+           
+      </action>
       
+         
       
    </package>
 </struts>

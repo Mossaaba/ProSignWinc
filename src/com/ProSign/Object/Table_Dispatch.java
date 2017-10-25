@@ -186,6 +186,12 @@ public class Table_Dispatch
 	private String indicateur_status;
 	private String DATE_INTERVENTION;
 	
+	private String SMS_DATE_ENVOI;
+	
+	private String SMS_DATE_RECEPT;
+	
+	private String ticket_status;
+	
 	 public Table_Dispatch()
 	 {
 	      
@@ -208,6 +214,13 @@ public class Table_Dispatch
 		 setDATE_INTERVENTION("");
 		 
 		 setIndicateur_status("");
+		 
+		  SMS_DATE_ENVOI="";
+			
+	  SMS_DATE_RECEPT="";
+	  ticket_status="";
+		 
+		 
 	 }
 
 
@@ -304,6 +317,42 @@ public class Table_Dispatch
 
 	public void setDATE_INTERVENTION(String dATE_INTERVENTION) {
 		DATE_INTERVENTION = dATE_INTERVENTION;
+	}
+
+
+
+	public String getSMS_DATE_ENVOI() {
+		return SMS_DATE_ENVOI;
+	}
+
+
+
+	public void setSMS_DATE_ENVOI(String sMS_DATE_ENVOI) {
+		SMS_DATE_ENVOI = sMS_DATE_ENVOI;
+	}
+
+
+
+	public String getSMS_DATE_RECEPT() {
+		return SMS_DATE_RECEPT;
+	}
+
+
+
+	public void setSMS_DATE_RECEPT(String sMS_DATE_RECEPT) {
+		SMS_DATE_RECEPT = sMS_DATE_RECEPT;
+	}
+
+
+
+	public String getTicket_status() {
+		return ticket_status;
+	}
+
+
+
+	public void setTicket_status(String ticket_status) {
+		this.ticket_status = ticket_status;
 	}
 
 

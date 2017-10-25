@@ -27,12 +27,12 @@ public class connect extends ActionSupport  implements SessionAware{
 	 /*
 	 ResultSet curseurJava;
 	 Statement etat;
-	
+	 
 	    public static String drivername = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
-	    public static String dburl = "jdbc:sqlserver://172.18.206.250:1433;databaseName=ProSignDZTest";
-	    public static String userdp = "ProsignUser";
+	    public static String dburl = "jdbc:sqlserver://172.18.206.247:1433;databaseName=ProSignDZ";
+	    public static String userdp = "ProsignDZUser";
 	    public static String pass = "wincor123"; 
-	    ;integratedSecurity=true
+	    
 	    private Map<String, Object> session;
 	    public Map<String, Object> getSession()
 	    {
@@ -44,10 +44,10 @@ public class connect extends ActionSupport  implements SessionAware{
 	    }
 	    
 	    
-	    */
+	  */
 	    
 	    
-	    String dburl = "jdbc:sqlserver://localhost:1433;databasename=ProSignDZ17;integratedSecurity=true";
+	    String dburl = "jdbc:sqlserver://localhost:1433;databasename=ProSignDZ2;integratedSecurity=true";
         String drivername = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
         public static String userdp = "";
 	    public static String pass = ""; 
@@ -64,7 +64,7 @@ public class connect extends ActionSupport  implements SessionAware{
 	         this.session = session;
 	    }
 	    
-	 
+	
 	 
 	   /** Méthode de Connection JDBC
 	     * @return connection JDBC

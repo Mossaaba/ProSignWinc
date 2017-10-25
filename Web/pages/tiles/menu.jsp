@@ -55,6 +55,16 @@ List userPrev = (List) session.getAttribute("userPrev");
           </a>
           <%}%>
         </li>
+        <li class="treeview" >
+        
+        <%if(userPrev.indexOf("w-pr-0001")>=0){ %>
+          <a href="<s:url action="pages/forms/Gojour"/>">
+            <i class="glyphicon glyphicon-eye-open"></i> <span>Suivie Journalier &nbsp;   </span> 
+             
+          </a>
+          <%}%>
+        </li>
+        
         
          <li class="treeview" >
          <%if(userPrev.indexOf("w-ss-0001")>=0){ %>
@@ -78,7 +88,7 @@ List userPrev = (List) session.getAttribute("userPrev");
         
          <li class="treeview">
           <a href="#">
-            <i class="fa fa-ticket"></i>
+            <i class="glyphicon glyphicon-cog"></i>
             <span>Administration</span>
             
           </a>

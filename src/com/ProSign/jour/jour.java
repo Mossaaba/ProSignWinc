@@ -1,4 +1,4 @@
-package com.ProSign.Dispatch;
+package com.ProSign.jour;
 import com.ProSign.Object.*;
 import com.ProSign.commun.Commun;
 import com.ProSign.ticket.*;
@@ -31,7 +31,7 @@ import com.ProSign.Object.Tableau_Sign_Details;
 import com.ProSign.Object.Ticket_form;
 import com.opensymphony.xwork2.ActionSupport;
 
-public class Dispatch extends ActionSupport implements ServletContextAware, ServletRequestAware {
+public class jour extends ActionSupport implements ServletContextAware, ServletRequestAware {
 
 	private HttpServletRequest request;
 	 public void setServletRequest(HttpServletRequest request) {
@@ -62,7 +62,7 @@ public class Dispatch extends ActionSupport implements ServletContextAware, Serv
 		 ArrayList list_tech=(ArrayList) db.Get_ListeTechniciens();
 	     session.setAttribute("list_tech",list_tech);
 	     
-	     ArrayList list_dispatch=(ArrayList) db.Get_result_Dispatch();
+	     ArrayList list_dispatch=(ArrayList) db.Get_result_Jour();
 	     session.setAttribute("list_dispatch",list_dispatch);
 	     
 	    
@@ -89,11 +89,17 @@ public class Dispatch extends ActionSupport implements ServletContextAware, Serv
 	     for(int j=0;j<list_dispatch.size();j++)
 	     { Table_Dispatch td=(Table_Dispatch)list_dispatch.get(j);
 	     
-	      
-	    	 if(tmp.get(0).toString().equalsIgnoreCase(td.getId_technicien()) && datDisp.contains(td.getPROGRAMMER()) )
-	    	 {
+	     
+	    	 if(tmp.get(0).toString().equalsIgnoreCase(td.getId_technicien()) )
+	    	 {String in="-->OK";
 	    		 cont=cont+1;
-	    		 task=task+td.getID_CLIENT()+"  "+td.getNOM_WILAYA()+"  "+td.getNOM_VILLE()+"  "+td.getTYPE_SIGNALISATION()+"\r\r";
+	    		
+	    		 if(td.getDATE_INTERVENTION()==null)
+	    		 {
+	    		 in="-->NOK";
+	    		 }
+	    		 
+	    		 task=task+td.getID_CLIENT()+"  "+td.getNOM_WILAYA()+"  "+td.getNOM_VILLE()+"  "+td.getTYPE_SIGNALISATION()+in+"\r\r";
 	    		 
 	    	 } 
 	     }
@@ -111,13 +117,13 @@ public class Dispatch extends ActionSupport implements ServletContextAware, Serv
 	     
 	     
 	     
-  return "dispatch";
+  return "jour";
  }
  
  public String annuler_Modification_dispatch() throws Exception 
  {
 	    
-  return "dispatch";
+  return "jour";
  }
  
  public String modifier_intervention() throws Exception {
@@ -155,7 +161,7 @@ public class Dispatch extends ActionSupport implements ServletContextAware, Serv
 		session.setAttribute("Etat_Validation", Etat_Validation);
 		session.setAttribute("Id_technicien", Id_technicien);
 		session.setAttribute("date_intervention", date_intervention);
-	  return "dispatch";
+	  return "jour";
 	//  return this.execute();
 	 }
 
@@ -278,7 +284,7 @@ public class Dispatch extends ActionSupport implements ServletContextAware, Serv
 	 
 	
 
-		return "dispatch";
+		return "jour";
 	 }
  
  

@@ -114,7 +114,7 @@ String id_ticket=(String) session.getAttribute("id_ticket");
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Validation dispatching
+        Etat Journalier
      
       </h1>
       
@@ -140,90 +140,7 @@ String id_ticket=(String) session.getAttribute("id_ticket");
             <input type ="hidden" name ="Etat_Validation" id="Etat_Validation" value="">
      
       <!-- SELECT2 EXAMPLE -->
-      <div class="box box-primary collapsed-box box-solide" data-target="id_box" data-name="id_box"  id="id_box"  style="width : 100%;" >
-        <div class="box-header with-border box-solid" >
-          <h3 class="box-title" >Modification <a  data-skin="skin-blue" class="btn btn-xs disabled ">
-                  <i class="fa fa-edit"></i>                  
-                  </a></h3>
-           
-           <div class="box-tools pull-right">
-            
-          </div>
-          
-        </div>
-        <!-- /.box-header -->
-        <div class="collapse" id="collapseExample" >
-          <div class="row">
-		  <div class="col-md-12">
-		
-           <div class="col-md-4">
-          
-             <div class="form-group">
-                <label>Technicine:</label>
-                <div class="input-group date">
-                  <div class="input-group-addon">
-                    <i class="fa fa-male"></i>
-                  </div>
-                  
-                  <select id="newtechnicien" name="newtechnicien" class="form-control select2" style="width: 100%;">
-                  <option value="-1" selected="selected">...</option>
-                   <%
-                  
-                        for(int i=0;i<list_tech.size();i++)
-                        {  String tt="";
-                    	List tmp=(List)list_tech.get(i);
-                    	
-                     
-                    	
-                    	 if(tmp.get(0).toString().equalsIgnoreCase(forTemp.getid_technicien()))	
-                         {
-                         tt="selected=\"selected\""; //selection de l'option region
-                         }
-                        %>
-       		                <option <%=tt%>  value="<%=tmp.get(0).toString()%>"><%=tmp.get(1).toString()%></option>
-                   <%} %>
-                </select>
-                  
-                </div>
-                <!-- /.input group -->
-              </div>
-
-            </div>   
-            
-            <!-- /.col -->
-            <div class="col-md-4">
-         
-             <div class="form-group">
-                <label>Programmer le:</label>
-
-                <div class="input-group date">
-                  <div class="input-group-addon">
-                    <i class="fa fa-calendar"></i>
-                  </div>
-                  <input name="new_date_disp" class="form-control"  type="text" value ="<%=forTemp.getDate_intervention()%>"   class="form-control pull-right" id="datepicker">
-                </div>
-                <!-- /.input group -->  
-              </div>
-
-            </div>   
-            <div class="col-md-2" onclick="modif_dispatch('<%=forTemp.getId_intervention()%>')">
-            
-           <a class="btn btn-app btn-twitter">
-                <i class="glyphicon glyphicon-ok" ></i> Valider
-              </a>
-            </div> 
-            <div class="col-md-2" onclick="annuler_Modification_dispatch()">
-            
-               <a class="btn btn-app btn-google">
-                <i class="glyphicon glyphicon-remove" ></i> Annuler
-              </a>
-            </div> 
-            
-                          <!-- /.col -->
-          </div>
-          </div>
-		</div>
-		</div>
+    	
 		 </s:form> 
 		 
 		          <!----------------------------------------------------------------------------->
@@ -341,11 +258,11 @@ String id_ticket=(String) session.getAttribute("id_ticket");
 			   </div>
 			   <div class="box-tools">
 	               
-	              <span class="btn btn-box-tool"><span class="label pull-right bg-red">1&nbsp;non affecté</span></span>
-                   <span class="btn btn-box-tool"><span class="label pull-right bg-yellow">2&nbsp;en cours</span></span>
-                   <span class="btn btn-box-tool"><span class="label pull-right bg-green">3&nbsp;valide</span></span>
-                   <span class="btn btn-box-tool"><span class="fa fa-circle-o text-yellow">&nbsp;En Suspens</span></span>
-	                
+	               <span class="btn btn-box-tool"><span class="label pull-right bg-red">1&nbsp;non affecté</span></span>
+                   <span class="btn btn-box-tool"><span class="label pull-right bg-yellow">2&nbsp;Programme du jour</span></span>
+                   <span class="btn btn-box-tool"><span class="label pull-right bg-green">3&nbsp;Intervention effectué</span></span>
+                   <span class="btn btn-box-tool"><span class="fa fa-circle-o text-yellow">&nbsp;En Suspens</span></span>	                
+	        
 	              </div>
             <!-- /.box-header -->
             <div class="box-body with-border" >
@@ -358,8 +275,11 @@ String id_ticket=(String) session.getAttribute("id_ticket");
                   <th style="text-align: center;">AGENCE </th>
 				  <th style="text-align: center;">DATE SIGNALISATION</th>
 				  <th style="text-align: center;">PROGRAMMER</th>
+				     <th style="text-align: center;">DATE INTERVENTION</th>
 				  <th style="text-align: center;">TECHNICIEN</th>
 			      <th style="text-align: center;">SIGNALISATION</th>
+			      <th style="text-align: center;">STATUS</th>
+			   
 			      <th style="text-align: center;"> </th>
 			      <th style="text-align: center;"> </th>
 		          <th style="text-align: center;"><i class="glyphicon glyphicon-flag"></i></th>
@@ -374,14 +294,25 @@ String id_ticket=(String) session.getAttribute("id_ticket");
 			     for(int i=0;i<list_dispatch.size();i++)
 			     {
 			    	 Table_Dispatch td=(Table_Dispatch)list_dispatch.get(i);
-			    	 
+			    	 System.out.println(td.getID_CLIENT());	
+			    	 System.out.println(td.getPROGRAMMER());
+			   System.out.println(td.getEtat_Validation());	
 			    	 String color="";
-			    	 if(td.getId_ticket().equalsIgnoreCase(id_ticket))
-			    	 {
-			    		 color="danger";
-			    		
-			         }
-			     %>
+			    	  
+						
+						if(td.getPROGRAMMER()==null ||td.getPROGRAMMER().isEmpty())
+						{
+							color="danger";
+						}else 
+							if(td.getPROGRAMMER()!=null && td.getDATE_INTERVENTION()==null )
+							{
+								color="warning"; 
+							}else 
+							{
+								color="success";
+							}
+						%>
+			     
                   <tr class="<%=color%>">
 						
 						
@@ -398,7 +329,7 @@ String id_ticket=(String) session.getAttribute("id_ticket");
 					<small class="label pull-right bg-red">1</small>
 				<%	
 				}else 
-					if(td.getEtat_Validation().equalsIgnoreCase("0") )
+					if(td.getPROGRAMMER()!=null && td.getDATE_INTERVENTION()==null )
 					{
 						%>
 						<small class="label pull-right bg-yellow">2</small>
@@ -420,9 +351,11 @@ String id_ticket=(String) session.getAttribute("id_ticket");
                   <td align="center"><%=td.getNOM_AGENCE() %> </td>
 				  <td align="center"><%=td.getDATE_SIGNALISATION() %></td>
 				  <td align="center"><%=td.getPROGRAMMER() %></td>
+				   <td align="center"><%=td.getDATE_INTERVENTION() %></td>
 				  <td align="center"><%=td.getNOM_TECHNICIEN() %></td>
 				 <td align="center"><%=td.getTYPE_SIGNALISATION() %></td>
-				 
+				  <td align="center"><%=td.getTicket_status() %></td>
+				  
 				 
 				 <td align="center" >				 
 				 <%if(td.getSMS_DATE_ENVOI()!=null){ %>
@@ -451,30 +384,7 @@ String id_ticket=(String) session.getAttribute("id_ticket");
 				 
 				 
 				 <td align="center" valign="middle" nowrap="nowrap">
-				 <% if(!(td.getIndicateur_status().equalsIgnoreCase("0")&& td.getDATE_INTERVENTION()!=null))
-				{
-					 
-					 
-					%>
-					<button type="button" id="button_1<%=td.getId_intervention()%>" class="btn-xs btn-social-icon btn-vk  disabled" onclick="modifier_intervention('<%=td.getId_intervention()%>','<%=td.getId_technicien()%>','<%=td.getPROGRAMMER()%>','<%=td.getId_ticket()%>','<%=td.getEtat_Validation()%>')">
-				     <i class="glyphicon glyphicon-pencil" ></i>
-				      </button>
-				<%	
-				} else if  (td.getPROGRAMMER()==null || td.getId_technicien().equalsIgnoreCase("0")) 
-				{
-					
-					%>
-					<button type="button" data-toggle="myModalModif" data-target="#myModalModif" onclick="modifier_intervention('<%=td.getId_intervention()%>','<%=td.getId_technicien()%>','<%=td.getPROGRAMMER()%>','<%=td.getId_ticket()%>')">
-			     <i class="glyphicon glyphicon-pencil" ></i>
-			      </button>
-				
-				
-				<% }
-				
-				
-				
-				%>
-				
+								
 							<button type="button" id="button_2<%=td.getId_ticket() %>" class="btn-xs btn-social-icon btn-google" data-toggle="modal" data-target="#myModal<%=td.getId_ticket() %>" onclick="genrerDetailPop()">
 							<i class="glyphicon glyphicon-eye-open"></i>
 							</button>
@@ -534,9 +444,7 @@ String id_ticket=(String) session.getAttribute("id_ticket");
 							
 							
 							
-							<button type="button" id="button_3<%=td.getId_intervention()%>" class="btn-xs btn-social-icon btn-dropbox" onclick="historique_ticket('<%=td.getId_ticket()%>')">
-							<i class="glyphicon glyphicon-th-list"></i>
-							</button>
+							 
        
 
                                                         <!-- PopOP DETAILS-->
@@ -572,74 +480,11 @@ String id_ticket=(String) session.getAttribute("id_ticket");
 														<!-- /!PopOP -->
  
     
-               
-                                  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-                                   <div class="modal-dialog modal-lg">
-								      <div class="modal-content">
-								        <div class="modal-header">
-								          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-								          <h4 class="modal-title" id="myLargeModalLabel">Détails</h4>
-								        </div>
-								        <div class="modal-body">
-													<table class="table table-striped">
-													 <tr>          
-													<th>region</th>
-													<th>Wilaya</th>
-													<th>ville</th>
-													<th>Agence</th>
-													<th>refrence Machine</th>
-													<th>Description du Problem</th>
-													<th>Remarque</th>
-													</tr>
-													<tr>
-													<td><%=td.getREGION()%></td>
-													<td><%=td.getNOM_WILAYA()%></td>
-													<td><%=td.getNOM_VILLE() %></td>
-													<td><%=td.getType_machine() %></td>
-													<td><%=td.getRefrence_machine() %></td>
-													<td><%=td.getDESCRIPTION_SIGNALISATION() %></td>
-													<td><%=td.getREMARQUE() %></td>
-													  </tr>
-													</table>
-								          
-								           </div>
-								        <div class="modal-footer">
-								          <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
-								         
-								        </div>
-								      </div>
-								      <!-- /.modal-content -->
-								    </div>
-								    <!-- /.modal-dialog -->
-								  </div>  		
+               		
  
+   
       
-      
-  
-             
-             
-              <% String dis="" ; 
-              
-              if(td.getEtat_Validation().equalsIgnoreCase("1"))//si ell n pa valider
-              {
-            	  
-            	  %> 
-            	   <i class="glyphicon glyphicon-ok"></i>
-            	   <% }
-              else{ %> 
-        <% if(!(td.getIndicateur_status().equalsIgnoreCase("0")&& td.getDATE_INTERVENTION()!=null))// si pa nouvelle affectation
-				{
-					%>
-					<button type="button"  id="button_4<%=td.getId_intervention()%>" class="btn-xs btn-social-icon btn-twitter"  onclick="valider_intervention('<%=td.getId_intervention()%>','<%=td.getNOM_TECHNICIEN()%>','<%=td.getPROGRAMMER()%>')">
-					<i class="glyphicon glyphicon-ok"></i>
-					</button>
-				<%	
-				}%>
-            
-            
-            
-				  <% }%> 
-				 
+ 				 
 				 </td>
 			       
 				  
